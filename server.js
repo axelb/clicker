@@ -1,5 +1,5 @@
 var express = require('express'),
-    app = module.exports = express();
+    app = express.createServer();
 //    routes = "./routes.js";
 
 app.configure(function(){
