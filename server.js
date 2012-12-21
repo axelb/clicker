@@ -1,5 +1,6 @@
 var express = require('express'),
-    app = express.createServer();
+    app = express.createServer(),
+    port = process.env.PORT || 8888;
 //    routes = "./routes.js";
 
 app.configure(function(){
@@ -15,4 +16,4 @@ app.configure(function(){
 //    app.use(express.static(__dirname + '/js'));
 //    app.use(express.static(__dirname + '/lib'));
 });
-app.listen(36811);
+app.listen(port);
