@@ -1,0 +1,16 @@
+<h1>Create a new question</h1>
+<div id="createVote">
+   <h3>Question:</h3>
+   <input type="text" class="questiontitle" ng-model="question.title" placeholder="Enter a question here">
+   <hr>
+   <h3>Alternatives</h3>
+   <ol>
+      <li ng-repeat="alternative in question.alternatives"><input type="text"  class="alternative" value="{{alternative}}"></input>
+        <a href="javascript:void()" ng-click="removeAlternative(alternative)"><i class="icon-minus-sign"></i></a>
+        <a href="javascript:void()" ng-click="pullUpAlternative(alternative)"><i class="icon-arrow-up"></i></a>
+        <a href="javascript:void()" ng-click="pushDownAlternative(alternative)"><i class="icon-arrow-down"></i></a>
+      </li>
+   </ol>
+   <button class="btn btn-success" ng-click="addAlternative()">+</button>
+   <button class="btn btn-success">Save this question</button>
+</div>
