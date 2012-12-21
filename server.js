@@ -9,7 +9,7 @@ app.configure(function(){
 //    app.use(express.cookieParser());
 //    app.use(express.methodOverride());
 //    app.use(app.router);
-    app.use(express.static(__dirname + '/.'));
+    app.use(express.static(__dirname + '/src'));
 //    app.use(express.static(__dirname + '/css'));
 //    app.use(express.static(__dirname + '/img'));
 //    app.use(express.static(__dirname + '/js'));
