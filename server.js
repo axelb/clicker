@@ -4,9 +4,8 @@ var express = require('express')
   , vote = require('./routes/vote')
   , voteqr = require('./routes/voteqr')
   , http = require('http')
-  , path = require('path');
-
-var app = express.createServer();
+  , path = require('path')
+  , app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8888);
