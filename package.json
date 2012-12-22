@@ -4,11 +4,11 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "latest"
+    "express": "latest",
+    "jade": "latest"
   },
   "engines": {
     "node": "0.6.13",
-    "npm": "1.1.41",
-    "jade": "latest"
+    "npm": "1.1.41"  
   }
 }
