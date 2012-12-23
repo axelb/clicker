@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  p Question: #{id}
-  
+  h1 #{vote.question}
+  form(action="/bla")
+    each alternative in vote.alternatives
+      p
+        input(type="radio", name="alternatives", value=alternative.title) |alternative.title
+        label.radio.inline #{alternative.title}
+     input(type="submit", value="Vote!")
