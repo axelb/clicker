@@ -15,12 +15,12 @@ function VoteCtrl($scope, $http) {
   $scope.question = {
     //title: "How much wood would a woodchuck chuck?",
     //alternatives: [{title: "One"}, {title: "Two"}, {title: "Three"}]
-    title: "",
+    question: "",
     alternatives: [{title: ""}]
   };
 
   $scope.save = function() {
-    $http.put('/vote', $scope.question).success(function(){alert("SUCCESS")}).
+    $http.put('/vote', $scope.question).success(function(){}).
           error(function(data, status, headers, config) {
             alert(data + " " + status);
           });

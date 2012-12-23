@@ -11,7 +11,7 @@ var express = require('express')
 
   // dl5mfx  tyre2hush7pal
 
-/*var Alternative = new Schema({
+var Alternative = new Schema({
     title: { type: String, required: true, trim: true }
 });
 
@@ -19,7 +19,7 @@ var voteSchema = new Schema({
     question      : { type: String, required: true, trim: true }
   , alternatives  : [Alternative]
 });
-*/
+
 var connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse");
 connection.on('error', function(error){console.log("Connection error: " + error)});
 /*
