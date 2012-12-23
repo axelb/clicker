@@ -5,7 +5,8 @@
   "private": true,
   "dependencies": {
     "express": "latest",
-    "jade": "latest"
+    "jade": "latest",
+    "mongoose": "latest"
   },
   "engines": {
     "node": "0.6.13",

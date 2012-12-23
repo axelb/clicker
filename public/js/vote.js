@@ -1,23 +1,36 @@
 angular.module('vote', []).
   config(function($routeProvider) {
     $routeProvider.
-    when('/', {controller: VoteCtrl, templateUrl: 'create.html'}).
+    when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
     //when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
-    //when('/new', {controller:CreateCtrl, templateUrl:'detail.html'}).
+    when('/new', {controller: VoteCtrl, templateUrl: 'create.html'}).
     otherwise({redirectTo:'/'});
 });
+
+function StartCtrl($scope) {
+
+}
  
-function VoteCtrl($scope) {
+function VoteCtrl($scope, $http) {
   $scope.question = {
-    title: "How much wood would a woodchuck chuck?",
-    alternatives: ["One", "Two", "Three"]
+    //title: "How much wood would a woodchuck chuck?",
+    //alternatives: [{title: "One"}, {title: "Two"}, {title: "Three"}]
+    title: "",
+    alternatives: [{title: ""}]
   };
 
+  $scope.save = function() {
+    $http.put('/vote', $scope.question).success(function(){alert("SUCCESS")}).
+          error(function(data, status, headers, config) {
+            alert(data + " " + status);
+          });
+  }
+
   $scope.addAlternative = function() {
-      if($scope.question.alternatives[$scope.question.alternatives.length - 1] === "") {// do not allow empty strings
-        return;
-      }
-     $scope.question.alternatives.push("");
+    var lastContent = $scope.question.alternatives[$scope.question.alternatives.length - 1].title;
+    if(lastContent && lastContent !== "") {// do not allow empty strings
+       $scope.question.alternatives.push({title: ""});
+    }
   };
 
   $scope.removeAlternative = function(alternative) {
