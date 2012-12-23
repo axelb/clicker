@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 #{vote.question}
+  h1 #{question.question}
   form(action="/vote")
-    each alternative in vote.alternatives
+    each alternative in question.alternatives
       p
         input(type="radio", name="alternatives", value=alternative.title) |alternative.title
         label.radio.inline #{alternative.title}
