@@ -1,9 +1,9 @@
-angular.module('vote', []).
+angular.module('question', []).
   config(function($routeProvider) {
     $routeProvider.
     when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
     //when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
-    when('/new', {controller: VoteCtrl, templateUrl: 'create.html'}).
+    when('/new', {controller: QuestionCtrl, templateUrl: 'create.html'}).
     when('/list', {controller: ListCtrl, templateUrl: 'list.html'}).
     otherwise({redirectTo:'/'});
 });
@@ -34,7 +34,7 @@ function ListCtrl($scope, $http, $templateCache) {
 
 }
  
-function VoteCtrl($scope, $http) {
+function QuestionCtrl($scope, $http) {
   $scope.question = {
     //title: "How much wood would a woodchuck chuck?",
     //alternatives: [{title: "One"}, {title: "Two"}, {title: "Three"}]
@@ -43,7 +43,7 @@ function VoteCtrl($scope, $http) {
   };
 
   $scope.save = function() {
-    $http.put('/vote', $scope.question).success(function(){}).
+    $http.put('/question', $scope.question).success(function(){}).
           error(function(data, status, headers, config) {
             alert(data + " " + status);
           });

@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{vote.question}
-  form(action="/bla")
+  form(action="/vote")
     each alternative in vote.alternatives
       p
         input(type="radio", name="alternatives", value=alternative.title) |alternative.title

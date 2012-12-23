@@ -2,8 +2,8 @@
 */
 var express = require('express')
   , routes = require('./routes')
-  , vote = require('./routes/vote')
-  , voteqr = require('./routes/voteqr')
+  , question = require('./routes/question')
+  , questionqr = require('./routes/questionqr')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose')
@@ -29,10 +29,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/voteqr/:id', voteqr.show);
-app.get('/vote/:id', vote.show);
-app.put('/vote', vote.save);
-app.get('/list', vote.list);
+app.get('/questionqr/:id', questionqr.show);
+app.get('/question/:id', question.show);
+app.put('/question', question.save);
+app.get('/list', question.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
