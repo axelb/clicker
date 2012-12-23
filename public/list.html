@@ -1,0 +1,9 @@
+<h1>All questions found:</h1>
+<div id="listVote" ng-init="fetch()">
+   <table>
+      <tr><th>Question</th></tr>
+      <tr ng-repeat="question in questions">
+        <td>{{question.question}}</td>
+      </tr>
+   </table>
+</div>
