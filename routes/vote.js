@@ -23,3 +23,11 @@ var Vote = connection.model('Vote', voteSchema)
   newVote.save(function(){console.log(newVote);});
   res.end();
 }
+
+exports.list = function(req, res) {
+	var Vote = connection.model('Vote', voteSchema);
+	Vote.find().exec(
+		function(error, data) {
+			res.end(JSON.stringify(data));
+		});
+}

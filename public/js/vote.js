@@ -4,10 +4,33 @@ angular.module('vote', []).
     when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
     //when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
     when('/new', {controller: VoteCtrl, templateUrl: 'create.html'}).
+    when('/list', {controller: ListCtrl, templateUrl: 'list.html'}).
     otherwise({redirectTo:'/'});
 });
 
 function StartCtrl($scope) {
+
+}
+ 
+function ListCtrl($scope, $http, $templateCache) {
+  $scope.method = 'GET';
+  $scope.listUrl = '/list';
+   
+  $scope.fetch = function() {
+    $scope.code = null;
+    $scope.response = null;
+     
+    $http({method: $scope.method, url: $scope.listUrl, cache: $templateCache}).
+    success(function(data, status) {
+      $scope.status = status;
+      $scope.questions = data;
+    }).
+    error(function(data, status) {
+      alert('error');
+      $scope.questions = data || "Request failed";
+      $scope.status = status;
+    });
+  };
 
 }
  
