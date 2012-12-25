@@ -3,7 +3,6 @@
 var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
-  , questionqr = require('./routes/questionqr')
   , vote = require('./routes/vote')
   , http = require('http')
   , path = require('path')
@@ -30,12 +29,14 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/questionqr/:id', questionqr.show);
-app.get('/question/:id', question.show);
-app.put('/question', question.save);
 app.get('/list', question.list);
-app.get('/result/:id', vote.result);
+app.put('/question/', question.save);//neue Frage; noch ohne id
+app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
+app.get('/voteqr/:id', vote.showQrAndStart);
+app.put('/answer/:id', vote.saveAnswer);//single answer returned
+app.get('/result/:id', vote.stopVoteAndShowResult);
+app.get('/results/:id', vote.resultValues);//JSON data of result's historgam data
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
 });

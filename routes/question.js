@@ -13,11 +13,16 @@ var mongoose = require('mongoose')
 connection.on('error', function(error){console.log("Connection error: " + error);});
 
 exports.show = function(req, res) {
-  Question.find() // TODO: findOne
+  Question.findOne()
     .where('_id').equals(req.params.id)
-    .exec(function(error, data){
-           res.render('question', {question: data[0]});
-    });
+    .exec(function(error, data) {
+          if(error) {
+            console.log("ERROR: " + error);
+          }
+          console.log(data);
+          res.render('question', {question: data});
+        }
+    );
 };
 
 exports.save = function(req, res) {

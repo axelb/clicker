@@ -3,9 +3,11 @@ extends layout
 block content
   div(class="container")
     h1 #{question.question}
-    form(action="/vote")
-      each alternative in question.alternatives
+    form(action="/saveAnswer")
+      each alternative, index in question.alternatives
         p
-          input(type="radio", name="alternatives", value=alternative.title) |alternative.title
+          input(type="radio", name="alternative", value=index) 
           label.radio.inline #{alternative.title}
-       input(type="submit", value="Vote!")
+        input(type="hidden", name="question" value=#{question._id})
+        input(type="submit", value="Vote!")
+ 
