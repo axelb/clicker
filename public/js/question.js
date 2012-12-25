@@ -36,8 +36,6 @@ function ListCtrl($scope, $http, $templateCache) {
  
 function QuestionCtrl($scope, $http) {
   $scope.question = {
-    //title: "How much wood would a woodchuck chuck?",
-    //alternatives: [{title: "One"}, {title: "Two"}, {title: "Three"}]
     question: "",
     alternatives: [{title: ""}]
   };
@@ -47,7 +45,7 @@ function QuestionCtrl($scope, $http) {
           error(function(data, status, headers, config) {
             alert(data + " " + status);
           });
-  }
+  };
 
   $scope.addAlternative = function() {
     var lastContent = $scope.question.alternatives[$scope.question.alternatives.length - 1].title;
@@ -81,7 +79,7 @@ function QuestionCtrl($scope, $http) {
 
   getIndexOf = function(alternative) {
     return $scope.question.alternatives.indexOf(alternative);
-  }
+  };
 }
 
 // see http://ichwill.net
@@ -89,7 +87,7 @@ function addEvent(obj, evType, fn) {
   if (obj.addEventListener) { 
     obj.addEventListener(evType, fn, false); 
     return true; 
-  } else if (obj.attachEvent){ 
+  } else if (obj.attachEvent) { 
     var r = obj.attachEvent("on" + evType, fn); 
     return r;
   } else { 

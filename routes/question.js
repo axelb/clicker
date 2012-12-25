@@ -10,7 +10,7 @@ var mongoose = require('mongoose')
       })
   , Question = connection.model('questions', questionSchema);
 
-connection.on('error', function(error){console.log("Connection error: " + error)});
+connection.on('error', function(error){console.log("Connection error: " + error);});
 
 exports.show = function(req, res) {
   Question.find() // TODO: findOne
@@ -25,11 +25,11 @@ var newQuestion = new Question(req.body);
   console.log(req.body);
   newQuestion.save(function(){console.log(newQuestion);});
   res.end();
-}
+};
 
 exports.list = function(req, res) {
 	Question.find().exec(
 		function(error, data) {
 			res.end(JSON.stringify(data));
 		});
-}
+};

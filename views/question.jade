@@ -1,10 +1,11 @@
 extends layout
 
 block content
-  h1 #{question.question}
-  form(action="/vote")
-    each alternative in question.alternatives
-      p
-        input(type="radio", name="alternatives", value=alternative.title) |alternative.title
-        label.radio.inline #{alternative.title}
-     input(type="submit", value="Vote!")
+  div(class="container")
+    h1 #{question.question}
+    form(action="/vote")
+      each alternative in question.alternatives
+        p
+          input(type="radio", name="alternatives", value=alternative.title) |alternative.title
+          label.radio.inline #{alternative.title}
+       input(type="submit", value="Vote!")

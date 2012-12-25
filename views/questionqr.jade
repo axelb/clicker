@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  div#qrcode.qrcode
+  div#qrcode.qrcode(onClick="location='/result/#{id}'")
   
   script
-      $('#qrcode').qrcode({width: 1024, height: 1024, text: "http://ancient-sands-5951.herokuapp.com/question/" + "#{id}"});
+      $('#qrcode').qrcode({width: 1024, height: 1024, text: "http://onlineresponse.org/question/" + "#{id}"});
   

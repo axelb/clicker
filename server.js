@@ -4,6 +4,7 @@ var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
   , questionqr = require('./routes/questionqr')
+  , vote = require('./routes/vote')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose')
@@ -33,6 +34,7 @@ app.get('/questionqr/:id', questionqr.show);
 app.get('/question/:id', question.show);
 app.put('/question', question.save);
 app.get('/list', question.list);
+app.get('/result/:id', vote.result);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
