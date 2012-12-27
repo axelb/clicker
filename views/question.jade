@@ -3,11 +3,11 @@ extends layout
 block content
   div(class="container")
     h1 #{question.question}
-    form(action="/saveAnswer")
+    form(action="/saveAnswer", id="voteForm")
       each alternative, index in question.alternatives
         p
-          input(type="radio", name="alternative", value=index) 
+          input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1) 
           label.radio.inline #{alternative.title}
-        input(type="hidden", name="question" value=#{question._id})
-        input(type="submit", value="Vote!")
- 
+      input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
+      input(type="hidden", id="questionId", value=question._id)
+  script(src='/js/dovote.js') 

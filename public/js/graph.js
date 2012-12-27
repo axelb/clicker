@@ -1,13 +1,9 @@
+var init = function(){}
+
 function drawVisualization(id) {
   $.ajax('/results/' + id).done(function(data) {
     jQuery('#graph').tufteBar({
       data: data,
-    /*  data: [
-        [5, {label: '1'}],
-        [15, {label: '2'}],
-        [6, {label: '3'}],
-        [12, {label: '4'}]
-      ],*/
 
       // Any of the following properties can be either static values 
       // or a function that will be called for each data point. 

@@ -6,9 +6,8 @@
  * - deliver results as histogram data for display purposes
 */
 
-var collector = require('./voteCollector');
-
-var voteCollector = new collector.VoteCollector();
+var collector = require('./voteCollector')
+  , voteCollector = new collector.VoteCollector();
 
 exports.showQrAndStart = function(req, res) {
   voteCollector.openVote(req.params.id);
@@ -16,7 +15,9 @@ exports.showQrAndStart = function(req, res) {
 };
 
 exports.saveAnswer = function(req, res) {
-	voteCollector.saveAnswer();
+	var vote = req.body.vote;
+	voteCollector.saveAnswer(vote.id, vote.alternative);
+	res.end("<html><body>Danke :-)</body></html>");
 };
 
 exports.stopVoteAndShowResult = function(req, res) {
@@ -25,6 +26,6 @@ exports.stopVoteAndShowResult = function(req, res) {
 };
 
 exports.resultValues = function(req, res) {
-	res.json(voteCollector.getResults(req.params.id));
+	res.send(voteCollector.getResults(req.params.id));
 };
 

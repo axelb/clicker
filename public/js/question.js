@@ -1,3 +1,5 @@
+var init = function(){}//Hook method for initilization code
+
 angular.module('question', []).
   config(function($routeProvider) {
     $routeProvider.
@@ -80,27 +82,5 @@ function QuestionCtrl($scope, $http) {
   getIndexOf = function(alternative) {
     return $scope.question.alternatives.indexOf(alternative);
   };
-}
-
-// see http://ichwill.net
-function addEvent(obj, evType, fn) { 
-  if (obj.addEventListener) { 
-    obj.addEventListener(evType, fn, false); 
-    return true; 
-  } else if (obj.attachEvent) { 
-    var r = obj.attachEvent("on" + evType, fn); 
-    return r;
-  } else { 
-    return false; 
-  }
-}
-
-function init(){
-  Mousetrap.bind('tab', function() {
-    var element = $(document.activeElement);
-    if(element.hasClass('alternative')) {
-      alert("XXX");
-    }
-  });
 }
 

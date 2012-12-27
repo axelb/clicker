@@ -30,10 +30,10 @@ app.configure('development', function(){
 });
 
 app.get('/list', question.list);
-app.put('/question/', question.save);//neue Frage; noch ohne id
+app.put('/question', question.save);//neue Frage; noch ohne id
 app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/voteqr/:id', vote.showQrAndStart);
-app.put('/answer/:id', vote.saveAnswer);//single answer returned
+app.put('/saveAnswer', vote.saveAnswer);//single answer returned
 app.get('/result/:id', vote.stopVoteAndShowResult);
 app.get('/results/:id', vote.resultValues);//JSON data of result's historgam data
 
