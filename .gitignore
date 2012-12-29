@@ -1,3 +1,5 @@
 .idea/
 .DS_Store
 Clicker.iml
+*.log
+test/or.png

@@ -10,6 +10,8 @@
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
+  background-color: #ffffff;
+  color: #000000;
 }
 .graph-header h3 {
   margin-bottom: 0px;
