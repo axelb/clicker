@@ -2,5 +2,7 @@ extends layout
 
 block content
   div(class="container")
-    h1(onClick="drawVisualization('#{id}')") Result
+    h1 Result
+    span#qid(name='#{id}')
     div#graph.graph(style='width:300px; height: 200px')
+  link(rel='stylesheet', href='/css/tufte-graph.css')
