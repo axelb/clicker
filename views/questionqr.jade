@@ -3,7 +3,8 @@ extends layout
 block content
   div#qrcode.qrcode(onClick="location='/result/#{id}'")
   
-  script
+  script(type='text/javascript')
+      var init = function(){};
       $('#qrcode').qrcode({width: 1024, height: 1024, text: "http://onlineresponse.org/question/" + "#{id}"});
       //window.location = "http://onlineresponse.org/voteqr/#{id}";
       //window.history.pushState(“bla”, “”, “/voteqr/#{id}”);

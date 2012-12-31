@@ -1,22 +1,33 @@
 var init = function() {
   var qid = $('#qid').attr('name');
-  drawVisualization(qid);
-}
+  $.ajax('/question/json/' + qid).done(function(question) {
+      drawVisualization(qid, JSON.parse(question));
+  });
+};
 
-function drawVisualization(id) {
+function drawVisualization(id, question) {
   $.ajax('/results/' + id).done(function(data) {
+    console.log();
     jQuery('#graph').tufteBar({
       data: data,
       barWidth: 0.5, 
 
-      //axisLabel: function(index) { return 'Alternative'; }, 
+      axisLabel: function(index) { 
+        return "";
+      }, 
 
-      // The color of the bar
-      color:     function(index) {
+      color: function(index) {
         return ['#0040D5', '#C82000', '#49BE00', '#8200B9', '#00C687'][index % 5];
       },
+
       legend: {
-        data: ["1", "2", "3", "4", "5", "6"]
+        data: question.alternatives,
+        label: function(index) {
+          return question.alternatives[index].title;
+        },
+        color: function(index) {
+          return ['#0040D5', '#C82000', '#49BE00', '#8200B9', '#00C687'][index % 5];
+        }
       }
 
     });

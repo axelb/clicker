@@ -1,4 +1,4 @@
-var init = function(){}//Hook method for initilization code
+var init = function(){};//Hook method for initilization code
 
 angular.module('question', []).
   config(function($routeProvider) {

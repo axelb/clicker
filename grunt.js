@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     lint: {
-      all: ['grunt.js', 'routes/*.js', 'public/js/*.js']
+      all: ['grunt.js', 'routes/*.js', 'public/js/*.js', 'test/*.js']
     },
     jshint: {
       options: {

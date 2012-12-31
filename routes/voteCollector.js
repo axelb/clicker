@@ -4,8 +4,8 @@ exports.VoteCollector = function () {
 
 exports.VoteCollector.prototype = {
     openVote: function(id) {
-        console.log("opening vote for: " + id)
-        this.votes[id] = new Array();
+        console.log("opening vote for: " + id);
+        this.votes[id] = [];
         console.log(this.votes[id]);
     },
 

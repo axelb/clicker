@@ -25,6 +25,18 @@ exports.show = function(req, res) {
     );
 };
 
+exports.asjson = function(req, res) {
+  Question.findOne()
+    .where('_id').equals(req.params.id)
+    .exec(function(error, data) {
+          if(error) {
+            console.log("ERROR: " + error);
+          }
+          res.end(JSON.stringify(data));
+        }
+    );
+};
+
 exports.save = function(req, res) {
 var newQuestion = new Question(req.body);
   console.log(req.body);
