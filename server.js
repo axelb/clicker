@@ -31,7 +31,9 @@ app.configure('development', function(){
 
 app.get('/list', question.list);
 app.put('/question', question.save);//neue Frage; noch ohne id
+app.post('/fileupload', question.attachImage);
 app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
+app.get('/delete/:id', question.remove);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/question/json/:id', question.asjson);
 app.get('/voteqr/:id', vote.showQrAndStart);
 app.put('/saveAnswer', vote.saveAnswer);//single answer returned

@@ -1,4 +1,5 @@
-var init = function(){};//Hook method for initilization code
+var init = function(){
+};//Hook method for initilization code
 
 angular.module('question', []).
   config(function($routeProvider) {
@@ -7,6 +8,7 @@ angular.module('question', []).
     //when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
     when('/new', {controller: QuestionCtrl, templateUrl: 'create.html'}).
     when('/list', {controller: ListCtrl, templateUrl: 'list.html'}).
+    when('/edit/:id', {controller: ListCtrl, templateUrl: 'create.html'}).
     otherwise({redirectTo:'/'});
 });
 
@@ -15,6 +17,7 @@ function StartCtrl($scope) {
 }
  
 function ListCtrl($scope, $http, $templateCache) {
+  
   $scope.method = 'GET';
   $scope.listUrl = '/list';
    
@@ -37,6 +40,8 @@ function ListCtrl($scope, $http, $templateCache) {
 }
  
 function QuestionCtrl($scope, $http) {
+  $scope.imageFileToAttach = {};
+  
   $scope.question = {
     question: "",
     alternatives: [{title: ""}]
@@ -78,6 +83,25 @@ function QuestionCtrl($scope, $http) {
     $scope.question.alternatives[index] = $scope.question.alternatives[index - 1];
     $scope.question.alternatives[index - 1] = alternative;
   };
+
+  $scope.setFile = function(element) {
+    $scope.imageFileToAttach = element.files[0];//only one file!
+  };
+
+// see http://jsfiddle.net/danielzen/utp7j/
+  $scope.attachFile = function() {
+    var fd = new FormData()
+    fd.append("uploadedFile", $scope.imageFileToAttach);
+    var xhr = new XMLHttpRequest();
+    //xhr.upload.addEventListener("progress", uploadProgress, false)
+    //xhr.addEventListener("load", uploadComplete, false);
+    //xhr.addEventListener("error", uploadFailed, false);
+    //xhr.addEventListener("abort", uploadCanceled, false);
+    xhr.open("POST", "/fileupload");
+    $scope.progressVisible = true;
+    xhr.send(fd);
+};
+
 
   getIndexOf = function(alternative) {
     return $scope.question.alternatives.indexOf(alternative);

@@ -25,6 +25,10 @@ exports.show = function(req, res) {
     );
 };
 
+exports.attachImage = function(req, res) {
+  console.log(req);
+}
+
 exports.asjson = function(req, res) {
   Question.findOne()
     .where('_id').equals(req.params.id)
@@ -49,4 +53,17 @@ exports.list = function(req, res) {
 		function(error, data) {
 			res.end(JSON.stringify(data));
 		});
+};
+
+exports.remove = function(req, res) {
+  Question.findOne()
+    .where('_id').equals(req.params.id)
+    .exec(function(error, data) {
+          if(error) {
+            console.log("ERROR: " + error);
+          }
+          data.remove();
+          res.redirect('/#/list');
+        }
+    );
 };
