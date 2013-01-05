@@ -27,7 +27,7 @@ exports.show = function(req, res) {
 };
 
 exports.attachImage = function(req, res) {
-  console.log("Files:\n" + req.files);
+  console.log(req.files);
   fs.readFile(req.files.uploadedFile.path, function (err, data) {
   // ...
   var newPath = __dirname + "/uploadedFileName";
