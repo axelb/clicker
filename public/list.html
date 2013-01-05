@@ -4,6 +4,7 @@
       <tr><th>Question</th><!--<th>Open Vote</th><th>Edit</th><th>Delete</th>--></tr>
       <tr ng-repeat="question in questions">
         <td>{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
+        <!-- http://jsfiddle.net/tadchristiansen/gt92r/ -->
         <td><ng-confirm title="My Confirm Box" action-text="Do you want to do this?" action-button-text="Yes Sir" action-function="doIt()" cancel-button-text="No Way" cancel-function="cancel()"><a href="#/edit/{{question._id}}"><i class="icon-edit"></i></a></ng-confirm></td>
         <td><a href="/delete/{{question._id}}"><i class="icon-remove-sign"></i></a></td>
       </tr>

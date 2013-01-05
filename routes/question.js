@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+  , fs = require('fs')
   , connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse")
   , Schema = mongoose.Schema
   , Alternative = new Schema({
@@ -26,7 +27,15 @@ exports.show = function(req, res) {
 };
 
 exports.attachImage = function(req, res) {
-  console.log(req);
+  console.log("Files:\n" + req.files);
+  fs.readFile(req.files.uploadedFile.path, function (err, data) {
+  // ...
+  var newPath = __dirname + "/uploadedFileName";
+  fs.writeFile(newPath, data, function (err) {
+    res.redirect("back");
+  });
+});
+
 }
 
 exports.asjson = function(req, res) {
@@ -43,7 +52,7 @@ exports.asjson = function(req, res) {
 
 exports.save = function(req, res) {
 var newQuestion = new Question(req.body);
-  console.log(req.body);
+  //console.log(req.body);
   newQuestion.save(function(){console.log(newQuestion);});
   res.end();
 };
