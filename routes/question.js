@@ -26,18 +26,6 @@ exports.show = function(req, res) {
     );
 };
 
-exports.attachImage = function(req, res) {
-  console.log(req.files);
-  fs.readFile(req.files.uploadedFile.path, function (err, data) {
-  // ...
-  var newPath = __dirname + "/uploadedFileName";
-  fs.writeFile(newPath, data, function (err) {
-    res.redirect("back");
-  });
-});
-
-}
-
 exports.asjson = function(req, res) {
   Question.findOne()
     .where('_id').equals(req.params.id)
@@ -54,6 +42,7 @@ exports.save = function(req, res) {
 var newQuestion = new Question(req.body);
   //console.log(req.body);
   newQuestion.save(function(){console.log(newQuestion);});
+  res.clearCookie('imageid');
   res.end();
 };
 

@@ -3,6 +3,7 @@
 var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
+  , image = require('./routes/image')
   , vote = require('./routes/vote')
   , http = require('http')
   , path = require('path')
@@ -31,7 +32,8 @@ app.configure('development', function(){
 
 app.get('/list', question.list);
 app.put('/question', question.save);//neue Frage; noch ohne id
-app.post('/fileupload', question.attachImage);
+app.post('/image', image.attachImage);//neues Bild; ohne id id-->Cookie
+app.get('/image/:id', image.getImage);//neues Bild; ohne id id-->Cookie
 app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/delete/:id', question.remove);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/question/json/:id', question.asjson);

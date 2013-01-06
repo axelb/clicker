@@ -1,7 +1,7 @@
 var init = function(){
 };//Hook method for initilization code
 
-angular.module('question', []).
+angular.module('question', ['ngCookies']).
   config(function($routeProvider) {
     $routeProvider.
     when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
@@ -17,7 +17,6 @@ function StartCtrl($scope) {
 }
  
 function ListCtrl($scope, $http, $templateCache) {
-  
   $scope.method = 'GET';
   $scope.listUrl = '/list';
    
@@ -36,11 +35,11 @@ function ListCtrl($scope, $http, $templateCache) {
       $scope.status = status;
     });
   };
-
 }
  
-function QuestionCtrl($scope, $http) {
+function QuestionCtrl($scope, $http, $cookies) {
   $scope.imageFileToAttach = {};
+  $scope.idCookie = $cookies.id;
   
   $scope.question = {
     question: "",
@@ -90,14 +89,16 @@ function QuestionCtrl($scope, $http) {
 
 // see http://jsfiddle.net/danielzen/utp7j/
   $scope.attachFile = function() {
-    var fd = new FormData()
+    var fd = new FormData();
     fd.append("uploadedFile", $scope.imageFileToAttach);
     var xhr = new XMLHttpRequest();
     //xhr.upload.addEventListener("progress", uploadProgress, false)
-    //xhr.addEventListener("load", uploadComplete, false);
+    xhr.addEventListener("load", function(){
+      console.log("uploaded: " + $cookies.id);
+    });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);
-    xhr.open("POST", "/fileupload");
+    xhr.open("POST", "/image");
     $scope.progressVisible = true;
     xhr.send(fd);
 };
