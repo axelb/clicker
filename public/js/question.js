@@ -39,7 +39,7 @@ function ListCtrl($scope, $http, $templateCache) {
  
 function QuestionCtrl($scope, $http, $cookies) {
   $scope.imageFileToAttach = {};
-  $scope.idCookie = $cookies.id;
+  $scope.idCookie = $cookies.imageid;
   
   $scope.question = {
     question: "",
@@ -89,12 +89,14 @@ function QuestionCtrl($scope, $http, $cookies) {
 
 // see http://jsfiddle.net/danielzen/utp7j/
   $scope.attachFile = function() {
-    var fd = new FormData();
+    var fd = new FormData()
+      , xhr = new XMLHttpRequest();
+      alert($scope.imageFileToAttach.toString());
     fd.append("uploadedFile", $scope.imageFileToAttach);
-    var xhr = new XMLHttpRequest();
     //xhr.upload.addEventListener("progress", uploadProgress, false)
-    xhr.addEventListener("load", function(){
-      console.log("uploaded: " + $cookies.id);
+    xhr.addEventListener("load", function(event) {
+      var x = xhr;
+      console.log("uploaded: " + $cookies.imageid);
     });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);
