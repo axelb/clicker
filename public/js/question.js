@@ -95,13 +95,6 @@ function QuestionCtrl($scope, $http, $cookies) {
     auswahl_div.appendChild(img);  
   };
 
-$scope.save_ = function() {
-    $http.put('/question', $scope.question).success(function(){}).
-          error(function(data, status, headers, config) {
-            alert(data + " " + status);
-          });
-  };
-
   // see http://jsfiddle.net/danielzen/utp7j/
   $scope.save = function() {
     var fd = new FormData()
@@ -110,8 +103,7 @@ $scope.save_ = function() {
     fd.append("question", JSON.stringify($scope.question));
     //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {
-      var x = xhr;
-      console.log("uploaded: " + $cookies.imageid);
+      Notifier.success("Uploaded question", $scope.question.title);
     });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);

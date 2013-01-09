@@ -34,7 +34,7 @@ app.get('/list', question.list);
 app.post('/question', question.save);//neue Frage; noch ohne id
 //app.get('/image/:id', image.getImage);
 app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
-app.get('/delete/:id', question.remove);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
+app.get('/delete/:id', question.remove);
 app.get('/question/json/:id', question.asjson);
 app.get('/voteqr/:id', vote.showQrAndStart);
 app.put('/saveAnswer', vote.saveAnswer);//single answer returned

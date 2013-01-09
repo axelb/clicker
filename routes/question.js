@@ -14,7 +14,7 @@ var mongoose = require('mongoose')
   , imageSchema = new Schema({
         img: { data: Buffer, contentType: String }
       })
-  , Image = connection.model('images', imageSchema);
+  , Img = connection.model('images', imageSchema);
 
 connection.on('error', function(error){console.log("Connection error: " + error);});
 
@@ -25,8 +25,9 @@ exports.show = function(req, res) {
           if(error) {
             console.log("ERROR: " + error);
           }
-          console.log(data);
-          res.render('question', {question: data});
+          Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {
+            res.render('question', {question: data, image: img});
+          });
         }
     );
 };
@@ -44,7 +45,7 @@ exports.asjson = function(req, res) {
 };
 
 exports.save = function(req, res) {
-  var image = new Image();
+  var image = new Img();
   image.img.data = fs.readFileSync(req.files.uploadedImage.path);
   image.img.contentType = 'image/png';
   image.save(function (err, image) {
