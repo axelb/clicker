@@ -43,14 +43,8 @@ function QuestionCtrl($scope, $http, $cookies) {
   
   $scope.question = {
     question: "",
-    alternatives: [{title: ""}]
-  };
-
-  $scope.save = function() {
-    $http.put('/question', $scope.question).success(function(){}).
-          error(function(data, status, headers, config) {
-            alert(data + " " + status);
-          });
+    alternatives: [{title: ""}],
+    imageId: ""
   };
 
   $scope.addAlternative = function() {
@@ -83,16 +77,37 @@ function QuestionCtrl($scope, $http, $cookies) {
     $scope.question.alternatives[index - 1] = alternative;
   };
 
-  $scope.setFile = function(element) {
+  $scope.setImage = function(element) {
+    var auswahl_div = document.getElementById('attachedImage')
+      , img = document.createElement('img')
+      , reader = new FileReader();
+    img.height = 110;
+    img.file = $scope.imageFileToAttach;
+    img.name = 'pic_';
+    //img.classList.add("obj");
     $scope.imageFileToAttach = element.files[0];//only one file!
+  
+    reader.onload = (function(aImg) { 
+      return function(e) { 
+        aImg.src = e.target.result; 
+      };})(img);
+    reader.readAsDataURL($scope.imageFileToAttach);
+    auswahl_div.appendChild(img);  
   };
 
-// see http://jsfiddle.net/danielzen/utp7j/
-  $scope.attachFile = function() {
+$scope.save_ = function() {
+    $http.put('/question', $scope.question).success(function(){}).
+          error(function(data, status, headers, config) {
+            alert(data + " " + status);
+          });
+  };
+
+  // see http://jsfiddle.net/danielzen/utp7j/
+  $scope.save = function() {
     var fd = new FormData()
       , xhr = new XMLHttpRequest();
-      alert($scope.imageFileToAttach.toString());
-    fd.append("uploadedFile", $scope.imageFileToAttach);
+    fd.append("uploadedImage", $scope.imageFileToAttach);
+    fd.append("question", JSON.stringify($scope.question));
     //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {
       var x = xhr;
@@ -100,8 +115,8 @@ function QuestionCtrl($scope, $http, $cookies) {
     });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);
-    xhr.open("POST", "/image");
-    $scope.progressVisible = true;
+    xhr.open("POST", "/question");
+    //$scope.progressVisible = true;
     xhr.send(fd);
 };
 

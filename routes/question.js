@@ -7,9 +7,14 @@ var mongoose = require('mongoose')
       })
   , questionSchema = new Schema({
         question      : { type: String, required: true, trim: true },
-        alternatives  : [Alternative]
+        alternatives  : [Alternative],
+        imageId       : {type: String, required: false, trim: true}
       })
-  , Question = connection.model('questions', questionSchema);
+  , Question = connection.model('questions', questionSchema)
+  , imageSchema = new Schema({
+        img: { data: Buffer, contentType: String }
+      })
+  , Image = connection.model('images', imageSchema);
 
 connection.on('error', function(error){console.log("Connection error: " + error);});
 
@@ -39,11 +44,20 @@ exports.asjson = function(req, res) {
 };
 
 exports.save = function(req, res) {
-var newQuestion = new Question(req.body);
-  //console.log(req.body);
-  newQuestion.save(function(){console.log(newQuestion);});
-  res.clearCookie('imageid');
-  res.end();
+  var image = new Image();
+  image.img.data = fs.readFileSync(req.files.uploadedImage.path);
+  image.img.contentType = 'image/png';
+  image.save(function (err, image) {
+    var question = JSON.parse(req.body.question)
+      , newQuestion;
+    console.log('saved img to mongo, id= ' + image._id);
+    question.imageId = image._id;
+    console.log(question);
+    newQuestion = new Question(question);
+    //if (err) throw err;
+    newQuestion.save(function(){console.log(newQuestion);});
+    res.end();
+  });
 };
 
 exports.list = function(req, res) {
