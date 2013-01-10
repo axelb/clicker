@@ -56,7 +56,7 @@ exports.save = function(req, res) {
     console.log(question);
     newQuestion = new Question(question);
     //if (err) throw err;
-    newQuestion.save(function(){console.log(newQuestion);});
+    newQuestion.save(function(){console.log("Stored new question:  " + newQuestion);});
     res.end();
   });
 };

@@ -37,7 +37,7 @@ function ListCtrl($scope, $http, $templateCache) {
   };
 }
  
-function QuestionCtrl($scope, $http, $cookies) {
+function QuestionCtrl($scope, $http, $cookies, $location) {
   $scope.imageFileToAttach = {};
   $scope.idCookie = $cookies.imageid;
   
@@ -104,6 +104,7 @@ function QuestionCtrl($scope, $http, $cookies) {
     //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {
       Notifier.success("Uploaded question", $scope.question.title);
+      $location.path( "/" );
     });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);
