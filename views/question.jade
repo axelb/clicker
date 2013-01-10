@@ -8,6 +8,8 @@ block content
         p
           input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1) 
           label.radio.inline #{alternative.title}
+      img(src="/image/#{question.imageId}")
+      p
       input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
       input(type="hidden", id="questionId", value=question._id)
   script(src='/js/dovote.js')

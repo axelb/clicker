@@ -3,7 +3,7 @@
 var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
-//  , image = require('./routes/image')
+  , image = require('./routes/image')
   , vote = require('./routes/vote')
   , http = require('http')
   , path = require('path')
@@ -32,7 +32,7 @@ app.configure('development', function(){
 
 app.get('/list', question.list);
 app.post('/question', question.save);//neue Frage; noch ohne id
-//app.get('/image/:id', image.getImage);
+app.get('/image/:id', image.getImage);
 app.get('/question/:id', question.show);//Frage an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/delete/:id', question.remove);
 app.get('/question/json/:id', question.asjson);
