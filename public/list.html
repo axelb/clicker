@@ -1,6 +1,12 @@
 <h1>All questions found:</h1>
 <div id="listQuestions" ng-init="fetch()">
    <table cellpadding="5">
+	   	<colgroup>
+	    <col width="40%"/>
+	    <col width="3em"/>
+	    <col width="3em"/>
+	    <col width="3em"/>
+	   </colgroup>
       <tr><th>Question</th><!--<th>Open Vote</th><th>Edit</th><th>Delete</th>--></tr>
       <tr ng-repeat="question in questions">
         <td>{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>

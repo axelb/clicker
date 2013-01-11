@@ -38,7 +38,7 @@ function ListCtrl($scope, $http, $templateCache) {
 }
  
 function QuestionCtrl($scope, $http, $cookies, $location) {
-  $scope.imageFileToAttach = {};
+  $scope.imageFileToAttach;
   $scope.idCookie = $cookies.imageid;
   
   $scope.question = {
@@ -99,7 +99,9 @@ function QuestionCtrl($scope, $http, $cookies, $location) {
   $scope.save = function() {
     var fd = new FormData()
       , xhr = new XMLHttpRequest();
-    fd.append("uploadedImage", $scope.imageFileToAttach);
+    if($scope.imageFileToAttach) {
+         fd.append("uploadedImage", $scope.imageFileToAttach);
+    }
     fd.append("question", JSON.stringify($scope.question));
     //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {

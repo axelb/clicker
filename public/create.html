@@ -3,23 +3,29 @@
    <h3>Question:</h3>
    <input type="text" class="questiontitle" ng-model="question.question" placeholder="Enter a question here"></input>
    <hr>
-   <h3>Alternatives</h3>
-   <ol>
-      <li ng-repeat="alternative in question.alternatives">
-        <input type="text"  class="alternative" ng-model="question.alternatives[$index].title" value="{{alternative.title}}"/>
-        <a href="javascript:void()" ng-click="removeAlternative(alternative)"><i class="icon-minus-sign"></i></a>
-        <a href="javascript:void()" ng-click="pullUpAlternative(alternative)"><i class="icon-arrow-up"></i></a>
-        <a href="javascript:void()" ng-click="pushDownAlternative(alternative)"><i class="icon-arrow-down"></i></a>
-      </li>
-   </ol>
-   <button class="btn btn-success" ng-click="addAlternative()">+</button>
+   <div class="row-fluid">
+      <div class="span6">
+         <h3>Alternatives</h3>
+         <ol>
+            <li ng-repeat="alternative in question.alternatives">
+              <input type="text"  class="alternative" ng-model="question.alternatives[$index].title" value="{{alternative.title}}"/>
+              <a href="javascript:void()" ng-click="removeAlternative(alternative)"><i class="icon-minus-sign"></i></a>
+              <a href="javascript:void()" ng-click="pullUpAlternative(alternative)"><i class="icon-arrow-up"></i></a>
+              <a href="javascript:void()" ng-click="pushDownAlternative(alternative)"><i class="icon-arrow-down"></i></a>
+            </li>
+         </ol>
+         <button class="btn btn-success" ng-click="addAlternative()">+</button>
+      </div>
 
-   <h3>Image (optional; PNG only):<h3>
-   <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
-   <input type="file" size="100" maxlength="30000" accept="image/png" style="visibility:hidden;" ng-model-instant onchange="angular.element(this).scope().setImage(this)" id="imageFileToAttach"/>
-   <p/>
-   <div id="attachedImage"></div>
-   <p/>
+      <div class="span6">
+           <h3>Image (optional; PNG only):<h3>
+           <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
+           <input type="file" size="100" maxlength="30000" accept="image/png" style="visibility:hidden;" ng-model-instant onchange="angular.element(this).scope().setImage(this)" id="imageFileToAttach"/>
+           <p/>
+           <div id="attachedImage"></div>
+           <p/>
+      </div>
+   </div>
    <hr>
-   <button class="btn btn-success" ng-click="save()">Save this question</button>
+   <button class="btn btn-primary" ng-click="save()">Save this question</button>
 </div>

@@ -76,6 +76,7 @@ exports.remove = function(req, res) {
             console.log("ERROR: " + error);
           }
           data.remove();
+          console.log("question removed: " + req.params.id);
           res.redirect('/#/list');
         }
     );
