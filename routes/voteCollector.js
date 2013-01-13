@@ -14,6 +14,10 @@ exports.VoteCollector.prototype = {
     },
 
     saveAnswer: function(id, alternative) {
+        if(!this.votes[id] || this.votes[id] === undefined) {
+            console.log('Vote not open: ' + id);
+            return;
+        }
         console.log(this.votes[id]);
         if(this.votes[id].length < alternative) {
             this.votes[id].length = alternative;
