@@ -1,5 +1,6 @@
 <h1>All questions found:</h1>
 <div id="listQuestions" ng-init="fetch()">
+  <section id="modals"><!-- Mandatory for modals -->
    <table cellpadding="5">
 	   	<colgroup>
 	    <col width="40%"/>
@@ -11,8 +12,38 @@
       <tr ng-repeat="question in questions">
         <td>{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
         <!-- http://jsfiddle.net/tadchristiansen/gt92r/ -->
-        <td><ng-confirm title="My Confirm Box" action-text="Do you want to do this?" action-button-text="Yes Sir" action-function="doIt()" cancel-button-text="No Way" cancel-function="cancel()"><a href="#/edit/{{question._id}}"><i class="icon-edit"></i></a></ng-confirm></td>
-        <td><a href="/delete/{{question._id}}"><i class="icon-remove-sign"></i></a></td>
+        <td><a href="#/edit/{{question._id}}"><i class="icon-edit"></i></a></td>
+        <!--<td><a href="/delete/{{question._id}}"><i class="icon-remove-sign"></i></a><input type="radio" id="modal1" name="modal" /></td>-->
+        <td> <!--<label for="modal1" role="button" onclick="$('#modal1').prop('checked');"><i class="icon-remove-sign"></i></label><input type="radio" id="modal1" name="modal" />-->
+<!--          <label class="btn btn-primary btn-large" for="{{question._id}}">Launch demo modal</label>
+          <input type="radio" id="{{question._id}}" name="modal" />-->
+        </td>
       </tr>
    </table>
+
+          <!-- sample modal content -->
+          <label class="btn btn-primary btn-large" for="modal1">Launch demo modal</label>
+          <input type="radio" id="modal1" name="modal" />
+
+          <div id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <label for="closemodal" class="close" onclick>&times;</label>
+              <h3 id="myModalLabel">Modal Heading</h3>
+            </div>
+            <div class="modal-body">
+              <h4>Text in a modal</h4>
+
+            </div>
+            <div class="modal-footer">
+              <label for="closemodal" class="btn" onclick>Close</label>
+              <button class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+      
+          <!-- Overlay and close -->
+          <input type="radio" id="closemodal" name="modal" />
+          <label for="closemodal" class="modalclose">&nbsp;</label>
+      
+           
+  </section>
 </div>
