@@ -2,17 +2,35 @@
 <div id="listQuestions" ng-init="fetch()">
    <table cellpadding="5">
 	   	<colgroup>
-	    <col width="40%"/>
-	    <col width="3em"/>
-	    <col width="3em"/>
-	    <col width="3em"/>
+  	    <col width="*"/>
+  	    <col width="3em"/>
+  	    <col width="3em"/>
+  	    <col width="3em"/>
 	   </colgroup>
       <tr><th>Question</th><!--<th>Open Vote</th><th>Edit</th><th>Delete</th>--></tr>
       <tr ng-repeat="question in questions">
         <td>{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
         <!-- http://jsfiddle.net/tadchristiansen/gt92r/ -->
-        <td><ng-confirm title="My Confirm Box" action-text="Do you want to do this?" action-button-text="Yes Sir" action-function="doIt()" cancel-button-text="No Way" cancel-function="cancel()"><a href="#/edit/{{question._id}}"><i class="icon-edit"></i></a></ng-confirm></td>
-        <td><a href="/delete/{{question._id}}"><i class="icon-remove-sign"></i></a></td>
+        <td><a href="/edit/{{question._id}}"><i class="icon-edit"></i></a></td>
+        <td><a id="{{question._id}}" 
+            onclick="$('#deleteLink').attr('href', '/delete/' + this.id);$('#saveConfirmDialog').modal({keyboard: true})">
+            <i class="icon-remove-sign"></i>
+          </a></td>
       </tr>
    </table>
+
+   <!-- the modal saveConfirmDialog -->
+      <div id="saveConfirmDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Confirm Delete question?</h3>
+      </div>
+      <div class="modal-body">
+      <p>...</p>
+      </div>
+      <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <a id="deleteLink" role="button" class="btn btn-primary">Confirm</a><!-- href is set by click on delete-->
+      </div>
+      </div>
 </div>
