@@ -23,6 +23,5 @@ page.onLoadFinished = function() {
     page.render('or.png');
     phantom.exit(0);
 };
-
-page.open('http://onlineresponse.org/question/50ee7d76c2f2fd8c24000009');
+page.open('http://onlineresponse.org/question/50efeef616c6190200000009');
 //page.open('http://localhost:8888/question/50ee7e09c2f2fd8c24000016');

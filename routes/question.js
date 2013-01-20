@@ -25,9 +25,14 @@ exports.show = function(req, res) {
           if(error) {
             console.log("ERROR: " + error);
           }
-          Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {
-            res.render('question', {question: data, image: img});
-          });
+          if(data.imageId && data.imageId != null) {
+            Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {
+              res.render('question', {question: data, image: img});
+            });
+          }
+          else {
+              res.render('question', {question: data});
+          }
         }
     );
 };

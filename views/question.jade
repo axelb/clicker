@@ -14,5 +14,6 @@ block content
           input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
           input(type="hidden", id="questionId", value=question._id)
       div(class="span4")
-          img(src="/image/#{question.imageId}")
+          if(#{question.imageId})
+            img(src="/image/#{question.imageId}")
   script(src='/js/dovote.js')
