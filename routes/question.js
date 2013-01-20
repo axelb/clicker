@@ -49,21 +49,34 @@ exports.asjson = function(req, res) {
     );
 };
 
-exports.save = function(req, res) {
-  var image = new Img();
-  image.img.data = fs.readFileSync(req.files.uploadedImage.path);
-  image.img.contentType = 'image/png';
-  image.save(function (err, image) {
+saveQuestion = function(req, res, imageId) {
     var question = JSON.parse(req.body.question)
       , newQuestion;
-    console.log('saved img to mongo, id= ' + image._id);
-    question.imageId = image._id;
+    console.log("Saving question: " + question);
+    if(imageId) {
+       question.imageId = imageId;
+    }
+    else {
+      question.imageId = null;
+    }
     console.log(question);
     newQuestion = new Question(question);
-    //if (err) throw err;
     newQuestion.save(function(){console.log("Stored new question:  " + newQuestion);});
     res.end();
-  });
+};
+
+exports.save = function(req, res) {
+  var image = new Img();
+  if(req.files.uploadedImage) {
+      image.img.data = fs.readFileSync(req.files.uploadedImage.path);
+      image.img.contentType = 'image/png';
+      image.save(function (err, image) {
+        console.log('saved img to mongo, id= ' + image._id);
+        saveQuestion(req, res, image._id);
+      });
+  } else {
+        saveQuestion(req, res, null);
+      }
 };
 
 exports.list = function(req, res) {

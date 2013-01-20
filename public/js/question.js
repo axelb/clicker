@@ -19,7 +19,8 @@ function StartCtrl($scope) {
 function ListCtrl($scope, $http, $templateCache) {
   $scope.method = 'GET';
   $scope.listUrl = '/list';
-   
+  $scope.count = 0;
+ 
   $scope.fetch = function() {
     $scope.code = null;
     $scope.response = null;
@@ -39,7 +40,6 @@ function ListCtrl($scope, $http, $templateCache) {
  
 function QuestionCtrl($scope, $http, $cookies, $location) {
   $scope.imageFileToAttach;
-  $scope.idCookie = $cookies.imageid;
   
   $scope.question = {
     question: "",
