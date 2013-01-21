@@ -39,8 +39,6 @@ function ListCtrl($scope, $http, $templateCache) {
 }
  
 function QuestionCtrl($scope, $http, $cookies, $location) {
-  $scope.imageFileToAttach;
-  
   $scope.question = {
     question: "",
     alternatives: [{title: ""}],
