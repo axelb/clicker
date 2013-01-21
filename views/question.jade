@@ -1,19 +1,15 @@
 extends layout
 
 block content
-  div(class="container")
-    h1 #{question.question}
-    div(class="row-fluid")
-      div(class="span3")
-        form(action="/saveAnswer", id="voteForm")
-          each alternative, index in question.alternatives
-            p
-              input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1) 
-              label.radio.inline #{alternative.title}
-          p
-          input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
-          input(type="hidden", id="questionId", value=question._id)
-      div(class="span4")
-          if question.imageId
-            img(src="/image/#{question.imageId}")
+  h1 #{question.question}
+  form(action="/saveAnswer", id="voteForm")
+    each alternative, index in question.alternatives
+      p
+        input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1) 
+        label.radio.inline #{alternative.title}
+    p
+    input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
+    input(type="hidden", id="questionId", value=question._id)
+    if question.imageId
+      img(src="/image/#{question.imageId}")
   script(src='/js/dovote.js')

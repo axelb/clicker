@@ -33,8 +33,9 @@ page.onLoadFinished = function() {
     page.sendEvent('click', offsets[2].left + 2, offsets[2].top + 2);
     page.sendEvent('click', offsets[2].left + 3, offsets[2].top + 3);
     page.render('or.png');
+    console.log("DONE");
     phantom.exit(0);
 };
 
 //page.open('http://onlineresponse.org/question/50ee7d76c2f2fd8c24000009');
-page.open('http://localhost:8888/question/50efeec016c6190200000003');
+page.open('http://localhost:8888/question/50dc6a964b641630bf000002');
