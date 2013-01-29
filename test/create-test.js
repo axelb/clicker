@@ -1,0 +1,36 @@
+var casper = require('casper').create();
+
+casper.start('http://localhost:8888/', function() {
+    this.test.assertTitle("Online Response System (Clicker)");
+    this.test.assertExists('#buttonCreate', 'Expect a create button');
+    this.test.assertExists('#buttonList', 'Expect the list button');
+    this.click('#buttonCreate');
+});
+
+casper.then(function() {
+     this.test.assertExists('#questionTitle', 'Expect the field to enter question title');
+     this.sendKeys('#questionTitle', 'To be removed!');
+
+     this.test.assertExists('#alternative0', 'Expect text field for first alternative');
+     this.test.assertDoesntExist('#alternative1', 'Do not expect text field for second alternative');
+     this.click('#buttonAddAlternative');
+     this.test.assertDoesntExist('#alternative1', 'Still do not expect text field for second alternative');
+
+     this.sendKeys('#alternative0', 'This is a rest from an integration test!');
+     this.click('#buttonAddAlternative');
+     this.test.assertExists('#alternative1', 'Now I expect text field for first alternative');
+
+     this.sendKeys('#alternative1', 'This is a rest from an integration test!');
+     this.click('#saveQuestion');
+
+     this.capture('results.png', {
+            top: 0,
+            left: 0,
+            width: 1024,
+            height: 768
+        });
+});
+
+casper.run(function() {
+   this.exit();
+});
