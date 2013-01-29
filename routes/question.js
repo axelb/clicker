@@ -62,6 +62,7 @@ saveQuestion = function(req, res, imageId) {
     console.log(question);
     newQuestion = new Question(question);
     newQuestion.save(function(){console.log("Stored new question:  " + newQuestion);});
+    res.json({id: newQuestion._id});
     res.end();
 };
 

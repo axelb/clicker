@@ -9,7 +9,7 @@
 	   </colgroup>
       <tr><th>Question</th><!--<th>Open Vote</th><th>Edit</th><th>Delete</th>--></tr>
       <tr ng-repeat="question in questions">
-        <td>{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
+        <td id="row{{$index}}">{{question.question}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
         <!-- http://jsfiddle.net/tadchristiansen/gt92r/ -->
         <td><a href="/edit/{{question._id}}"><i class="icon-edit"></i></a></td>
         <td><a id="{{question._id}}" 

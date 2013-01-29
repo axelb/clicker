@@ -16,7 +16,7 @@ function StartCtrl($scope) {
 
 }
  
-function ListCtrl($scope, $http, $templateCache) {
+function ListCtrl($scope, $http, $location, $templateCache) {
   $scope.method = 'GET';
   $scope.listUrl = '/list';
   $scope.count = 0;
@@ -38,7 +38,7 @@ function ListCtrl($scope, $http, $templateCache) {
   };
 }
  
-function QuestionCtrl($scope, $http, $cookies, $location) {
+function QuestionCtrl($scope, $http, $cookies, $window) {
   $scope.question = {
     question: "",
     alternatives: [{title: ""}],
@@ -93,7 +93,6 @@ function QuestionCtrl($scope, $http, $cookies, $location) {
     auswahl_div.appendChild(img);  
   };
 
-  // see http://jsfiddle.net/danielzen/utp7j/
   $scope.save = function() {
     var fd = new FormData()
       , xhr = new XMLHttpRequest();
@@ -103,8 +102,9 @@ function QuestionCtrl($scope, $http, $cookies, $location) {
     fd.append("question", JSON.stringify($scope.question));
     //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {
-      Notifier.success("Uploaded question", $scope.question.title);
-      $location.path( "/" );
+        var id = JSON.parse(event.target.response).id;
+        Notifier.success($scope.question.question, "Uploaded question");
+        $window.location.href = '/edit/' + id;
     });
     //xhr.addEventListener("error", uploadFailed, false);
     //xhr.addEventListener("abort", uploadCanceled, false);

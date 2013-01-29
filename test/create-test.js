@@ -1,6 +1,8 @@
-var casper = require('casper').create();
+var casper = require('casper').create()
+  , utils = require('utils');;
 
 casper.start('http://localhost:8888/', function() {
+    //utils.dump(casper.cli.get('xunit'));
     this.test.assertTitle("Online Response System (Clicker)");
     this.test.assertExists('#buttonCreate', 'Expect a create button');
     this.test.assertExists('#buttonList', 'Expect the list button');
@@ -22,7 +24,20 @@ casper.then(function() {
 
      this.sendKeys('#alternative1', 'This is a rest from an integration test!');
      this.click('#saveQuestion');
+});
 
+casper.then(function() {
+    casper.thenOpen('http://localhost:8888/', function() {
+        this.click('#buttonList');
+    })
+});
+
+casper.then(function() {
+    casper.waitForSelector('#row1');//TODO: add timeout
+    
+});
+
+casper.then(function() {
      this.capture('results.png', {
             top: 0,
             left: 0,
@@ -32,5 +47,8 @@ casper.then(function() {
 });
 
 casper.run(function() {
-   this.exit();
+    this.test.renderResults(true, 0, 'log.xml');
+//    this.test.done();
+//    this.exit();
 });
+
