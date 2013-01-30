@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "latest",
     "jade": "latest",
-    "casper": "latest",
+    "connect": "latest",
     "mongoose": "latest"
   },
   "engines": {
