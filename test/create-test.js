@@ -20,7 +20,7 @@ casper.then(function() {
 
      this.sendKeys('#alternative0', 'This is a rest from an integration test!');
      this.click('#buttonAddAlternative');
-     this.test.assertExists('#alternative1', 'Now I expect text field for first alternative');
+     this.test.assertExists('#alternative11', 'Now I expect text field for first alternative');
 
      this.sendKeys('#alternative1', 'This is a rest from an integration test!');
      this.click('#saveQuestion');
@@ -34,7 +34,7 @@ casper.then(function() {
 
 casper.then(function() {
     casper.waitForSelector('#row1');//TODO: add timeout
-    
+
 });
 
 casper.then(function() {
