@@ -82,7 +82,6 @@ function QuestionCtrl($scope, $http, $cookies, $window) {
     img.height = 110;
     img.file = $scope.imageFileToAttach;
     img.name = 'pic_';
-    //img.classList.add("obj");
     $scope.imageFileToAttach = element.files[0];//only one file!
   
     reader.onload = (function(aImg) { 
