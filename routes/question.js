@@ -24,6 +24,8 @@ exports.show = function(req, res) {
     .exec(function(error, data) {
           if(error) {
             console.log("ERROR: " + error);
+            res.render('noquestion');
+            return;
           }
           if(data.imageId && data.imageId !== null) {
             Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {

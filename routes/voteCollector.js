@@ -16,7 +16,7 @@ exports.VoteCollector.prototype = {
     saveAnswer: function(id, alternative) {
         if(!this.votes[id] || this.votes[id] === undefined) {
             console.log('Vote not open: ' + id);
-            return;
+            return 1;
         }
         console.log(this.votes[id]);
         if(this.votes[id].length < alternative) {
@@ -29,7 +29,7 @@ exports.VoteCollector.prototype = {
         }
         console.log(this.votes[id][alternative]);
         this.votes[id][alternative]++;
-        console.log(this.votes[id]);
+        return 0;
     },
 
     getResults: function (id) {
@@ -42,12 +42,7 @@ exports.VoteCollector.prototype = {
             result[i] = [this.votes[id][i], {label: i+1}];
         }
         return result;
-       /* [5, {label: '1'}],
-        [15, {label: '2'}],
-        [6, {label: '3'}],
-        [12, {label: '4'}]
-      ];*/
-    },
+connect    },
 
     getResultsAsJSON: function (id) {
         return JSON.stringify(this.getResults(id));

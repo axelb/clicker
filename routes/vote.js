@@ -15,9 +15,14 @@ exports.showQrAndStart = function(req, res) {
 };
 
 exports.saveAnswer = function(req, res) {
-	var vote = req.body.vote;
-	voteCollector.saveAnswer(vote.id, vote.alternative);
-	res.end("<html><body>Danke :-)</body></html>");
+	var vote = req.body.vote
+	  , status = voteCollector.saveAnswer(vote.id, vote.alternative);
+	if(status !== 0) {
+		res.send(404, 'Vote not open');
+		res.end();
+	} else {
+		res.render('danke');
+	}
 };
 
 exports.stopVoteAndShowResult = function(req, res) {
