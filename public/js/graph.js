@@ -7,7 +7,6 @@ var init = function() {
 
 function drawVisualization(id, question) {
   $.ajax('/results/' + id).done(function(data) {
-    console.log();
     jQuery('#graph').tufteBar({
       data: data,
       barWidth: 0.5, 
