@@ -1,5 +1,5 @@
 var casper = require('casper').create()
-  , utils = require('utils');;
+  , utils = require('utils');
 
 casper.start('http://localhost:8888/', function() {
     //utils.dump(casper.cli.get('xunit'));
@@ -29,12 +29,12 @@ casper.then(function() {
 casper.then(function() {
     casper.thenOpen('http://localhost:8888/', function() {
         this.click('#buttonList');
-    })
+    });
 });
 
 casper.then(function() {
     casper.waitForSelector('#row1');//TODO: add timeout
-    
+
 });
 
 casper.then(function() {
