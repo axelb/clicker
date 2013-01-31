@@ -8,7 +8,7 @@
          <h3>Alternatives</h3>
          <ol>
             <li ng-repeat="alternative in question.alternatives">
-              <input type="text"  class="alternative" id="alternative{{$index}}" ng-model="question.alternatives[$index].title" value="{{alternative.title}}"/>
+              <input type="text"  class="alternative" id="alternative{{$index}}" ng-model="question.alternatives[$index].title"/>
               <a href="javascript:void()" ng-click="removeAlternative(alternative)"><i class="icon-minus-sign"></i></a>
               <a href="javascript:void()" ng-click="pullUpAlternative(alternative)"><i class="icon-arrow-up"></i></a>
               <a href="javascript:void()" ng-click="pushDownAlternative(alternative)"><i class="icon-arrow-down"></i></a>

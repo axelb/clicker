@@ -1,4 +1,4 @@
-var init = function(){
+var init = function() {
 };//Hook method for initilization code
 
 angular.module('question', ['ngCookies']).
@@ -99,16 +99,12 @@ function QuestionCtrl($scope, $http, $cookies, $window) {
          fd.append("uploadedImage", $scope.imageFileToAttach);
     }
     fd.append("question", JSON.stringify($scope.question));
-    //xhr.upload.addEventListener("progress", uploadProgress, false)
     xhr.addEventListener("load", function(event) {
         var id = JSON.parse(event.target.response).id;
         Notifier.success($scope.question.question, "Uploaded question");
         $window.location.href = '/edit/' + id;
     });
-    //xhr.addEventListener("error", uploadFailed, false);
-    //xhr.addEventListener("abort", uploadCanceled, false);
     xhr.open("POST", "/question");
-    //$scope.progressVisible = true;
     xhr.send(fd);
 };
 
