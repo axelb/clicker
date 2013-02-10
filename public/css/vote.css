@@ -11,3 +11,16 @@
 	width: 100em;
 	height: 100em;
 }
+@media screen and (max-width: 700px) {
+    #body {
+        font-size: xx-large;
+        margin-left: 2em;
+        line-height: 150%;
+    }
+    .radio {
+        font-size: xx-large;
+    }
+    #thequestion {
+        font-size: 48px;
+    }
+}

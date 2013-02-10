@@ -1,15 +1,23 @@
-extends layout
-
-block content
-  h1 #{question.question}
-  form(action="/saveAnswer", id="voteForm")
-    each alternative, index in question.alternatives
-      p
-        input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1) 
-        label.radio.inline #{alternative.title}
+doctype 5
+html
+  head
+    title= "Vote!"
+    link(rel='stylesheet', href='/css/vote.css')
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/bootstrap-responsive.css')
+    script(src='/lib/jquery-1.7.2.min.js')
+    script(src='/js/util.js')
+  body(id="body")
+    h1(id="thequestion") #{question.question}
     p
-    input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
-    input(type="hidden", id="questionId", value=question._id)
     if question.imageId
       img(src="/image/#{question.imageId}")
-  script(src='/js/dovote.js')
+    form(action="/saveAnswer", id="voteForm")
+      each alternative, index in question.alternatives
+        p
+          input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1)
+          label.radio.inline #{alternative.title}
+      p
+      input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
+      input(type="hidden", id="questionId", value=question._id)
+    script(src='/js/dovote.js')

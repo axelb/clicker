@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
   , fs = require('fs')
-  , connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse")
+  , connection = mongoose.createConnection(process.env.MONGOURI)
   , Schema = mongoose.Schema
   , imageSchema = new Schema({
         img: { data: Buffer, contentType: String }
@@ -15,13 +15,11 @@ console.error('mongo is open');
 // see https://gist.github.com/2408370
 exports.attachImage = function(req, res) {
     var image = new Image();
-    //console.log(req.files);
     image.img.data = fs.readFileSync(req.files.uploadedFile.path);
     image.img.contentType = 'image/png';
     image.save(function (err, image) {
        if (err) throw err;
        console.log('saved img to mongo, id= ' + image._id);
-       res.cookie('imageid', image._id);
        res.redirect('/#/new');
     });
 };
@@ -34,8 +32,10 @@ exports.getImage = function(req, res) {
           if(error) {
             console.log("ERROR: " + error);
           }
-          res.contentType(data.img.contentType);
-          res.send(data.img.data);
+          if(data && data.img) {
+              res.contentType(data.img.contentType);
+              res.send(data.img.data);
+          }
         }
     );
 };
