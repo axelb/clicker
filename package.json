@@ -1,6 +1,6 @@
 {
   "name": "clicker",
-  "description": "Online response system (Clicker)",
+  "description": "Online classroom response system (Clicker)",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -8,7 +8,8 @@
     "jade": "latest",
     "connect": "latest",
     "mime": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "node-markdown": "latest"
   },
   "engines": {
     "node": "0.6.13",

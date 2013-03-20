@@ -1,4 +1,6 @@
 var mongoose = require('mongoose')
+  , showdown = require('showdown')
+  , md = require("node-markdown").Markdown
   , fs = require('fs')
   , connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse")
   , Schema = mongoose.Schema
@@ -22,6 +24,7 @@ exports.show = function(req, res) {
   Question.findOne()
     .where('_id').equals(req.params.id)
     .exec(function(error, data) {
+          var converter = new showdown.converter();
           if(error) {
             console.log("ERROR: " + error);
             res.render('noquestion');
@@ -29,11 +32,11 @@ exports.show = function(req, res) {
           }
           if(data.imageId && data.imageId !== null) {
             Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {
-              res.render('question', {question: data, image: img});
+              res.render('question', {question: data, image: img, md: md});
             });
           }
           else {
-              res.render('question', {question: data});
+              res.render('question', {question: data, md: md});
           }
         }
     );
