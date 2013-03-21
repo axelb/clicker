@@ -5,10 +5,10 @@ angular.module('question', ['ngCookies']).
   config(function($routeProvider) {
     $routeProvider.
     when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
-    //when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
     when('/new', {controller: QuestionCtrl, templateUrl: 'create.html'}).
+    when('/edit/:id', {controller: QuestionCtrl, templateUrl:'create.html'}).
     when('/list', {controller: ListCtrl, templateUrl: 'list.html'}).
-    when('/edit/:id', {controller: ListCtrl, templateUrl: 'create.html'}).
+    //when('/edit/:id', {controller: ListCtrl, templateUrl: 'create.html'}).
     otherwise({redirectTo:'/'});
 });
 
@@ -36,8 +36,20 @@ function ListCtrl($scope, $http, $location, $templateCache) {
       $scope.status = status;
     });
   };
+
+    /**
+     * The shortened version of (marked down text) is only the first line.
+     * @param text Text to shorten.
+     * @return {*} First line of text, or complete text if it is only one line long.
+     */
+  $scope.shorten = function(text) {
+     if(text.indexOf('\n') === -1) {
+          return text;
+      }
+      return text.split('\n', 1)[0];
+  };
 }
- 
+
 function QuestionCtrl($scope, $http, $cookies, $window) {
   $scope.question = {
     question: "",

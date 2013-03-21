@@ -3,8 +3,9 @@
 }
 
 .questiontitle {
-	width: 60em;
-	font-size: 30px;
+	width: 40em;
+	font-size: 200%;
+    line-height: 150%;
 }
 
 .qrcode {
