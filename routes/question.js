@@ -48,6 +48,7 @@ exports.asjson = function(req, res) {
     .exec(function(error, data) {
           if(error) {
             console.log("ERROR: " + error);
+              res.send(404, 'Requested question not found');
           }
           res.end(JSON.stringify(data));
         }

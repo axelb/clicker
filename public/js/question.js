@@ -50,12 +50,30 @@ function ListCtrl($scope, $http, $location, $templateCache) {
   };
 }
 
-function QuestionCtrl($scope, $http, $cookies, $window) {
-  $scope.question = {
-    question: "",
-    alternatives: [{title: ""}],
-    imageId: ""
-  };
+function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
+
+    /**
+     * Here we discriminate if a new question is to be created or an existing to be edited.
+     * Depends on whether an id is provided as part of routeParams.
+     */
+  $scope.init = function() {
+      var emptyQuestion = {
+          question: "",
+          alternatives: [{title: ""}],
+          imageId: ""
+      };
+      if($routeParams.id) {
+          $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
+              success(function(data, status, headers, config){
+                  $scope.question = data;
+              }).
+              error(function(data, status, headers, config){
+                  Notifier.error(data + ' (status ' + status + ')');
+              });
+      } else {
+          $scope.question = emptyQuestion;
+      }
+  }
 
   $scope.addAlternative = function() {
     var lastContent = $scope.question.alternatives[$scope.question.alternatives.length - 1].title;
