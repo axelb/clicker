@@ -52,7 +52,7 @@ function ListCtrl($scope, $http, $location, $templateCache) {
 function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
 
     /**
-     * Here we discriminate if a new question is to be created or an existing to be edited.
+     * Here we discriminate on initialization if a new question is to be created or an existing to be edited.
      * Depends on whether an id is provided as part of routeParams.
      */
     $scope.init = function () {
@@ -67,6 +67,10 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
             $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
                 success(function (data, status, headers, config) {
                     $scope.question = data;
+                    //set an image if one was attached.
+                    if($scope.question.imageId) {
+                        $('#attachedImage').html("<img src='/image/" + $scope.question.imageId + "'></img>");
+                    }
                 }).
                 error(function (data, status, headers, config) {
                     Notifier.error(data + ' (status ' + status + ')');
@@ -106,14 +110,19 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
         $scope.question.alternatives[index - 1] = alternative;
     };
 
-    $scope.setImage = function (element) {
+    /**
+     * To be called to set an attached image via a fileinput control.
+     * @param element an "input type='file'"-Element carrying a list of attached files.
+     * We only use the first of these anyhow.
+     */
+    $scope.setAttachedImage = function (element) {
         var auswahl_div = document.getElementById('attachedImage')
             , img = document.createElement('img')
             , reader = new FileReader();
         img.height = 110;
         img.file = $scope.imageFileToAttach;
         img.name = 'pic_';
-        $scope.imageFileToAttach = element.files[0];//only one file!
+        $scope.imageFileToAttach = element.files[0];//only one image file!
 
         reader.onload = (function (aImg) {
             return function (e) {
@@ -125,13 +134,13 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
     };
 
     /**
-     * usable for create and update of question.
+     * Usable to create a new and to update an existing question.
      */
     $scope.save = function () {
         var formData = new FormData()
             , xhr = new XMLHttpRequest()
-            , questionId = $scope.question._id ? $scope.question._id : ""
-            , httpMethod = $scope.question._id ? "PUT" : "POST";
+            , questionId = isExistingQuestion() ? $scope.question._id : "" // we add an empty string if nonexisting question
+            , httpMethod = isExistingQuestion() ? "PUT" : "POST";
         if ($scope.imageFileToAttach) {
             formData.append("uploadedImage", $scope.imageFileToAttach);
         }
@@ -147,6 +156,10 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
 
     getIndexOf = function (alternative) {
         return $scope.question.alternatives.indexOf(alternative);
+    };
+
+    isExistingQuestion = function() {
+        return $scope.question.id ? true : false;
     };
 }
 

@@ -20,7 +20,7 @@
       <div class="span6">
            <h3>Image (optional; PNG only):<h3>
            <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
-           <input type="file" size="100" maxlength="30000" accept="image/png" style="visibility:hidden;" ng-model-instant onchange="angular.element(this).scope().setImage(this)" id="imageFileToAttach"/>
+           <input type="file" size="100" maxlength="30000" accept="image/png" style="visibility:hidden;" ng-model-instant onchange="angular.element(this).scope().setAttachedImage(this)" id="imageFileToAttach"/>
            <p/>
            <div id="attachedImage"></div>
            <p/>
