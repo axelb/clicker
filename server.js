@@ -32,11 +32,13 @@ app.configure('development', function(){
 
 app.get('/list', question.list);
 app.post('/question', question.save);//neue Frage; noch ohne id
-app.get('/image/:id', image.getImage);
+app.put('/question/:id', question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
-app.get('/edit/:id', question.asjson);
 app.get('/question/json/:id', question.asjson);
+app.get('/edit/:id', question.asjson);
 app.get('/delete/:id', question.remove);
+app.get('/image/:id', image.getImage);
+
 app.get('/voteqr/:id', vote.showQrAndStart);
 app.put('/saveAnswer', vote.saveAnswer);//single answer returned
 app.get('/result/:id', vote.stopVoteAndShowResult);

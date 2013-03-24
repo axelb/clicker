@@ -8,7 +8,7 @@ html
     script(src='/lib/jquery-1.7.2.min.js')
     script(src='/js/util.js')
   body(id="body")
-    div!= md(question.question)
+    div!= markDown(question.question)
     p
     if question.imageId
       img(src="/image/#{question.imageId}")

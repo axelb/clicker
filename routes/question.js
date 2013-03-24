@@ -1,6 +1,5 @@
 var mongoose = require('mongoose')
-  , showdown = require('showdown')
-  , md = require("node-markdown").Markdown
+  , markDown = require("node-markdown").Markdown
   , fs = require('fs')
   , connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse")
   , Schema = mongoose.Schema
@@ -24,7 +23,6 @@ exports.show = function(req, res) {
   Question.findOne()
     .where('_id').equals(req.params.id)
     .exec(function(error, data) {
-          var converter = new showdown.converter();
           if(error) {
             console.log("ERROR: " + error);
             res.render('noquestion');
@@ -32,7 +30,7 @@ exports.show = function(req, res) {
           }
           if(data.imageId && data.imageId !== null) {
             Img.findOne().where('_id').equals(data.imageId).exec(function(error, img) {
-              res.render('question', {question: data, image: img, md: md});
+              res.render('question', {question: data, image: img, markDown: markDown});
             });
           }
           else {
@@ -55,23 +53,46 @@ exports.asjson = function(req, res) {
     );
 };
 
-saveQuestion = function(req, res, imageId) {
+/**
+ * Save or update a question depending on whether it already carries an _id or not.
+ * @param req request object
+ * @param res response object
+ * @param imageId id of a newly attached image -- or null if no (or no new in case of editing) image is attached.
+ */
+var saveQuestion = function(req, res, imageId) {
     var question = JSON.parse(req.body.question)
+      , id = question._id
       , newQuestion;
     console.log("Saving question: " + question);
     if(imageId) {
        question.imageId = imageId;
     }
-    else {
+    else if(!question.imageId) {
       question.imageId = null;
     }
     console.log(question);
     newQuestion = new Question(question);
-    newQuestion.save(function(){console.log("Stored new question:  " + newQuestion);});
+    if(question._id) {
+        delete question._id;//I don't really understand why this works!
+        newQuestion.update(question, function(error){
+            if(error) {
+                console.log("Error: " + error);
+            } else {
+                console.log("Updated question:  " + newQuestion);
+            }
+        });
+    } else {
+        newQuestion.save(function(){console.log("Stored new question:  " + newQuestion);});
+    }
     res.json({id: newQuestion._id});
     res.end();
 };
 
+/**
+ * Prepares a question for storage in db. If an image is part of the request it is stored upfront and attached.
+ * @param req
+ * @param res
+ */
 exports.save = function(req, res) {
   var image = new Img();
   if(req.files.uploadedImage) {
