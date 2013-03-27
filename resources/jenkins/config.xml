@@ -52,7 +52,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
     <hudson.triggers.SCMTrigger>
-      <spec>* * * * * </spec>
+      <spec>*/5 * * * * </spec>
     </hudson.triggers.SCMTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
@@ -60,9 +60,15 @@
     <hudson.tasks.Shell>
       <command>PATH=/usr/local/bin:$PATH
 /usr/local/bin/npm install
-/usr/local/bin/node server.js&amp;
+rm -rf mongodb
+mkdir mongodb
+mongod --dbpath=`pwd`/mongodb &amp;
+echo &quot;MONGOURI=mongodb://localhost:27017/onlineresponse&quot;&gt;.env
+echo &quot;PORT=8888&quot;&gt;&gt;.env
+foreman start &amp;
 cd test;casperjs create-test.js
-kill -9 %1</command>
+kill -9 %1
+kill -9 %2</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
