@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
   , markDown = require("node-markdown").Markdown
   , fs = require('fs')
-  , connection = mongoose.createConnection("mongodb://dl5mfx:tyre2hush7pal@ds043997.mongolab.com:43997/onlineresponse")
+  , connection = mongoose.createConnection(process.env.MONGOURI)
   , Schema = mongoose.Schema
   , Alternative = new Schema({
         title: { type: String, required: true, trim: true }

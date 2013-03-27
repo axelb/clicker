@@ -1,7 +1,7 @@
 /*
  * Defines routing for all vote related actions:
  * - show a QR-code and reset/open the corresponding vote
- * - save single answers returning from "clicker" deevices
+ * - save single answers returning from "clicker" devices
  * - stop the vote 
  * - deliver results as histogram data for display purposes
 */
