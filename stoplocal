@@ -1,0 +1,5 @@
+# Stop the mongo and node-server processes.
+kill -9 `cat .node_pid`
+kill -9 `cat .mongo_pid`
+rm .node_pid
+rm .mongo_pid

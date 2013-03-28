@@ -1,0 +1,11 @@
+# Starts mongo with an wmpty database in local directory.
+# Afterwards starts the node server. Process ids are stored for stopping processes later on.
+rm -rf mongodb
+mkdir mongodb
+mongod --dbpath=`pwd`/mongodb &
+echo $! > .mongo_pid
+sleep 5
+export MONGOURI=mongodb://localhost:27017/onlineresponse
+echo "PORT=8888">>.env
+node server.js &
+echo $! > .node_pid

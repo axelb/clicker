@@ -1,6 +1,9 @@
 .idea/
 .env
+.mongo_pid
+.node_pid
 .DS_Store
 Clicker.iml
+mongodb/
 *.log
 test/or.png
