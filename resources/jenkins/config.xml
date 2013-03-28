@@ -64,6 +64,7 @@
 sleep 5
 cd test;casperjs create-test.js
 sleep 5
+cd ..
 ./stoplocal</command>
     </hudson.tasks.Shell>
   </builders>
