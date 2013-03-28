@@ -60,15 +60,11 @@
     <hudson.tasks.Shell>
       <command>PATH=/usr/local/bin:$PATH
 /usr/local/bin/npm install
-rm -rf mongodb
-mkdir mongodb
-mongod --dbpath=`pwd`/mongodb &amp;
-echo &quot;MONGOURI=mongodb://localhost:27017/onlineresponse&quot;&gt;.env
-echo &quot;PORT=8888&quot;&gt;&gt;.env
-foreman start &amp;
+./startlocal
+sleep 5
 cd test;casperjs create-test.js
-kill -9 %1
-kill -9 %2</command>
+sleep 5
+./stoplocal</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

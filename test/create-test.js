@@ -33,7 +33,7 @@ casper.then(function() {
 });
 
 casper.then(function() {
-    casper.waitForSelector('#row1');//TODO: add timeout
+    casper.waitForSelector('#row0');//TODO: add timeout
 
 });
 
