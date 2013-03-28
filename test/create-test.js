@@ -1,4 +1,4 @@
-var casper = require('casper').create()
+var casper = require('casper').create({timeout: 20000})
   , utils = require('utils');
 
 casper.start('http://localhost:8888/', function() {
