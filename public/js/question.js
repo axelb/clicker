@@ -116,21 +116,15 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
      * We only use the first of these anyhow.
      */
     $scope.setAttachedImage = function (element) {
-        var auswahl_div = document.getElementById('attachedImage')
-            , img = document.createElement('img')
+        var img = document.getElementById('attachedImage')
             , reader = new FileReader();
-        img.height = 110;
-        img.file = $scope.imageFileToAttach;
-        img.name = 'pic_';
         $scope.imageFileToAttach = element.files[0];//only one image file!
-
         reader.onload = (function (aImg) {
             return function (e) {
                 aImg.src = e.target.result;
             };
         })(img);
         reader.readAsDataURL($scope.imageFileToAttach);
-        auswahl_div.appendChild(img);
     };
 
     /**
