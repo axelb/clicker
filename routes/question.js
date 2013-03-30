@@ -15,12 +15,18 @@ var mongoose = require('mongoose')
     , imageSchema = new Schema({
         img: { data: Buffer, contentType: String }
     })
-    , Img = connection.model('images', imageSchema);
+    , Img = connection.model('images', imageSchema)
+    Image = require('./image');
 
 connection.on('error', function (error) {
     console.log("Connection error: " + error);
 });
 
+/**
+ * render question to a BYOD in the audience.
+ * @param req The HTTP request.
+ * @param res The HTTP response.
+ */
 exports.show = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
@@ -94,8 +100,8 @@ var saveQuestion = function (req, res, imageId) {
 
 /**
  * Prepares a question for storage in db. If an image is part of the request it is stored upfront and attached.
- * @param req
- * @param res
+ * @param req The HTTP request.
+ * @param res The HTTP response.
  */
 exports.save = function (req, res) {
     var image = new Img();
@@ -132,26 +138,10 @@ exports.remove = function (req, res) {
                 res.send(500, error);
                 return;
             }
-            deleteImage(data.imageId);
+            Image.deleteImage(data.imageId);
             data.remove();
             console.log("question removed: " + req.params.id);
             res.redirect('/#/list');
         }
     );
 };
-
-/**
- * Helper function to delete an image with given id.
- */
-// TODO move to image.js
-function deleteImage(id) {
-     Img.findOne()
-         .where('_id').equals(id)
-         .exec(function (error, data) {
-             if (error) {
-                 console.log("ERROR finding image for deletion: " + error);
-                 return;
-             }
-             data.remove();
-         });
-}

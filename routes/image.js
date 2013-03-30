@@ -30,20 +30,47 @@ exports.attachImage = function (req, res) {
     });
 };
 
+/**
+ * Delivers an image to a requesting client (REST Url).
+ * @param req The HTTP request.
+ * @param res The HTTP response.
+ */
 exports.getImage = function (req, res) {
     console.log(req.params.id);
-    Image.findOne()
-        .where('_id').equals(req.params.id)
-        .exec(function (error, data) {
-            if (error) {
-                console.log("ERROR: " + error);
-                res.send(404, 'Requested image not found (' + error + ')');
-                return;
-            }
-            if (data && data.img) {
-                res.contentType(data.img.contentType);
-                res.send(data.img.data);
-            }
+    exports.findById(req.params.id, function (error, data) {
+        if (error) {
+            console.log("ERROR: " + error);
+            res.send(404, 'Requested image not found (' + error + ')');
+            return;
         }
-    );
+        if (data && data.img) {
+            res.contentType(data.img.contentType);
+            res.send(data.img.data);
+        }
+    });
+};
+
+/**
+ * Helper method to find an image by its id.
+ * Asynch; therefore a callbacker must be provided that gets 2 params: error and imageData
+ * @param id Id of image to find.
+ */
+exports.findById = function (id, callback) {
+    Image.findOne()
+        .where('_id').equals(id)
+        .exec(callback);
+};
+
+/**
+ * Helper function to delete an image with given id.
+ */
+exports.deleteImage = function (id) {
+    exports.findById(id, function (error, data) {
+        if (error) {
+            console.log("ERROR finding image for deletion: " + error);
+            return;
+        }
+        data.remove();
+        console.log('Deleted image ' + id);
+    });
 };
