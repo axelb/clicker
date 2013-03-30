@@ -69,7 +69,7 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
                     $scope.question = data;
                     //set an image if one was attached.
                     if($scope.question.imageId) {
-                        $('#attachedImage').html("<img src='/image/" + $scope.question.imageId + "'></img>");
+                        document.getElementById('attachedImage').src=("/image/" + $scope.question.imageId);
                     }
                 }).
                 error(function (data, status, headers, config) {
@@ -128,7 +128,8 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
     };
 
     /**
-     * Usable to create a new and to update an existing question.
+     * Save a question to the server.
+     * Usable after creation of a new and when updating an existing question.
      */
     $scope.save = function () {
         var formData = new FormData()
@@ -142,7 +143,7 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
         xhr.addEventListener("load", function (event) {
             var id = JSON.parse(event.target.response).id;
             Notifier.success($scope.question.question, "Uploaded question");
-            $window.location.href = '#/edit/' + id;
+            $window.location.href = '#/list/';
         });
         xhr.open(httpMethod, "/question/" + questionId);
         xhr.send(formData);
@@ -152,6 +153,10 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
         return $scope.question.alternatives.indexOf(alternative);
     };
 
+    /**
+     * Helper function to determine if we are editing an existing or a new question.
+     * @return {boolean} If question was loaded fo rediting, i.e. it existed previously.
+     */
     isExistingQuestion = function() {
         return $scope.question.id ? true : false;
     };
