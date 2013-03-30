@@ -14,19 +14,24 @@ connection.on('open', function () {
     console.log("Mongo connection opened!");
 });
 
-console.error('mongo is open');
+console.log('Mongo is opened for your convenience!');
 
-// see https://gist.github.com/2408370
-exports.attachImage = function (req, res) {
+/**
+ * Save an image and call an asynch callback method with the created id.
+ * @param path Path to image on the local file system.
+ * @param callback Method to call asynchronously.
+ */
+exports.attachImage = function (path, callback) {
     var image = new Image();
-    image.img.data = fs.readFileSync(req.files.uploadedFile.path);
+    image.img.data = fs.readFileSync(path);
     image.img.contentType = 'image/png';
-    image.save(function (err, image) {
-        if (err) {
+    image.save(function (error, image) {
+        if (error) {
+            console.log('Error saving image: ' + error);
             throw err;
         }
-        console.log('saved img to mongo, id= ' + image._id);
-        res.redirect('/#/new');
+        console.log('Saved img to mongo, id= ' + image._id);
+        callback(image._id);
     });
 };
 

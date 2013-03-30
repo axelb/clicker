@@ -12,10 +12,6 @@ var mongoose = require('mongoose')
         imageId: {type: String, required: false, trim: true}
     })
     , Question = connection.model('questions', questionSchema)
-    , imageSchema = new Schema({
-        img: { data: Buffer, contentType: String }
-    })
-    , Img = connection.model('images', imageSchema)
     Image = require('./image');
 
 connection.on('error', function (error) {
@@ -23,7 +19,7 @@ connection.on('error', function (error) {
 });
 
 /**
- * render question to a BYOD in the audience.
+ * Render question to a BYOD in the audience.
  * @param req The HTTP request.
  * @param res The HTTP response.
  */
@@ -37,7 +33,7 @@ exports.show = function (req, res) {
                 return;
             }
             if (data.imageId && data.imageId !== null) {
-                Img.findOne().where('_id').equals(data.imageId).exec(function (error, img) {
+                Image.findById(data.imageId, function (error, img) {
                     res.render('question', {question: data, image: img, markDown: markDown});
                 });
             }
@@ -104,19 +100,20 @@ var saveQuestion = function (req, res, imageId) {
  * @param res The HTTP response.
  */
 exports.save = function (req, res) {
-    var image = new Img();
     if (req.files.uploadedImage) {
-        image.img.data = fs.readFileSync(req.files.uploadedImage.path);
-        image.img.contentType = 'image/png';
-        image.save(function (err, image) {
-            console.log('saved img to mongo, id= ' + image._id);
-            saveQuestion(req, res, image._id);
+        Image.attachImage(req.files.uploadedImage.path, function(id){
+            saveQuestion(req, res, id);
         });
     } else {
         saveQuestion(req, res, null);
     }
 };
 
+/**
+ * RESTful-url to get a list of all stored questions.
+ * @param req
+ * @param res
+ */
 exports.list = function (req, res) {
     Question.find().exec(
         function (error, data) {
