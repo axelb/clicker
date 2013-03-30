@@ -1,3 +1,8 @@
+/**
+ * Module to collect all mongo db specific stuff.
+ * @type {*}
+ */
+
 var mongoose = require('mongoose'),
     connection = mongoose.createConnection(process.env.MONGOURI);
 
