@@ -1,22 +1,16 @@
-var mongoose = require('mongoose')
+var mongo = require('./mongo')
     , markDown = require("node-markdown").Markdown
     , fs = require('fs')
-    , connection = mongoose.createConnection(process.env.MONGOURI)
-    , Schema = mongoose.Schema
-    , Alternative = new Schema({
+    , Alternative = new mongo.Schema({
         title: { type: String, required: true, trim: true }
     })
-    , questionSchema = new Schema({
+    , questionSchema = new mongo.Schema({
         question: { type: String, required: true, trim: true },
         alternatives: [Alternative],
         imageId: {type: String, required: false, trim: true}
     })
-    , Question = connection.model('questions', questionSchema)
-    Image = require('./image');
-
-connection.on('error', function (error) {
-    console.log("Connection error: " + error);
-});
+    , Question = mongo.connection.model('questions', questionSchema)
+    , Image = require('./image');
 
 /**
  * Render question to a BYOD in the audience.

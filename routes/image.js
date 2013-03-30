@@ -1,20 +1,9 @@
-var mongoose = require('mongoose')
+var mongo = require('./mongo')
     , fs = require('fs')
-    , connection = mongoose.createConnection(process.env.MONGOURI)
-    , Schema = mongoose.Schema
-    , imageSchema = new Schema({
+    , imageSchema = new mongo.Schema({
         img: { data: Buffer, contentType: String }
     })
-    , Image = connection.model('images', imageSchema);
-
-connection.on('error', function (error) {
-    console.log("Connection error: " + error);
-});
-connection.on('open', function () {
-    console.log("Mongo connection opened!");
-});
-
-console.log('Mongo is opened for your convenience!');
+    , Image = mongo.connection.model('images', imageSchema);
 
 /**
  * Save an image and call an asynch callback method with the created id.
