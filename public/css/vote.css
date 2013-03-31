@@ -8,6 +8,10 @@
     line-height: 150%;
 }
 
+#imageFileToAttach {
+    visibility: hidden;
+}
+
 /* Add some margin to improve decodability. */
 .qrcode {
 	width: 1024px;

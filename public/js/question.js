@@ -49,7 +49,7 @@ function ListCtrl($scope, $http, $location, $templateCache) {
     };
 }
 
-function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
+function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
 
     /**
      * Here we discriminate on initialization if a new question is to be created or an existing to be edited.
@@ -84,6 +84,12 @@ function QuestionCtrl($scope, $http, $routeParams, $cookies, $window) {
         var lastContent = $scope.question.alternatives[$scope.question.alternatives.length - 1].title;
         if (lastContent && lastContent !== "") {// do not allow empty strings
             $scope.question.alternatives.push({title: ""});
+            // awful hack to set focus on the newly created alternative:
+            $timeout(function() {
+                var a =  $('[id^=alternative]'),
+                    last = a.last();
+                last.focus();
+            }, 30);// this value is somewhat arbirary
         }
     };
 

@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  div#link(id='linkToVote')
+      <a href="/question/#{id}">This link can take you to the vote as well</a>
   div#qrcode.qrcode(id='qrcode', value='#{id}', onClick="location='/result/#{id}'")
   
   script(src='/js/questionqr.js')
