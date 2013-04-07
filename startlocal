@@ -1,4 +1,4 @@
-# Starts mongo with an wmpty database in local directory.
+# Starts mongo with an empty database in local directory.
 # Afterwards starts the node server. Process ids are stored for stopping processes later on.
 rm -rf mongodb
 mkdir mongodb
