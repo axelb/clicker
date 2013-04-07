@@ -18,6 +18,7 @@ I also used this project to gain experience with some modern web programming env
 * And (of course) [jquery](http://jquery.com)
 * [QRcode plugin for jquery](http://jeromeetienne.github.com/jquery-qrcode/)
 * Currently I do some testing with [casperjs](http://casperjs.org)
+* Also [Mocha](http://visionmedia.github.io/mocha/) is used for testing.
 * Some testing is also done using plain node asserts
 
 ## Testing
