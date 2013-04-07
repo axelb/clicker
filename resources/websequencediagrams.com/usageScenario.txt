@@ -1,0 +1,12 @@
+Online Response Usage Scenario
+
+Teacher->Server: create/edit question
+Teacher->Server: opens QR code with browser
+note right of Server: Server starts a quote
+Server->Teacher: QR code of question
+note right of Students: Student uses QR decoder on BYOD
+Server->Students: delivers web form with MC question
+Students->Server: submits answer
+Teacher->Server: clicks on QR code
+note right of Server: closes quote
+Server->Teacher: displays result

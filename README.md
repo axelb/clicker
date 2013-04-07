@@ -26,5 +26,5 @@ These are also used on the jenkins server I use for CI and deployment.
 
 # Functionality
 At the moment only multiple choice questions can be created. A PNG-image can be attached. The text preceding the choices can be formatted using markdown.
-
+![Usage Scenario](/resources/websequencediagrams.com/usageScenario.png)
 
