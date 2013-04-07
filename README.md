@@ -9,17 +9,16 @@ I also used this project to gain experience with some modern web programming env
 * [Express js (with RESTful URLs)](http://expressjs.com)
 * [Server-side templating with Jade](http://jade-lang.com)
 * [Deployment on Heroku](http://www.heroku.com)
-* [MongoDB on mongolabs](http://mongolabs.com)
+* [MongoDB on MongoLab](http://mongolab.com)
 * [Layout with Bootstrap](http://twitter.github.com/bootstrap/)
 * [Markdown library Showdown by Corey Innis](https://github.com/coreyti/showdown)
 * [Angular as Client side framework](http://angularjs.org)
 * [Notifier library done by Srirangan](https://github.com/Srirangan/notifer.js)
-* [Graph Drawing with Xavier Shay's TufteGraphs](http://http://xaviershay.github.io/tufte-graph/)
+* [Graph Drawing with Xavier Shay's TufteGraphs](http://xaviershay.github.io/tufte-graph/)
 * [Of course jquery](http://jquery.com)
 * [QRcode plugin for jquery](http://jeromeetienne.github.com/jquery-qrcode/)
-* [Markdown for text in questions.]()
 * [Currently I do some testing with casperjs](http://casperjs.org)
-* Testing is also done using node asserts)
+* Testing is also done using plain node asserts
 
 ## Testing
 There is a shell script *startlocal* to start a local empty mongo database and a script *stoplocal* to stop these processes again.
