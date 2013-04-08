@@ -65,7 +65,9 @@ sleep 5
 cd test;casperjs create-test.js
 sleep 5
 cd ..
-./stoplocal</command>
+./stoplocal
+cd routes
+mocha -R xunit voteCollectorTest.js &gt; mocha.xml</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
@@ -75,7 +77,7 @@ cd ..
     <xunit>
       <types>
         <JUnitType>
-          <pattern>test/log.xml</pattern>
+          <pattern>test/log.xml, routes/mocha.xml</pattern>
           <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>

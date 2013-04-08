@@ -1,16 +1,18 @@
-var mongo = require('./mongo')
-    , markDown = require("node-markdown").Markdown
-    , fs = require('fs')
-    , Alternative = new mongo.Schema({
+var mongo = require('./mongo'),
+    markDown = require("node-markdown").Markdown,
+    fs = require('fs'),
+    Alternative = new mongo.Schema({
         title: { type: String, required: true, trim: true }
-    })
-    , questionSchema = new mongo.Schema({
+    }),
+    questionSchema = new mongo.Schema({
         question: { type: String, required: true, trim: true },
         alternatives: [Alternative],
         imageId: {type: String, required: false, trim: true}
-    })
-    , Question = mongo.connection.model('questions', questionSchema)
-    , Image = require('./image');
+    }),
+    Question = mongo.connection.model('questions', questionSchema),
+    Image = require('./image'),
+    log4js = require('log4js'),
+    logger = log4js.getLogger('server');
 
 /**
  * Render question to a BYOD in the audience.
@@ -22,7 +24,7 @@ exports.show = function (req, res) {
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
             if (error) {
-                console.log("ERROR: " + error);
+                logger.error("ERROR: " + error);
                 res.render('noquestion');
                 return;
             }
@@ -43,7 +45,7 @@ exports.asjson = function (req, res) {
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
             if (error) {
-                console.log("ERROR: " + error);
+                logger.error("ERROR: " + error);
                 res.send(404, 'Requested question not found');
             }
             res.end(JSON.stringify(data));
@@ -61,27 +63,27 @@ var saveQuestion = function (req, res, imageId) {
     var question = JSON.parse(req.body.question)
         , id = question._id
         , newQuestion;
-    console.log("Saving question: " + question);
+    logger.debug("Saving question: " + question);
     if (imageId) {
         question.imageId = imageId;
     }
     else if (!question.imageId) {
         question.imageId = null;
     }
-    console.log(question);
+    logger.debug(question);
     newQuestion = new Question(question);
     if (question._id) {
         delete question._id;//I don't really understand why this works!
         newQuestion.update(question, function (error) {
             if (error) {
-                console.log("Error: " + error);
+                logger.error("Error: " + error);
             } else {
-                console.log("Updated question:  " + newQuestion);
+                logger.debug("Updated question:  " + newQuestion);
             }
         });
     } else {
         newQuestion.save(function () {
-            console.log("Stored new question:  " + newQuestion);
+            logger.debug("Stored new question:  " + newQuestion);
         });
     }
     res.json({id: newQuestion._id});
@@ -125,13 +127,13 @@ exports.remove = function (req, res) {
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
             if (error) {
-                console.log("ERROR: " + error);
+                logger.error("ERROR: " + error);
                 res.send(500, error);
                 return;
             }
             Image.deleteImage(data.imageId);
             data.remove();
-            console.log("question removed: " + req.params.id);
+            logger.debug("question removed: " + req.params.id);
             res.redirect('/#/list');
         }
     );
