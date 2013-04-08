@@ -6,9 +6,13 @@ var assert = require('assert'),
     voteCollector = require('./voteCollector'),
     collector = new voteCollector.VoteCollector(),
     testId1 = "50d88d8d46bb810200000002",
-    testId2 = "50dc700d3cf6c33ebf000002";
+    testId2 = "50dc700d3cf6c33ebf000002",
+    log4js = require('log4js'),
+    logger = log4js.getLogger('server');
+
 
 describe('', function () {
+    logger.setLevel('OFF');
     it('should count 2 answers correct', function () {
         collector.openVote(testId1);
 

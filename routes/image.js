@@ -1,9 +1,11 @@
-var mongo = require('./mongo')
-    , fs = require('fs')
-    , imageSchema = new mongo.Schema({
+var mongo = require('./mongo'),
+    fs = require('fs'),
+    imageSchema = new mongo.Schema({
         img: { data: Buffer, contentType: String }
-    })
-    , Image = mongo.connection.model('images', imageSchema);
+    }),
+    Image = mongo.connection.model('images', imageSchema),
+    log4js = require('log4js'),
+    logger = log4js.getLogger('server');
 
 /**
  * Save an image and call an asynch callback method with the created id.
@@ -16,10 +18,10 @@ exports.attachImage = function (path, callback) {
     image.img.contentType = 'image/png';
     image.save(function (error, image) {
         if (error) {
-            console.log('Error saving image: ' + error);
+            logger.error('Error saving image: ' + error);
             throw err;
         }
-        console.log('Saved img to mongo, id= ' + image._id);
+        logger.debug('Saved img to mongo, id= ' + image._id);
         callback(image._id);
     });
 };
@@ -30,10 +32,10 @@ exports.attachImage = function (path, callback) {
  * @param res The HTTP response.
  */
 exports.getImage = function (req, res) {
-    console.log(req.params.id);
+    logger.debug(req.params.id);
     exports.findById(req.params.id, function (error, data) {
         if (error) {
-            console.log("ERROR: " + error);
+            logger.debug("ERROR: " + error);
             res.send(404, 'Requested image not found (' + error + ')');
             return;
         }
@@ -61,10 +63,10 @@ exports.findById = function (id, callback) {
 exports.deleteImage = function (id) {
     exports.findById(id, function (error, data) {
         if (error) {
-            console.log("ERROR finding image for deletion: " + error);
+            logger.error("ERROR finding image for deletion: " + error);
             return;
         }
         data.remove();
-        console.log('Deleted image ' + id);
+        logger.debug('Deleted image ' + id);
     });
 };

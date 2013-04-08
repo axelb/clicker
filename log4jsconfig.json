@@ -1,0 +1,12 @@
+{
+    "appenders": [
+        {
+            "type": "console",
+            "category": "server"
+        }
+    ],
+    "replaceConsole": true,
+    "levels": {
+        "server":  "INFO"
+    }
+}

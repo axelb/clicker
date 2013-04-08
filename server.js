@@ -7,7 +7,11 @@ var express = require('express')
     , vote = require('./routes/vote')
     , http = require('http')
     , path = require('path')
-    , app = express();
+    , app = express()
+    , log4js = require('log4js')
+    , logger = log4js.getLogger('server');
+
+log4js.configure('log4jsconfig.json');
 
 app.configure(function () {
     app.set('port', process.env.PORT || 8888);//process.env.PORT for deployment on heroku
@@ -40,5 +44,5 @@ app.get('/result/:id', vote.stopVoteAndShowResult);
 app.get('/results/:id', vote.resultValues);//JSON data of result's historgam data
 
 http.createServer(app).listen(app.get('port'), function () {
-    console.log("Express server listening on port " + app.get('port'));
+    logger.debug("Express server listening on port " + app.get('port'));
 });

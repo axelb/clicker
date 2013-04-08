@@ -3,6 +3,12 @@
  * A vote collector once opened collects incoming votes from student's (audience) devices (BYOD).
  * It simply counts up results in an array. A vote for a questionmust be opened explicitly and it will
  * be closed  when results are queried (NYI).
+ */
+var log4js = require('log4js'),
+    logger = log4js.getLogger('server');
+
+/**
+ *
  * @constructor Creates a new VoteCollector object.
  */
 exports.VoteCollector = function () {
@@ -16,9 +22,9 @@ exports.VoteCollector.prototype = {
      * @param id mongo id of a question.
      */
     openVote: function(id) {
-        console.log("opening vote for: " + id);
+        logger.debug("opening vote for: " + id);
         this.votes[id] = [];
-        console.log(this.votes[id]);
+        logger.debug(this.votes[id]);
     },
 
     closeVote: function(id) {
@@ -33,10 +39,10 @@ exports.VoteCollector.prototype = {
      */
     saveAnswer: function(id, alternative) {
         if(!this.votes[id] || this.votes[id] === undefined) {
-            console.log('Vote not open for id: ' + id);
+            logger.error('Vote not open for id: ' + id);
             return 1;
         }
-        console.log(this.votes[id]);
+        logger.debug(this.votes[id]);
         if(this.votes[id].length < alternative) {
             this.votes[id].length = alternative;
             this.votes[id][alternative - 1] = 0;
@@ -45,7 +51,7 @@ exports.VoteCollector.prototype = {
         if(!this.votes[id][alternative]) {
             this.votes[id][alternative] = 0;
         }
-        console.log(this.votes[id][alternative]);
+        logger.debug(this.votes[id][alternative]);
         this.votes[id][alternative]++;
         return 0;
     },
