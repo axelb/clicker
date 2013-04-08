@@ -32,7 +32,7 @@ exports.show = function (req, res) {
                 });
             }
             else {
-                res.render('question', {question: data, md: md});
+                res.render('question', {question: data, markDown: markDown});
             }
         }
     );
