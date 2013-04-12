@@ -62,7 +62,9 @@
 /usr/local/bin/npm install
 ./startlocal
 sleep 5
-cd test;casperjs create-test.js
+cd test
+casperjs create-test.js
+casperjs vote-test.js
 sleep 5
 cd ..
 ./stoplocal
@@ -77,7 +79,7 @@ mocha -R xunit voteCollectorTest.js &gt; mocha.xml</command>
     <xunit>
       <types>
         <JUnitType>
-          <pattern>test/log.xml, routes/mocha.xml</pattern>
+          <pattern>test/log-vote.xml, test/log-create.xml, routes/mocha.xml</pattern>
           <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>
