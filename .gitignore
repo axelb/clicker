@@ -6,4 +6,6 @@
 Clicker.iml
 mongodb/
 *.log
+log.xml
+results.png
 test/or.png

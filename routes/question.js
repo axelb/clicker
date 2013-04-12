@@ -60,10 +60,13 @@ exports.asjson = function (req, res) {
  * @param imageId id of a newly attached image -- or null if no (or no new in case of editing) image is attached.
  */
 var saveQuestion = function (req, res, imageId) {
-    var question = JSON.parse(req.body.question)
-        , id = question._id
+    var question
+        , id
         , newQuestion;
-    logger.debug("Saving question: " + question);
+    logger.debug("received question: " + req.body.question);//raw question before parsing
+    question = JSON.parse(req.body.question);
+    id = question._id;
+    logger.info("Saving question: " + question);
     if (imageId) {
         question.imageId = imageId;
     }
@@ -96,7 +99,7 @@ var saveQuestion = function (req, res, imageId) {
  * @param res The HTTP response.
  */
 exports.save = function (req, res) {
-    if (req.files.uploadedImage) {
+    if (req.files && req.files.uploadedImage) {
         Image.attachImage(req.files.uploadedImage.path, function(id){
             saveQuestion(req, res, id);
         });

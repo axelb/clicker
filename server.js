@@ -30,7 +30,7 @@ app.configure('development', function () {
 });
 
 app.get('/list', question.list);
-app.post('/question', question.save);//neue Frage; noch ohne id
+app.post('/question', question.save);//Only accepts form-data; neue Frage; noch ohne id
 app.put('/question/:id', question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/question/json/:id', question.asjson);

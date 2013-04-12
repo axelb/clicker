@@ -1,0 +1,4 @@
+# Curl command to post a question
+curl  -X POST -F "question={\"question\":\"Q\",\"alternatives\":[{\"title\":\"A1\",\"$$hashKey\":\"00E\"},{\"title\":\"A2\",\"$$hashKey\":\"00G\"}],\"imageId\":\"\"}" \
+   http://localhost:8888/question
+

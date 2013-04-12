@@ -7,6 +7,6 @@
     ],
     "replaceConsole": true,
     "levels": {
-        "server":  "INFO"
+        "server":  "DEBUG"
     }
 }

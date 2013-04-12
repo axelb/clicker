@@ -1,8 +1,11 @@
+/**
+ * Integration test; requires running server.
+ */
+
 var casper = require('casper').create({timeout: 20000})
   , utils = require('utils');
 
 casper.start('http://localhost:8888/', function() {
-    //utils.dump(casper.cli.get('xunit'));
     this.test.assertTitle("Online Response System (Clicker)");
     this.test.assertExists('#buttonCreate', 'Expect a create button');
     this.test.assertExists('#buttonList', 'Expect the list button');
