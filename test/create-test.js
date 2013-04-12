@@ -36,8 +36,7 @@ casper.then(function() {
 });
 
 casper.then(function() {
-    casper.waitForSelector('#row0');//TODO: add timeout
-
+    casper.waitForSelector('#row0');
 });
 
 casper.then(function() {
@@ -50,8 +49,6 @@ casper.then(function() {
 });
 
 casper.run(function() {
-    this.test.renderResults(true, 0, 'log.xml');
-//    this.test.done();
-//    this.exit();
+    this.test.renderResults(true, 0, 'log-create.xml');
 });
 

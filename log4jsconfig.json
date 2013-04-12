@@ -7,6 +7,6 @@
     ],
     "replaceConsole": true,
     "levels": {
-        "server":  "DEBUG"
+        "server":  "ALL"
     }
 }

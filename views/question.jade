@@ -21,7 +21,7 @@ html
                         form(action="/saveAnswer", id="voteForm")
                           each alternative, index in question.alternatives
                             p
-                              input(type="radio", name="alternative", class="alternative", onclick="validate()", value=index+1)
+                              input(type="radio", name="alternative", id="alternative#{index}", class="alternative", onclick="validate()", value=index+1)
                               label.radio.inline #{alternative.title}
                           p
                           input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
