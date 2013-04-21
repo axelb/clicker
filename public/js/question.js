@@ -4,10 +4,11 @@ var init = function () {
 angular.module('question', ['ngCookies']).
     config(function ($routeProvider) {
         $routeProvider.
-            when('/', {controller: StartCtrl, templateUrl: 'start.html'}).
-            when('/new', {controller: QuestionCtrl, templateUrl: 'create.html'}).
-            when('/edit/:id', {controller: QuestionCtrl, templateUrl: 'create.html'}).
-            when('/list', {controller: ListCtrl, templateUrl: 'list.html'}).
+            when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
+            when('/new', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
+            when('/newFreeText', {controller: FreetextQuestionCtrl, templateUrl: 'partials/createFreetext.html'}).
+            when('/edit/:id', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
+            when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             otherwise({redirectTo: '/'});
     });
 
@@ -49,8 +50,16 @@ function ListCtrl($scope, $http, $location, $templateCache) {
     };
 }
 
+/**
+ * Controller for creation and editing an MC question.
+ * @param $scope
+ * @param $http
+ * @param $routeParams
+ * @param $window
+ * @param $timeout
+ * @constructor
+ */
 function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
-
     /**
      * Here we discriminate on initialization if a new question is to be created or an existing to be edited.
      * Depends on whether an id is provided as part of routeParams.
@@ -168,3 +177,14 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
     };
 }
 
+/**
+ * Controller for freetext code question.
+ * @param $scope
+ * @param $http
+ * @constructor
+ */
+function FreetextQuestionCtrl($scope, $http) {
+    $scope.init = function () {
+
+    };
+}

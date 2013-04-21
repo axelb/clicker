@@ -8,6 +8,10 @@
     line-height: 150%;
 }
 
+#codearea {
+    width: 60em;
+}
+
 #imageFileToAttach {
     visibility: hidden;
 }

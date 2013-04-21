@@ -7,9 +7,10 @@ var casper = require('casper').create({timeout: 20000})
 
 casper.start('http://localhost:8888/', function() {
     this.test.assertTitle("Online Response System (Clicker)");
-    this.test.assertExists('#buttonCreate', 'Expect a create button');
+    //this.test.assertExists('#buttonCreate', 'Expect a create button');
     this.test.assertExists('#buttonList', 'Expect the list button');
-    this.click('#buttonCreate');
+    this.click('#menuNew');
+    this.click('#newMultipleChoice');
 });
 
 casper.then(function() {
