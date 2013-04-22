@@ -170,7 +170,7 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
 
     /**
      * Helper function to determine if we are editing an existing or a new question.
-     * @return {boolean} If question was loaded fo rediting, i.e. it existed previously.
+     * @return {boolean} If question was loaded for editing, i.e. it existed previously.
      */
     isExistingQuestion = function() {
         return $scope.question.id ? true : false;
@@ -185,6 +185,14 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
  */
 function FreetextQuestionCtrl($scope, $http) {
     $scope.init = function () {
+
+    };
+
+    $scope.keyPressed = function($event) {
+         var key = $event;
+    };
+
+    $scope.save = function() {
 
     };
 }
