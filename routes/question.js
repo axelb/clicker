@@ -52,10 +52,15 @@ exports.show = function (req, res) {
 exports.mangleTextfield = function(string) {
     var textFieldStart = "<input id='text",
         textFieldEnd = "' type='text'></input>",
-        id = 1,
-        replacementText;
-    replacementText = textFieldStart + id + textFieldEnd;
-    return string.replace("##", replacementText);
+        id = 0,
+        replacementText,
+        textFieldIndicator = "##";
+    while(string.indexOf(textFieldIndicator) >= 0) {
+        replacementText = textFieldStart + id + textFieldEnd;
+        string = string.replace(textFieldIndicator, replacementText);
+        id++;
+    }
+    return string;
 }
 
 exports.asjson = function (req, res) {
