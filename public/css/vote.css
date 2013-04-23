@@ -2,7 +2,7 @@
 
 }
 
-.questiontitle {
+.mcquestiontext {
 	width: 40em;
 	font-size: 200%;
     line-height: 150%;
@@ -10,6 +10,11 @@
 
 .codearea {
     width: 60em;
+    font-family: Consolas,monospace;
+}
+
+#code {
+    font-family: Consolas,monospace;
 }
 
 #imageFileToAttach {

@@ -11,7 +11,7 @@ var assert = require('assert'),
     logger = log4js.getLogger('server');
 
 
-describe('', function () {
+describe('Vote Collector Test', function () {
     logger.setLevel('OFF');
     it('should count 2 answers correct', function () {
         collector.openVote(testId1);

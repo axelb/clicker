@@ -2,7 +2,7 @@ var mongo = require('./mongo'),
     markDown = require("node-markdown").Markdown,
     fs = require('fs'),
     Alternative = new mongo.Schema({
-        title: { type: String, required: true, trim: true }
+        title: { type: String, required: false, trim: true }
     }),
     questionSchema = new mongo.Schema({
         question: { type: String, required: true, trim: true },
@@ -23,22 +23,40 @@ exports.show = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
+            var template = 'mc-question';
             if (error) {
                 logger.error("ERROR: " + error);
                 res.render('noquestion');
                 return;
             }
+            if(!data.alternatives || data.alternatives.length === 0) {
+                template = "cloze-question";
+            }
             if (data.imageId && data.imageId !== null) {
                 Image.findById(data.imageId, function (error, img) {
-                    res.render('question', {question: data, image: img, markDown: markDown});
+                    res.render(template, {question: data, image: img, markDown: markDown});
                 });
             }
             else {
-                res.render('question', {question: data, markDown: markDown});
+                res.render(template, {question: data, markDown: markDown});
             }
         }
     );
 };
+
+/**
+ * Replace all occurences of ## with textfields containing increasing ids of kind "textx"
+ * @param string  String to convert.
+ * @return String with ## replaced by html textfields
+ */
+exports.mangleTextfield = function(string) {
+    var textFieldStart = "<input id='text",
+        textFieldEnd = "' type='text'></input>",
+        id = 1,
+        replacementText;
+    replacementText = textFieldStart + id + textFieldEnd;
+    return string.replace("##", replacementText);
+}
 
 exports.asjson = function (req, res) {
     Question.findOne()
@@ -85,7 +103,7 @@ var saveQuestion = function (req, res, imageId) {
             }
         });
     } else {
-        newQuestion.save(function () {
+        newQuestion.save(function (error) {
             logger.debug("Stored new question:  " + newQuestion);
         });
     }
@@ -100,7 +118,7 @@ var saveQuestion = function (req, res, imageId) {
  */
 exports.save = function (req, res) {
     if (req.files && req.files.uploadedImage) {
-        Image.attachImage(req.files.uploadedImage.path, function(id){
+        Image.attachImage(req.files.uploadedImage.path, function(id) {
             saveQuestion(req, res, id);
         });
     } else {

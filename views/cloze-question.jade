@@ -1,0 +1,21 @@
+doctype 5
+html
+  head
+    title= "Vote!"
+    link(rel='stylesheet', href='/css/vote.css')
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/bootstrap-responsive.css')
+    script(src='/lib/jquery-1.7.2.min.js')
+    script(src='/js/util.js')
+  body(id="body")
+     div(class="navbar navbar-fixed-top")
+        div(class="navbar-inner")
+            div(class="container")
+                div(class="row-fluid")
+                   div(class="span6")
+
+                        div(id="code")!= markDown(question.question)
+                        p
+                          input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
+                          input(type="hidden", id="questionId", value=question._id)
+    script(src='/js/dovote.js')

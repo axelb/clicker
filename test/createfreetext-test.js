@@ -8,18 +8,27 @@ var casper = require('casper').create({timeout: 20000}),
 
 casper.start('http://localhost:8888/', function () {
     this.click('#menuNew');
-    this.click('#newFreeText');
+    this.click('#newCloze');
 });
 
 casper.then(function () {
     this.test.assertExists('#questionTitle', 'Expect the field to enter question title');
     this.sendKeys('#questionTitle', 'To be removed!');
 
-    this.test.assertExists('#code', 'Expect text field for free text');
+    this.test.assertExists('#questionTitle', 'Expect text field for free text');
 
-    this.sendKeys('#code', freetext);
+    this.sendKeys('#questionTitle', freetext);
 
     this.click('#saveQuestion');
+});
+
+casper.then(function() {
+    this.capture('cloze.png', {
+        top: 0,
+        left: 0,
+        width: 1024,
+        height: 768
+    });
 });
 
 casper.run(function () {

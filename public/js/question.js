@@ -5,8 +5,8 @@ angular.module('question', ['ngCookies']).
     config(function ($routeProvider) {
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
-            when('/new', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
-            when('/newFreeText', {controller: FreetextQuestionCtrl, templateUrl: 'partials/createFreetext.html'}).
+            when('/newMC', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
+            when('/newCloze', {controller: QuestionCtrl, templateUrl: 'partials/createCloze.html'}).
             when('/edit/:id', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             otherwise({redirectTo: '/'});
@@ -68,7 +68,7 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
         var emptyQuestion = {
             question: "",
             alternatives: [
-                {title: ""}
+               {title: ""}
             ],
             imageId: ""
         };
@@ -151,6 +151,9 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
             , xhr = new XMLHttpRequest()
             , questionId = isExistingQuestion() ? $scope.question._id : "" // we add an empty string if nonexisting question
             , httpMethod = isExistingQuestion() ? "PUT" : "POST";
+        if($scope.question.alternatives.length === 1) { //assumption: is Cloze
+            delete $scope.question.alternatives;
+        }
         if ($scope.imageFileToAttach) {
             formData.append("uploadedImage", $scope.imageFileToAttach);
         }

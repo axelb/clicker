@@ -1,0 +1,13 @@
+<h1>Create a new Cloze question</h1>
+<div id="createFreetextQuestion" ng-init="init()">
+   <div class="row-fluid">
+      <div class="span6">
+          <h3>Cloze Question:</h3>
+          <textarea id="questionTitle" type="text" class="codearea" ng-model="question.question" placeholder="Enter your title here" rows="10"></textarea>
+      </div>
+   </div>
+   <hr>
+    <a href="/#/list" class="btn btn-primary">Cancel</a>
+    <button class="btn btn-primary" id="saveQuestion" ng-click="save()">Save this question</button>
+
+</div>
