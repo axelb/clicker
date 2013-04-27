@@ -13,7 +13,7 @@ var assert = require('assert'),
     logger = log4js.getLogger('server');
 
 describe('Cloze Collector Test', function () {
-    logger.setLevel('ALL');
+    logger.setLevel('OFF');
     it('should count 2 answers correct', function () {
         collector.openVote(testId1);
 
