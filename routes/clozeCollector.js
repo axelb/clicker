@@ -31,8 +31,6 @@ exports.ClozeCollector.prototype = {
             return 1;
         }
         for(textField in answers) {
-            logger.error(textField);
-            logger.error(answers[textField]);
             this.answers[id].push(answers[textField]);
         }
         logger.debug(this.answers[id]);
