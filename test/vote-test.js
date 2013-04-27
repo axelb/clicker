@@ -30,7 +30,7 @@ casper.then(function () {
 
 // Now open the questions's qrcode which also will start a poll.
 casper.then(function () {
-    casper.thenOpen("http://localhost:8888/voteqr/" + response.id, function () {
+    casper.thenOpen("http://localhost:8888/voteqr/mc/" + response.id, function () {
         casper.waitForSelector('#qrcode');
     })
 });

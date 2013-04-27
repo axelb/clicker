@@ -13,7 +13,7 @@ var assert = require('assert'),
 
 describe('Vote Collector Test', function () {
     logger.setLevel('OFF');
-    it('should count 2 answers correct', function () {
+    it('should count 2 answers correctly', function () {
         collector.openVote(testId1);
 
         collector.saveAnswer(testId1, 3);
@@ -30,7 +30,7 @@ describe('Vote Collector Test', function () {
         ]));
     });
 
-    it('should count some more answers correct', function () {
+    it('should count some more answers correctly', function () {
         collector.openVote(testId2);
         collector.saveAnswer(testId2, 3);
         collector.saveAnswer(testId2, 3);

@@ -1,22 +1,22 @@
 /*
- * Defines routing for all vote related actions:
+ * Defines routing for all cloze-vote related actions:
  * - show a QR-code and reset/open the corresponding vote
  * - save single answers returning from "clicker" devices
- * - stop the vote 
- * - deliver results as histogram data for display purposes
+ * - stop the vote
+ * - deliver results as table to teacher
 */
 
-var collector = require('./voteCollector')
-  , voteCollector = new collector.VoteCollector();
+var collector = require('./clozeCollector')
+  , clozeCollector = new collector.ClozeCollector();
 
 exports.showQrAndStart = function(req, res) {
-  voteCollector.openVote(req.params.id);
+  clozeCollector.openVote(req.params.id);
   res.render('questionqr', { id: req.params.id });
 };
 
 exports.saveAnswer = function(req, res) {
 	var vote = req.body.vote
-	  , status = voteCollector.saveAnswer(vote.id, vote.alternative);
+	  , status = clozeCollector.saveAnswer(vote.id, vote.results);
 	if(status !== 0) {
 		res.send(404, 'Vote not open');
 		res.end();
@@ -26,11 +26,10 @@ exports.saveAnswer = function(req, res) {
 };
 
 exports.stopVoteAndShowResult = function(req, res) {
-  voteCollector.closeVote(req.params.id);
-  res.render('result', { id: req.params.id });
+  clozeCollector.closeVote(req.params.id);
+  res.render('clozeresult', { id: req.params.id });
 };
 
 exports.resultValues = function(req, res) {
-	res.send(voteCollector.getResults(req.params.id));
+	res.send(clozeCollector.getResults(req.params.id));
 };
-

@@ -48,6 +48,18 @@ function ListCtrl($scope, $http, $location, $templateCache) {
         }
         return text.split('\n', 1)[0];
     };
+
+    /**
+     * Helper function to determine the type of a given question.
+     * @param question the question in question :-)
+     * @return 'mc' or 'cloze'
+     */
+    $scope.getQuestionType = function(question) {
+        if(!question.alternatives || question.alternatives.length === 0) {
+           return 'cloze';
+        }
+        return 'mc';
+    };
 }
 
 /**
@@ -177,25 +189,5 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
      */
     isExistingQuestion = function() {
         return $scope.question.id ? true : false;
-    };
-}
-
-/**
- * Controller for freetext code question.
- * @param $scope
- * @param $http
- * @constructor
- */
-function FreetextQuestionCtrl($scope, $http) {
-    $scope.init = function () {
-
-    };
-
-    $scope.keyPressed = function($event) {
-         var key = $event;
-    };
-
-    $scope.save = function() {
-
     };
 }
