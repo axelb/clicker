@@ -66,6 +66,7 @@ cd test
 casperjs create-test.js
 casperjs vote-test.js
 casperjs createfreetext-test.js
+casperjs clozevote-test.js
 sleep 5
 cd ..
 ./stoplocal
@@ -82,7 +83,7 @@ mocha -R xunit questionTest.js &gt; mocha3.xml</command>
     <xunit>
       <types>
         <JUnitType>
-          <pattern>test/log-vote.xml, test/log-create.xml, test/log-createfreetext.xml, routes/mocha1.xml, routes/mocha2.xml, routes/mocha3.xml</pattern>
+          <pattern>test/log-vote.xml, test/log-clozevote.xml, test/log-create.xml, test/log-createfreetext.xml, routes/mocha1.xml, routes/mocha2.xml, routes/mocha3.xml</pattern>
           <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>

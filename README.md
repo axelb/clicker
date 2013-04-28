@@ -17,17 +17,21 @@ I also used this project to gain experience with some modern web programming env
 * Graph Drawing with Xavier Shay's [TufteGraphs](http://xaviershay.github.io/tufte-graph/)
 * And (of course) [jquery](http://jquery.com)
 * [QRcode plugin for jquery](http://jeromeetienne.github.com/jquery-qrcode/)
-* Currently I do some testing with [casperjs](http://casperjs.org)
-* Also [Mocha](http://visionmedia.github.io/mocha/) is used for testing.
+* [Mocha](http://visionmedia.github.io/mocha/) is used for testing.
+* I also do some integration testing with [casperjs](http://casperjs.org)
 * Server-side logging is done with [log4js-node](https://github.com/nomiddlename/log4js-node).
-* Some testing is also done using plain node asserts
+* Special glyphs are used from [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 
 ## Testing
 There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
-These are also used on the jenkins server I use for CI and deployment.
+These are also used on the jenkins server I use for CI and deployment. BTW: Jenkins condif is stored in the resources directory.
 
 ## Functionality
-At the moment only multiple choice questions can be created. A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
+At the moment the following types of questions can be created:
+*multiple choice questions. A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
+*cloze (freetext) questions. These are especially designed to show code snippets with omissions that can be inserted by the audience.
+
+
 ![Usage Scenario](/resources/websequencediagrams.com/usageScenario.png)
 
 ##Organization of the project
@@ -36,3 +40,8 @@ Jade is used to deliver the question to the devices as well to present the final
 
 
 **Client-side** angular code is located in the `public` subtree. Here all external libraries are bundeled in `./lib` and angular-js-code in `./js`
+
+##Configuration
+* server (module mongo.js) expects environment variable MONGOURI containing valid URI to access the mongo db
+* if no environment variable PORT is present, port 8888 is used as default application port
+* logging can be configured ... somewhere
