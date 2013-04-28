@@ -90,7 +90,7 @@ for(i = 0; i < 2; i++) {
 
 // now let's look if there is the correct statistics available
 casper.then(function () {
-    casper.open('http://localhost:8888/results/' + response.id, {
+    casper.open('http://localhost:8888/results/mc/' + response.id, {
         method: 'get',
         headers: {
             'Accept': 'application/json'
