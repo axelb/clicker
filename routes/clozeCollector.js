@@ -1,4 +1,5 @@
 /**
+ * Node module.
  * Collector class for collecting answers to cloze questions.
  * @type {*}
  */
@@ -25,19 +26,18 @@ exports.ClozeCollector.prototype = {
     },
 
     saveAnswer: function(id, answers) {
-        var index;
+        var answerArray = [answers];
         if(!this.answers[id] || this.answers[id] === undefined) {
             logger.error('Vote not open for id: ' + id);
             return 1;
         }
-        for(textField in answers) {
-            this.answers[id].push(answers[textField]);
-        }
+        this.answers[id].push(answerArray);
         logger.debug(this.answers[id]);
+        return 0;
     },
 
     getResultsAsJSON: function(id) {
         return JSON.stringify({answers: this.answers[id]});
     }
 
-}
+};
