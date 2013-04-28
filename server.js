@@ -43,8 +43,10 @@ app.get('/voteqr/mc/:id', mcvote.showQrAndStart);
 app.get('/voteqr/cloze/:id', clozevote.showQrAndStart);
 app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
 app.put('/saveAnswer/cloze', clozevote.saveAnswer);//single answer returned
-app.get('/result/:id', mcvote.stopVoteAndShowResult);
-app.get('/results/:id', mcvote.resultValues);//JSON data of result's historgam data
+app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
+app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
+app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);
+app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
 
 http.createServer(app).listen(app.get('port'), function () {
     logger.debug("Express server listening on port " + app.get('port'));

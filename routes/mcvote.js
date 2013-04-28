@@ -11,7 +11,7 @@ var collector = require('./voteCollector')
 
 exports.showQrAndStart = function(req, res) {
   voteCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id });
+  res.render('questionqr', { id: req.params.id, type: 'mc' });
 };
 
 exports.saveAnswer = function(req, res) {

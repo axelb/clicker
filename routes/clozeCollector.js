@@ -36,6 +36,10 @@ exports.ClozeCollector.prototype = {
         return 0;
     },
 
+    closeVote: function(id) {
+       // TODO: not sure yet what to do here
+    },
+
     getResultsAsJSON: function(id) {
         return JSON.stringify({answers: this.answers[id]});
     }

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  div(class="container")
+    h1(id="result") Result
+    div(id="question")
+    span#qid(name='#{id}')
+    div(id="allResults")
+  script(type='text/javascript', src='/lib/showdown.js')
+  script(type='text/javascript', src='/js/clozeList.js')

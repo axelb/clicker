@@ -11,7 +11,7 @@ var collector = require('./clozeCollector')
 
 exports.showQrAndStart = function(req, res) {
   clozeCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id });
+  res.render('questionqr', { id: req.params.id, type: 'cloze' });
 };
 
 exports.saveAnswer = function(req, res) {
@@ -31,5 +31,5 @@ exports.stopVoteAndShowResult = function(req, res) {
 };
 
 exports.resultValues = function(req, res) {
-	res.send(clozeCollector.getResults(req.params.id));
+	res.send(clozeCollector.getResultsAsJSON(req.params.id));
 };
