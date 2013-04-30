@@ -22,23 +22,24 @@ var mongo = require('./mongo'),
 exports.show = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
-        .exec(function (error, data) {
+        .exec(function (error, question) {
             var template = 'mc-question';
             if (error) {
                 logger.error("ERROR: " + error);
                 res.render('noquestion');
                 return;
             }
-            if(!data.alternatives || data.alternatives.length === 0) {
+            if(!question.alternatives || question.alternatives.length === 0) {
                 template = "cloze-question";
+                question.question = exports.mangleTextfield(question.question);
             }
-            if (data.imageId && data.imageId !== null) {
-                Image.findById(data.imageId, function (error, img) {
-                    res.render(template, {question: data, image: img, markDown: markDown});
+            if (question.imageId && question.imageId !== null) {
+                Image.findById(question.imageId, function (error, img) {
+                    res.render(template, {question: question, image: img, markDown: markDown});
                 });
             }
             else {
-                res.render(template, {question: data, markDown: markDown});
+                res.render(template, {question: question, markDown: markDown});
             }
         }
     );
