@@ -4,7 +4,7 @@
 
 var casper = require('casper').create({timeout: 20000}),
     utils = require('utils'),
-    freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> <input type='text'></input>\n> \n> }";
+    freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
 
 casper.start('http://localhost:8888/', function () {
     this.click('#menuNew');

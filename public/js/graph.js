@@ -11,7 +11,7 @@ var init = function () {
 };
 
 function drawVisualization(id, question) {
-    $.ajax('/results/' + id).done(function (data) {
+    $.ajax('/results/mc/' + id).done(function (data) {
         if(data.length === 0) {
             $('#result').html("<h2>Vote not open!</h2>");
             return;

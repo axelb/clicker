@@ -12,11 +12,11 @@ var assert = require('assert'),
 describe('Test the ##-replacement in cloze question strings', function () {
     logger.setLevel('OFF');
     it('should get a single ## straight', function () {
-        assert.equal("> for(int i = 0; i <= 100; i++) {\n> \n> <input id='text0' type='text'></input>\n> \n> }", question.mangleTextfield(testString1));
+        assert.equal("> for(int i = 0; i <= 100; i++) {\n> \n> <input class='clozetext' id='text0' type='text'></input>\n> \n> }", question.mangleTextfield(testString1));
     });
 
     it('should get double ## straight', function () {
-        assert.equal(" <input id='text0' type='text'></input> <input id='text1' type='text'></input>", question.mangleTextfield(testString2));
+        assert.equal(" <input class='clozetext' id='text0' type='text'></input> <input class='clozetext' id='text1' type='text'></input>", question.mangleTextfield(testString2));
     });
 
 });

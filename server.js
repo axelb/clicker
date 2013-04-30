@@ -4,7 +4,8 @@ var express = require('express')
     , routes = require('./routes')
     , question = require('./routes/question')
     , image = require('./routes/image')
-    , vote = require('./routes/vote')
+    , mcvote = require('./routes/mcvote')
+    , clozevote = require('./routes/clozevote')
     , http = require('http')
     , path = require('path')
     , app = express()
@@ -38,10 +39,14 @@ app.get('/edit/:id', question.asjson);
 app.get('/delete/:id', question.remove);
 app.get('/image/:id', image.getImage);
 
-app.get('/voteqr/:id', vote.showQrAndStart);
-app.put('/saveAnswer', vote.saveAnswer);//single answer returned
-app.get('/result/:id', vote.stopVoteAndShowResult);
-app.get('/results/:id', vote.resultValues);//JSON data of result's historgam data
+app.get('/voteqr/mc/:id', mcvote.showQrAndStart);
+app.get('/voteqr/cloze/:id', clozevote.showQrAndStart);
+app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
+app.put('/saveAnswer/cloze', clozevote.saveAnswer);//single answer returned
+app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
+app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
+app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);
+app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
 
 http.createServer(app).listen(app.get('port'), function () {
     logger.debug("Express server listening on port " + app.get('port'));

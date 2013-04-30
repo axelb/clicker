@@ -14,8 +14,8 @@ html
                 div(class="row-fluid")
                    div(class="span6")
 
-                        div(id="code")!= markDown(question.question)
+                        form(id="code")!= markDown(question.question)
                         p
-                          input(type="button", class="btn btn-success", id="sendButton", onclick="send()", value="Abschicken", disabled="true")
+                          input(type="button", class="btn btn-success", id="sendButton", onclick="sendClozeResults()", value="Abschicken")
                           input(type="hidden", id="questionId", value=question._id)
     script(src='/js/dovote.js')

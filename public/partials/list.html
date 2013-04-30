@@ -9,12 +9,16 @@
 	   </colgroup>
       <tr><th>Question</th><!--<th>Open Vote</th><th>Edit</th><th>Delete</th>--></tr>
       <tr ng-repeat="question in questions">
-        <td id="row{{$index}}">{{shorten(question.question)}}</td><td><a href="/voteqr/{{question._id}}"><i class="icon-qrcode"></i></a></td>
+        <td id="row{{$index}}">{{shorten(question.question)}}</td>
+        <!-- Show QR code -->
+        <td><a href="/voteqr/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-qrcode icon-large"></i></a></td>
+        <!--  edit -->
+        <td><a href="#/edit/{{question._id}}"><i class="icon-edit icon-large"></i></a></td>
+        <!-- delete  -->
         <!-- see http://jsfiddle.net/tadchristiansen/gt92r/ for modal popups -->
-          <td><a href="#/edit/{{question._id}}"><i class="icon-edit"></i></a></td>
         <td><a id="{{question._id}}"
             onclick="$('#deleteLink').attr('href', '/delete/' + this.id);$('#saveConfirmDialog').modal({keyboard: true})">
-            <i class="icon-remove-sign"></i>
+            <i class="icon-remove-sign icon-large"></i>
           </a></td>
       </tr>
    </table>

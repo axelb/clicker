@@ -1,5 +1,5 @@
 /*
- * Defines routing for all vote related actions:
+ * Defines routing for all MC-vote related actions:
  * - show a QR-code and reset/open the corresponding vote
  * - save single answers returning from "clicker" devices
  * - stop the vote 
@@ -11,7 +11,7 @@ var collector = require('./voteCollector')
 
 exports.showQrAndStart = function(req, res) {
   voteCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id });
+  res.render('questionqr', { id: req.params.id, type: 'mc' });
 };
 
 exports.saveAnswer = function(req, res) {

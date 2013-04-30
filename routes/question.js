@@ -29,7 +29,12 @@ exports.show = function (req, res) {
                 res.render('noquestion');
                 return;
             }
-            if(!question.alternatives || question.alternatives.length === 0) {
+            if (!question || question === null) {
+                logger.error("No such question: " + req.params.id);
+                res.render('noquestion');
+                return;
+            }
+            if (!question.alternatives || question.alternatives.length === 0) {
                 template = "cloze-question";
                 question.question = exports.mangleTextfield(question.question);
             }
@@ -51,7 +56,7 @@ exports.show = function (req, res) {
  * @return String with ## replaced by html textfields
  */
 exports.mangleTextfield = function(string) {
-    var textFieldStart = "<input id='text",
+    var textFieldStart = "<input class='clozetext' id='text",
         textFieldEnd = "' type='text'></input>",
         id = 0,
         replacementText,

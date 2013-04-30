@@ -30,6 +30,19 @@
     margin-right: auto;
 }
 
+#clozeResultTable {
+    font-family: Consolas,monospace;
+    line-height: 2em;
+    border-style: solid;
+    border-color: #1e90ff;
+    empty-cells: show;
+}
+
+.resultcell {
+    border: thin solid;
+    border-color: #1e90ff;
+}
+
 @media screen and (max-width: 700px) {
     #body {
         font-size: xx-large;
