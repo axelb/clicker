@@ -39,7 +39,6 @@ exports.ClozeCollector.prototype = {
         for(attribute in answers) {
             answers[attribute] = beautify(answers[attribute], { indent_size: 0 });
         }
-        console.log(answers);
         answerArray = [answers]
         if(!this.answers[id] || this.answers[id] === undefined) {
             logger.error('Vote not open for id: ' + id);
