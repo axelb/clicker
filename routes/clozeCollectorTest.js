@@ -37,7 +37,7 @@ describe('Cloze Collector Test with code beautification', function () {
 
         collector.saveAnswer(testId2, answers3);
         assert.equal(collector.getResultsAsJSON(testId2), JSON.stringify({
-            answers: [[{"text0": "int i = 0", "text1": "if(b) {}"}]]
+            answers: [[{"text0": "int i = 0", "text1": "if (b) {}"}]]
         }));
         collector.saveAnswer(testId2, answers4);
         assert.equal(collector.getResultsAsJSON(testId2), JSON.stringify({
