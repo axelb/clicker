@@ -24,7 +24,7 @@ I also used this project to gain experience with some modern web programming env
 
 ## Testing
 There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
-These are also used on the jenkins server I use for CI and deployment. BTW: Jenkins condif is stored in the resources directory.
+These are also used on the jenkins server I use for CI and deployment. BTW: Current Jenkins config is stored in the resources directory.
 
 ## Functionality
 At the moment the following types of questions can be created:
