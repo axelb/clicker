@@ -19,8 +19,9 @@ I also used this project to gain experience with some modern web programming env
 * [QRcode plugin for jquery](http://jeromeetienne.github.com/jquery-qrcode/)
 * [Mocha](http://visionmedia.github.io/mocha/) is used for testing.
 * I also do some integration testing with [casperjs](http://casperjs.org)
-* Server-side logging is done with [log4js-node](https://github.com/nomiddlename/log4js-node).
+* Server-side logging is done with [log4js-node](https://github.com/nomiddlename/log4js-node)
 * Special glyphs are used from [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
+* When code is collected in cloze questions, a normalization is done by beautifying the inserted code using [jsbeautifier](https://github.com/einars/js-beautify)
 
 ## Testing
 There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
