@@ -71,7 +71,7 @@ function ListCtrl($scope, $http, $location, $templateCache) {
  * @param $timeout
  * @constructor
  */
-function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
+function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout) {
     /**
      * Here we discriminate on initialization if a new question is to be created or an existing to be edited.
      * Depends on whether an id is provided as part of routeParams.
@@ -84,6 +84,7 @@ function QuestionCtrl($scope, $http, $routeParams, $window, $timeout) {
             ],
             imageId: ""
         };
+        alert($location.url());
         if ($routeParams.id) {
             $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
                 success(function (data, status, headers, config) {
