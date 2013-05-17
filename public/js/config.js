@@ -2,7 +2,7 @@
  * Contains global configuration variables that can be used on client and on server.
  */
 
-var root = exports ? exports : window;
+var root = (typeof(exports) === "undefined") ? window : exports;
 
 /**
  * Here all types of questions are defined. The identifiers will be stored in the mongoDB.
@@ -10,9 +10,9 @@ var root = exports ? exports : window;
  */
 root.questionTypes = function() {
     var types = {
-        MC: 'mc',
+        MC: 'Mc',
         SC: 'sc',
-        CLOZE: 'cloze',
+        CLOZE: 'Cloze',
         POINT: 'point'
     };
     return types;

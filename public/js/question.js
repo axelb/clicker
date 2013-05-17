@@ -5,7 +5,7 @@ angular.module('question', ['ngCookies']).
     config(function ($routeProvider) {
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
-            when('/newMC', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
+            when('/new' + window.questionTypes().MC, {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
             when('/newCloze', {controller: QuestionCtrl, templateUrl: 'partials/createCloze.html'}).
             when('/edit/:id', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
