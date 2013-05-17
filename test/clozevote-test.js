@@ -4,7 +4,7 @@
  */
 var casper = require('casper').create({timeout: 20000})
     , utils = require('utils')
-    , question = '{"question":"##","imageId":""}'
+    , question = '{"question":"##", "type": "Cloze", "imageId":""}'
     , response
     , clickAlternative
     , i;

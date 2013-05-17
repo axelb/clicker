@@ -6,6 +6,10 @@ var express = require('express')
     , image = require('./routes/image')
     , mcvote = require('./routes/mcvote')
     , clozevote = require('./routes/clozevote')
+    , pointvote = require('./routes/pointvote')
+    , config = require('./public/js/config')
+    , questionTypes = config.questionTypes()
+    , questionType
     , http = require('http')
     , path = require('path')
     , app = express()
@@ -39,14 +43,22 @@ app.get('/edit/:id', question.asjson);
 app.get('/delete/:id', question.remove);
 app.get('/image/:id', image.getImage);
 
-app.get('/voteqr/mc/:id', mcvote.showQrAndStart);
-app.get('/voteqr/cloze/:id', clozevote.showQrAndStart);
+app.get('/voteqr/MC/:id', mcvote.showQrAndStart);
+app.get('/voteqr/SC/:id', mcvote.showQrAndStart);
+app.get('/voteqr/Cloze/:id', clozevote.showQrAndStart);
+app.get('/voteqr/Point/:id', pointvote.showQrAndStart);
+
 app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
 app.put('/saveAnswer/cloze', clozevote.saveAnswer);//single answer returned
 app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
 app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);
 app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
+
+// TODO: generify like that:
+/*for(questionType in questionTypes) {
+    app.get('/voteqr/' + questionTypes[questionType].name + '/:id', );
+} */
 
 http.createServer(app).listen(app.get('port'), function () {
     logger.debug("Express server listening on port " + app.get('port'));

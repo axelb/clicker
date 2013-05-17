@@ -2,7 +2,7 @@
 
 }
 
-.mcquestiontext {
+.mcquestiontext, .questiontext{
 	width: 40em;
 	font-size: 200%;
     line-height: 150%;

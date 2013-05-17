@@ -1,6 +1,9 @@
 var init = function () {
 };
 
+/**
+ * Controller used when displaying results of a cloze question.
+ */
 angular.module('clozeresult', []).
     config(function ($routeProvider) {
         $routeProvider.

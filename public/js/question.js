@@ -3,11 +3,15 @@ var init = function () {
 
 angular.module('question', ['ngCookies']).
     config(function ($routeProvider) {
+        var questionTypes,
+            questionType;
+        questionTypes = window.questionTypes();
+        for(questionType in questionTypes) {
+            $routeProvider.when(window.NEW_URL_PREFIX + questionTypes[questionType].name, {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
+            $routeProvider.when('/edit/' + questionTypes[questionType].name + '/:id', {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
+        }
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
-            when('/new' + window.questionTypes().MC, {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
-            when('/newCloze', {controller: QuestionCtrl, templateUrl: 'partials/createCloze.html'}).
-            when('/edit/:id', {controller: QuestionCtrl, templateUrl: 'partials/createMC.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             otherwise({redirectTo: '/'});
     });
@@ -52,20 +56,18 @@ function ListCtrl($scope, $http, $location, $templateCache) {
     /**
      * Helper function to determine the type of a given question.
      * @param question the question in question :-)
-     * @return 'mc' or 'cloze'
+     * @return its type according to those defined in config.js
      */
     $scope.getQuestionType = function(question) {
-        if(!question.alternatives || question.alternatives.length === 0) {
-           return 'cloze';
-        }
-        return 'mc';
+        return question.type;
     };
 }
 
 /**
- * Controller for creation and editing an MC question.
+ * Controller for creation and editing SC and MC questions.
  * @param $scope
  * @param $http
+ * @param $location
  * @param $routeParams
  * @param $window
  * @param $timeout
@@ -78,13 +80,14 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      */
     $scope.init = function () {
         var emptyQuestion = {
-            question: "",
+            question: '',
+            type: 'none',
             alternatives: [
-               {title: ""}
+               {title: ''}
             ],
-            imageId: ""
+            imageId: ''
         };
-        alert($location.url());
+        emptyQuestion.type = $location.url().substr(window.NEW_URL_PREFIX.length);//transported to here via config and URL.
         if ($routeParams.id) {
             $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
                 success(function (data, status, headers, config) {

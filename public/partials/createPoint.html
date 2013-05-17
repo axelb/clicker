@@ -1,0 +1,20 @@
+<h1>Create a new Point and Click question</h1>
+<div id="createQuestion" ng-init="init()">
+    <h3>Question:</h3>
+    <textarea type="text" class="questiontext" id="questionTitle" ng-model="question.question" placeholder="Enter a question here" rows="5"></textarea>
+    <hr>
+    <div >
+        <h3>Image (PNG only):<h3>
+            <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
+            <input type="file" size="100" maxlength="30000" accept="image/png" ng-model-instant onchange="angular.element(this).scope().setAttachedImage(this)" id="imageFileToAttach"/>
+            <p/>
+            <div id="imageArea">
+                <!-- 1-pixel initial image -->
+                <img id="attachedImage" src="/img/1x1.png"></img>
+            </div>
+            <p/>
+    </div>
+    <hr>
+    <a href="/#/list" class="btn btn-primary">Cancel</a>
+    <button class="btn btn-primary" id="saveQuestion" ng-click="save()">Save this question</button>
+</div>

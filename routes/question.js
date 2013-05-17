@@ -1,13 +1,15 @@
 var mongo = require('./mongo'),
     markDown = require("node-markdown").Markdown,
     fs = require('fs'),
+    config = require('../public/js/config'),
     Alternative = new mongo.Schema({
         title: { type: String, required: false, trim: true }
     }),
     questionSchema = new mongo.Schema({
         question: { type: String, required: true, trim: true },
+        type: {type: String, required: true, trim: true },
         alternatives: [Alternative],
-        imageId: {type: String, required: false, trim: true}
+        imageId: {type: String, required: false, trim: true }
     }),
     Question = mongo.connection.model('questions', questionSchema),
     Image = require('./image'),
@@ -23,7 +25,6 @@ exports.show = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
         .exec(function (error, question) {
-            var template = 'mc-question';
             if (error) {
                 logger.error("ERROR: " + error);
                 res.render('noquestion');
@@ -34,17 +35,16 @@ exports.show = function (req, res) {
                 res.render('noquestion');
                 return;
             }
-            if (!question.alternatives || question.alternatives.length === 0) {
-                template = "cloze-question";
+            if (question.type === config.questionTypes().Cloze.name) {
                 question.question = exports.mangleTextfield(question.question);
             }
             if (question.imageId && question.imageId !== null) {
                 Image.findById(question.imageId, function (error, img) {
-                    res.render(template, {question: question, image: img, markDown: markDown});
+                    res.render(question.type, {question: question, image: img, markDown: markDown});
                 });
             }
             else {
-                res.render(template, {question: question, markDown: markDown});
+                res.render(question.type, {question: question, markDown: markDown});
             }
         }
     );
