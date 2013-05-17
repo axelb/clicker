@@ -4,7 +4,7 @@
  */
 var casper = require('casper').create({timeout: 20000})
     , utils = require('utils')
-    , question = '{"question":"Q","alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}'
+    , question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}'
     , response
     , clickAlternative
     , i;
@@ -30,7 +30,7 @@ casper.then(function () {
 
 // Now open the questions's qrcode which also will start a poll.
 casper.then(function () {
-    casper.thenOpen("http://localhost:8888/voteqr/mc/" + response.id, function () {
+    casper.thenOpen("http://localhost:8888/voteqr/MC/" + response.id, function () {
         casper.waitForSelector('#qrcode');
     })
 });
