@@ -32,6 +32,9 @@ exports.PointCollector.prototype = {
      * @return {number}
      */
     saveAnswer: function(id, answer) {
+        if(!answer.x || !answer.y) {
+            return -1;
+        }
         this.answers[id].push(answer);
         logger.debug(this.answers[id]);
         return 0;

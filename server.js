@@ -49,7 +49,9 @@ app.get('/voteqr/Cloze/:id', clozevote.showQrAndStart);
 app.get('/voteqr/Point/:id', pointvote.showQrAndStart);
 
 app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
-app.put('/saveAnswer/cloze', clozevote.saveAnswer);//single answer returned
+app.put('/saveAnswer/cloze', clozevote.saveAnswer);
+app.put('/saveAnswer/point', pointvote.saveAnswer);
+
 app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
 app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);

@@ -17,7 +17,9 @@ html
                         div!= markDown(question.question)
                         p
                         if question.imageId
-                          img(src="/image/#{question.imageId}")
-                          input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="true")
-                          input(type="hidden", id="questionId", value=question._id)
+                          div(style="position: relative;")
+                            img(id="clickImage", src="/image/#{question.imageId}", onclick="handleClick(event);")
+                            img(id="RedPoint", src="/img/RedPoint.png", style="visibility: hidden;")
+                        input(type="button", class="btn btn-success", id="sendButton", onclick="sendPointResults()", value="Abschicken", disabled="true")
+                        input(type="hidden", id="questionId", value=question._id)
     script(src='/js/pointvote.js')

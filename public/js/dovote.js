@@ -18,7 +18,7 @@ sendMCResults = function() {
 
 validate = function() {
     $('#sendButton').removeAttr("disabled");
-};
+},
 
 sendClozeResults = function(id) {
     var results = {},
@@ -28,9 +28,12 @@ sendClozeResults = function(id) {
             textValue = this.value;
         results[textId] = textValue;
     });
-    $.ajax({url: '/saveAnswer/cloze/', type:'PUT', data: {vote: {id: questionId, results: results}}}).done(
-
-    ).fail(
-
-    );
+    $.ajax({url: '/saveAnswer/cloze/', type:'PUT', data: {vote: {id: questionId, results: results}}})        .done(function(res) {
+        $('#body').html(res);
+        history.pushState({}, "", "");//single push on back button does not work
+    })
+        .fail(
+        function(jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + jqXHR.responseText);
+        });
 };
