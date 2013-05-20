@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div(class="container", ng-app="pointresult")
+    h1(id="result") Result
+    div(id="question")
+    span#qid(name='#{id}')
+    div(id="allResults", ng-view)
+
+  script(type='text/javascript', src='/lib/angular.min.js')
+  script(type='text/javascript', src='/lib/showdown.js')
+  script(type='text/javascript', src='/js/pointResult.js')

@@ -1,0 +1,4 @@
+<div id="pointresult">
+    <img src="/image/{{imageId}}"></img>
+    <img class="redpoint" src="/img/RedPoint.png" ng-repeat="coord in coordinates" style="width: {{pointsize}}px; height: {{pointsize}}px; top: {{getY(coord)}}px; left: {{getX(coord)}}px;"></img>
+</div>

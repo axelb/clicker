@@ -12,7 +12,7 @@ var config = require('../public/js/config')
 
 exports.showQrAndStart = function(req, res) {
     pointCollector.openVote(req.params.id);
-    res.render('questionqr', { id: req.params.id, type: config.questionTypes().Cloze.name });
+    res.render('questionqr', { id: req.params.id, type: config.questionTypes().Point.name });
 };
 
 exports.saveAnswer = function(req, res) {

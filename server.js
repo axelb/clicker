@@ -38,7 +38,7 @@ app.get('/list', question.list);
 app.post('/question', question.save);//Only accepts form-data; neue Frage; noch ohne id
 app.put('/question/:id', question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
-app.get('/question/json/:id', question.asjson);
+app.get('/question/json/:id', question.asjson);//any kind of question returned here
 app.get('/edit/:id', question.asjson);
 app.get('/delete/:id', question.remove);
 app.get('/image/:id', image.getImage);
@@ -54,6 +54,8 @@ app.put('/saveAnswer/point', pointvote.saveAnswer);
 
 app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
+app.get('/result/Point/:id', pointvote.stopVoteAndShowResult);
+app.get('/results/Point/:id', pointvote.resultValues);//JSON data of result's coordinate collected so far
 app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);
 app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
 

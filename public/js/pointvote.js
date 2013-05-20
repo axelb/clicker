@@ -20,7 +20,7 @@ sendPointResults = function(id) {
     $.ajax({url: '/saveAnswer/point/', type:'PUT', data: {vote: {id: questionId, results: clickPos}}})
         .done(function(res) {
             $('#body').html(res);
-            history.pushState({}, "", "");//single push on back button does not work
+            history.pushState({}, "", "");//single push so back button does not work
     })
         .fail(
         function(jqXHR, textStatus, errorThrown) {
