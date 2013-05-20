@@ -8,9 +8,10 @@ clickPos,
 
 handleClick = function (event) {
     var image = $('#clickImage'),
-        redPoint = $('#RedPoint');
-    clickPos = {x: event.offsetX, y: event.offsetY},
-    redPoint.css({position: "absolute", visibility: "visible", top: clickPos.y, left: clickPos.x});
+        redPoint = $('#RedPoint'),
+        pointSize = 20;
+    clickPos = {x: event.offsetX, y: event.offsetY};
+    redPoint.css({position: "absolute", visibility: "visible", width: pointSize, height: pointSize, top: clickPos.y - pointSize / 2, left: clickPos.x - pointSize / 2});
     $('#sendButton').removeAttr("disabled");
 },
 
