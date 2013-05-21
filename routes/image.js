@@ -61,12 +61,19 @@ exports.findById = function (id, callback) {
  * Helper function to delete an image with given id.
  */
 exports.deleteImage = function (id) {
+    if (!id) {
+        return;
+    }
     exports.findById(id, function (error, data) {
         if (error) {
             logger.error("ERROR finding image for deletion: " + error);
             return;
         }
-        data.remove();
-        logger.debug('Deleted image ' + id);
+        if (data) {
+            data.remove(function (error) {
+                logger.error('Could not delete image ' + id + ' (' + error + ')');
+            });
+            logger.debug('Deleted image ' + id);
+        }
     });
 };
