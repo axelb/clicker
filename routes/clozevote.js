@@ -6,12 +6,13 @@
  * - deliver results as table to teacher
 */
 
-var collector = require('./clozeCollector')
-  , clozeCollector = new collector.ClozeCollector();
+var config = require('../public/js/config'),
+    collector = require('./clozeCollector'),
+    clozeCollector = new collector.ClozeCollector();
 
 exports.showQrAndStart = function(req, res) {
   clozeCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id, type: 'cloze' });
+  res.render('questionqr', { id: req.params.id, type: config.questionTypes().Cloze.name });
 };
 
 exports.saveAnswer = function(req, res) {
@@ -27,7 +28,7 @@ exports.saveAnswer = function(req, res) {
 
 exports.stopVoteAndShowResult = function(req, res) {
   clozeCollector.closeVote(req.params.id);
-  res.render('clozeresult', { id: req.params.id });
+  res.redirect('/#/result/Cloze/' + req.params.id);
 };
 
 exports.resultValues = function(req, res) {

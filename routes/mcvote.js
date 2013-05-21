@@ -6,12 +6,13 @@
  * - deliver results as histogram data for display purposes
 */
 
-var collector = require('./voteCollector')
-  , voteCollector = new collector.VoteCollector();
+var config = require('../public/js/config'),
+    collector = require('./voteCollector'),
+    voteCollector = new collector.VoteCollector();
 
 exports.showQrAndStart = function(req, res) {
   voteCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id, type: 'mc' });
+  res.render('questionqr', { id: req.params.id, type: config.questionTypes().MC.name });
 };
 
 exports.saveAnswer = function(req, res) {
@@ -25,6 +26,11 @@ exports.saveAnswer = function(req, res) {
 	}
 };
 
+/**
+ * deprecated!
+ * @param req
+ * @param res
+ */
 exports.stopVoteAndShowResult = function(req, res) {
   voteCollector.closeVote(req.params.id);
   res.render('result', { id: req.params.id });

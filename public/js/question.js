@@ -6,6 +6,7 @@ angular.module('question', ['ngCookies']).
         var questionTypes,
             questionType;
         questionTypes = window.questionTypes();
+        // take all types from config
         for(questionType in questionTypes) {
             $routeProvider.when(window.NEW_URL_PREFIX + questionTypes[questionType].name, {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
             $routeProvider.when('/edit/' + questionTypes[questionType].name + '/:id', {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
@@ -13,6 +14,11 @@ angular.module('question', ['ngCookies']).
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
+            // result pages
+            when('/result/SC/:id', {controller: SCMCController, templateUrl: 'partials/scmcResults.html'}).
+            when('/result/MC/:id', {controller: SCMCController, templateUrl: 'partials/scmcResults.html'}).
+            when('/result/Cloze/:id', {controller: ClozeListCtrl, templateUrl: 'partials/clozeResults.html'}).
+            when('/result/Point/:id', {controller: PointCtrl, templateUrl: 'partials/pointresults.html'}).
             otherwise({redirectTo: '/'});
     });
 
@@ -194,4 +200,98 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
     isExistingQuestion = function() {
         return $scope.question.id ? true : false;
     };
+}
+
+/**
+ * Controller for displaying point-and-click-question results.
+ * @param $scope
+ * @param $http
+ * @constructor
+ */
+function PointCtrl($scope, $http, $location) {
+    var url = $location.url().split('/');
+    $scope.qid = url[url.length - 1];
+    $scope.pointsize = 20;//size of red point
+    // get the image
+    $http.get('/question/json/' + $scope.qid).
+        success(function(question, status) {
+            $scope.imageId = question.imageId;
+        });
+    $http.get('/results/Point/' + $scope.qid).
+        success(function (data, status, headers, config) {
+            $scope.coordinates = data.answers;
+        });
+    /**
+     * Get correct y coordinate to position the red point.
+     */
+    $scope.getY = function(coord) {
+        return coord.y - $scope.pointsize / 2;
+    };
+    /**
+     * Get correct x coordinate to position the red point.
+     */
+    $scope.getX = function(coord) {
+        return coord.x - $scope.pointsize / 2;
+    };
+}
+
+/**
+ * Controller used when displaying results of a cloze question.
+ */
+function ClozeListCtrl($scope, $http, $location) {
+    var url = $location.url().split('/');
+    $scope.qid = url[url.length - 1];
+    $http.get('/results/cloze/' + $scope.qid).
+        success(function (data, status, headers, config) {
+            $scope.answers = data.answers;
+        });
+}
+
+/**
+ * Controlle rclass for result display of SC and MC questions.
+ * @constructor
+ */
+function SCMCController($scope, $http, $location) {
+    var url = $location.url().split('/');
+    $scope.qid = url[url.length - 1];
+
+    $http.get('/question/json/' + $scope.qid).
+        success(function (question, status) {
+            var converter = new Showdown.converter();
+            $scope.questionhtml = converter.makeHtml(question.question);
+            $scope.drawVisualization($scope.qid, question);
+    });
+
+    $scope.drawVisualization = function(id, question) {
+        $.ajax('/results/mc/' + id).done(function (data) {
+            if(data.length === 0) {
+                $('#result').html("<h2>Vote not open!</h2>");
+                return;
+            }
+            jQuery('#graph').tufteBar({
+                data: data,
+                barWidth: 0.5,
+
+                axisLabel: function (index) {
+                    return "";
+                },
+
+                color: function (index) {
+                    return ['#0040D5', '#C82000', '#49BE00', '#8200B9', '#00C687'][index % 5];
+                },
+
+                legend: {
+                    data: question.alternatives,
+                    label: function (index) {
+                        return question.alternatives[index].title;
+                    },
+                    color: function (index) {
+                        return ['#0040D5', '#C82000', '#49BE00', '#8200B9', '#00C687'][index % 5];
+                    }
+                }
+
+            });
+        });
+    }
+
 }

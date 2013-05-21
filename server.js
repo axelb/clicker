@@ -52,11 +52,8 @@ app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
 app.put('/saveAnswer/cloze', clozevote.saveAnswer);
 app.put('/saveAnswer/point', pointvote.saveAnswer);
 
-app.get('/result/mc/:id', mcvote.stopVoteAndShowResult);
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
-app.get('/result/Point/:id', pointvote.stopVoteAndShowResult);
 app.get('/results/Point/:id', pointvote.resultValues);//JSON data of result's coordinate collected so far
-app.get('/result/cloze/:id', clozevote.stopVoteAndShowResult);
 app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
 
 // TODO: generify like that:

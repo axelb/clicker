@@ -28,7 +28,7 @@ exports.saveAnswer = function(req, res) {
 
 exports.stopVoteAndShowResult = function(req, res) {
     pointCollector.closeVote(req.params.id);
-    res.render('pointresult', { id: req.params.id });
+    res.redirect('/#/result/Point/' + req.params.id);
 };
 
 exports.resultValues = function(req, res) {
