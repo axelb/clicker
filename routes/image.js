@@ -61,7 +61,7 @@ exports.findById = function (id, callback) {
  * Helper function to delete an image with given id.
  */
 exports.deleteImage = function (id) {
-    if (!id) {
+    if (!id || id === "") {
         return;
     }
     exports.findById(id, function (error, data) {
