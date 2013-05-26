@@ -12,10 +12,10 @@ var root = (typeof(exports) === "undefined") ? window : exports;
  */
 root.questionTypes = function() {
     var types = {
-        SC: {name: 'SC', description: 'Single Choice', template: 'createMC.html'},
-        MC: {name: 'MC', description: 'Multiple Choice', template: 'createMC.html'},
-        Cloze: {name: 'Cloze', description: 'Cloze (Freetext)', template: 'createCloze.html'},
-        Point: {name: 'Point', description: 'Point and Click', template: 'createPoint.html'}
+        SC: {name: 'SC', description: 'Single Choice', template: 'scmcCreate.html'},
+        MC: {name: 'MC', description: 'Multiple Choice', template: 'scmcCreate.html'},
+        Cloze: {name: 'Cloze', description: 'Cloze (Freetext)', template: 'clozeCreate.html'},
+        Point: {name: 'Point', description: 'Point and Click', template: 'pointCreate.html'}
     };
     return types;
 };
