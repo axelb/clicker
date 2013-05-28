@@ -1,7 +1,6 @@
 /* express-based server.
  */
 var express = require('express')
-    , routes = require('./routes')
     , question = require('./routes/question')
     , image = require('./routes/image')
     , mcvote = require('./routes/mcvote')
