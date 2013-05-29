@@ -18,6 +18,11 @@
         <refspec></refspec>
         <url>https://github.com/axelb/clicker.git</url>
       </hudson.plugins.git.UserRemoteConfig>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>heroku</name>
+        <refspec></refspec>
+        <url>git@heroku.com:young-chamber-1876.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
@@ -105,6 +110,17 @@ mocha -R xunit questionTest.js &gt; mocha3.xml</command>
       </thresholds>
       <thresholdMode>1</thresholdMode>
     </xunit>
+    <hudson.plugins.git.GitPublisher>
+      <configVersion>2</configVersion>
+      <pushMerge>false</pushMerge>
+      <pushOnlyIfSuccess>true</pushOnlyIfSuccess>
+      <branchesToPush>
+        <hudson.plugins.git.GitPublisher_-BranchToPush>
+          <targetRepoName>heroku</targetRepoName>
+          <branchName>master</branchName>
+        </hudson.plugins.git.GitPublisher_-BranchToPush>
+      </branchesToPush>
+    </hudson.plugins.git.GitPublisher>
   </publishers>
   <buildWrappers/>
 </project>

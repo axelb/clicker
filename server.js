@@ -1,9 +1,9 @@
 /* express-based server.
  */
 var express = require('express')
-    , routes = require('./routes')
     , question = require('./routes/question')
     , image = require('./routes/image')
+    , mongo = require('./routes/mongo')
     , mcvote = require('./routes/mcvote')
     , clozevote = require('./routes/clozevote')
     , pointvote = require('./routes/pointvote')
@@ -22,6 +22,14 @@ app.configure(function () {
     app.set('port', process.env.PORT || 8888);//process.env.PORT for deployment on heroku
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
+    app.use(function(req, res, next) {
+        if (!mongo.health()) {
+            res.set('Content-Type', 'text/html');
+            res.send(new Buffer('ERROR!'));
+        } else {
+            next();
+        }
+    });
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());

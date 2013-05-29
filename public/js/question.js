@@ -1,13 +1,13 @@
 var init = function () {
-};//Hook method for initilization code
+    };//Hook method for initilization code
 
 angular.module('question', ['ngCookies']).
-    config(function ($routeProvider) {
+    config(function ($routeProvider, $httpProvider) {
         var questionTypes,
             questionType;
         questionTypes = window.questionTypes();
         // take all types from config
-        for(questionType in questionTypes) {
+        for (questionType in questionTypes) {
             $routeProvider.when(window.NEW_URL_PREFIX + questionTypes[questionType].name, {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
             $routeProvider.when('/edit/' + questionTypes[questionType].name + '/:id', {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
         }
@@ -41,9 +41,9 @@ function ListCtrl($scope, $http, $location, $templateCache) {
                 $scope.questions = data;
             }).
             error(function (data, status) {
-                alert('error');
-                $scope.questions = data || "Request failed";
+                Notifier.error('An error occured (status ' + status + ')');
                 $scope.status = status;
+                $scope.questions = [];
             });
     };
 
@@ -53,6 +53,9 @@ function ListCtrl($scope, $http, $location, $templateCache) {
      * @return {*} First line of text, or complete text if it is only one line long.
      */
     $scope.shorten = function (text) {
+        if(!text) {
+            return '';
+        }
         if (text.indexOf('\n') === -1) {
             return text;
         }
@@ -64,7 +67,7 @@ function ListCtrl($scope, $http, $location, $templateCache) {
      * @param question the question in question :-)
      * @return its type according to those defined in config.js
      */
-    $scope.getQuestionType = function(question) {
+    $scope.getQuestionType = function (question) {
         return question.type;
     };
 }
@@ -89,7 +92,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             question: '',
             type: 'none',
             alternatives: [
-               {title: ''}
+                {title: ''}
             ],
             imageId: ''
         };
@@ -99,8 +102,8 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
                 success(function (data, status, headers, config) {
                     $scope.question = data;
                     //set an image if one was attached.
-                    if($scope.question.imageId) {
-                        document.getElementById('attachedImage').src=("/image/" + $scope.question.imageId);
+                    if ($scope.question.imageId) {
+                        document.getElementById('attachedImage').src = ("/image/" + $scope.question.imageId);
                     }
                 }).
                 error(function (data, status, headers, config) {
@@ -116,8 +119,8 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         if (lastContent && lastContent !== "") {// do not allow empty strings
             $scope.question.alternatives.push({title: ""});
             // awful hack to set focus on the newly created alternative:
-            $timeout(function() {
-                var a =  $('[id^=alternative]'),
+            $timeout(function () {
+                var a = $('[id^=alternative]'),
                     last = a.last();
                 last.focus();
             }, 30);// this value is somewhat arbirary
@@ -173,7 +176,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             , xhr = new XMLHttpRequest()
             , questionId = isExistingQuestion() ? $scope.question._id : "" // we add an empty string if nonexisting question
             , httpMethod = isExistingQuestion() ? "PUT" : "POST";
-        if($scope.question.alternatives.length === 1) { //assumption: is Cloze
+        if ($scope.question.alternatives.length === 1) { //assumption: is Cloze
             delete $scope.question.alternatives;
         }
         if ($scope.imageFileToAttach) {
@@ -197,7 +200,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * Helper function to determine if we are editing an existing or a new question.
      * @return {boolean} If question was loaded for editing, i.e. it existed previously.
      */
-    isExistingQuestion = function() {
+    isExistingQuestion = function () {
         return $scope.question.id ? true : false;
     };
 }
@@ -214,7 +217,7 @@ function PointCtrl($scope, $http, $location) {
     $scope.pointsize = 20;//size of red point
     // get the image
     $http.get('/question/json/' + $scope.qid).
-        success(function(question, status) {
+        success(function (question, status) {
             $scope.imageId = question.imageId;
         });
     $http.get('/results/Point/' + $scope.qid).
@@ -224,13 +227,13 @@ function PointCtrl($scope, $http, $location) {
     /**
      * Get correct y coordinate to position the red point.
      */
-    $scope.getY = function(coord) {
+    $scope.getY = function (coord) {
         return coord.y - $scope.pointsize / 2;
     };
     /**
      * Get correct x coordinate to position the red point.
      */
-    $scope.getX = function(coord) {
+    $scope.getX = function (coord) {
         return coord.x - $scope.pointsize / 2;
     };
 }
@@ -245,10 +248,26 @@ function ClozeListCtrl($scope, $http, $location) {
         success(function (data, status, headers, config) {
             $scope.answers = data.answers;
         });
+
+    // Handler for clicks in table to display completed text.
+    $scope.handleTableClick = function(answer) {
+        var codeArea = $('#theCode');
+        $('#completedCodeOverlay').modal({keyboard: true});
+        $http.get('/question/json/' + $scope.qid).
+            success(function (question, status) {
+                var text,
+                    converter = new Showdown.converter();
+                $scope.questionhtml = question.question;
+                for(text in answer[0]) {
+                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[0][text] + '</span>');
+                }
+                $scope.questionhtml = converter.makeHtml($scope.questionhtml);
+            });
+    };
 }
 
 /**
- * Controlle rclass for result display of SC and MC questions.
+ * Controller class for result display of SC and MC questions.
  * @constructor
  */
 function SCMCController($scope, $http, $location) {
@@ -260,11 +279,11 @@ function SCMCController($scope, $http, $location) {
             var converter = new Showdown.converter();
             $scope.questionhtml = converter.makeHtml(question.question);
             $scope.drawVisualization($scope.qid, question);
-    });
+        });
 
-    $scope.drawVisualization = function(id, question) {
+    $scope.drawVisualization = function (id, question) {
         $.ajax('/results/mc/' + id).done(function (data) {
-            if(data.length === 0) {
+            if (data.length === 0) {
                 $('#result').html("<h2>Vote not open!</h2>");
                 return;
             }
