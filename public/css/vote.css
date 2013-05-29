@@ -17,6 +17,15 @@
     width: 100px;
 }
 
+.insertedText {
+    font-weight: bold;
+}
+
+.modal-body blockquote {
+    font-family: Consolas,monospace;
+    font-size: x-large;
+}
+
 #graph {
     width: 300px;
     height: 200px

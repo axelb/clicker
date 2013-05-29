@@ -59,11 +59,10 @@ exports.mangleTextfield = function(string) {
     var textFieldStart = "<input class='clozetext' id='text",
         textFieldEnd = "' type='text'></input>",
         id = 0,
-        replacementText,
-        textFieldIndicator = "##";
-    while(string.indexOf(textFieldIndicator) >= 0) {
+        replacementText;
+    while(string.indexOf(config.TEXTFIELD_INDICATOR) >= 0) {
         replacementText = textFieldStart + id + textFieldEnd;
-        string = string.replace(textFieldIndicator, replacementText);
+        string = string.replace(config.TEXTFIELD_INDICATOR, replacementText);
         id++;
     }
     return string;

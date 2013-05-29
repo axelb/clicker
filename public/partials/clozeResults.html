@@ -1,5 +1,18 @@
 <table id="clozeResultTable">
-  <tr ng-repeat="answer in answers">
+  <tr ng-repeat="answer in answers" ng-click="handleTableClick(answer)">
       <td class="resultcell" ng-repeat="(key, value) in answer[0]">{{value}}</td>
   </tr>
 </table>
+
+<!--  Overlay for completed code -->
+<div id="completedCodeOverlay" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Completed answer</h3>
+    </div>
+    <div id="theCode" class="modal-body" ng-bind-html-unsafe="questionhtml">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+    </div>
+</div>

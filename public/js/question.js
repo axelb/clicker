@@ -248,10 +248,25 @@ function ClozeListCtrl($scope, $http, $location) {
         success(function (data, status, headers, config) {
             $scope.answers = data.answers;
         });
+
+    // Handler for clicks in table to display completed text.
+    $scope.handleTableClick = function(answer) {
+        var codeArea = $('#theCode');
+        $('#completedCodeOverlay').modal({keyboard: true});
+        $http.get('/question/json/' + $scope.qid).
+            success(function (question, status) {
+                var text,
+                    converter = new Showdown.converter();
+                $scope.questionhtml = converter.makeHtml(question.question);
+                for(text in answer[0]) {
+                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[0][text] + '</span>');
+                }
+            });
+    };
 }
 
 /**
- * Controlle rclass for result display of SC and MC questions.
+ * Controller class for result display of SC and MC questions.
  * @constructor
  */
 function SCMCController($scope, $http, $location) {
