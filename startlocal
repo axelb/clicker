@@ -6,6 +6,6 @@ mongod --dbpath=`pwd`/mongodb &
 echo $! > .mongo_pid
 sleep 5
 export MONGOURI=mongodb://localhost:27017/onlineresponse
-echo "PORT=8888">>.env
+export PORT=8888
 node server.js &
 echo $! > .node_pid

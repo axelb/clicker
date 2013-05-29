@@ -1,18 +1,5 @@
 var init = function () {
-    },//Hook method for initilization code
-    interceptor = function ($q, $injector, $location) {
-        return function (promise) {
-            var http = $injector.get('$http'),
-                defer = $q.defer();
-            return promise.then(function(response) { //success
-                return response;
-            }, function(response) { //error
-                 if (response.status >= 500) {
-                 return $q.reject(response);
-               }
-            });
-        }
-    };
+    };//Hook method for initilization code
 
 angular.module('question', ['ngCookies']).
     config(function ($routeProvider, $httpProvider) {
@@ -32,9 +19,7 @@ angular.module('question', ['ngCookies']).
             when('/result/MC/:id', {controller: SCMCController, templateUrl: 'partials/scmcResults.html'}).
             when('/result/Cloze/:id', {controller: ClozeListCtrl, templateUrl: 'partials/clozeResults.html'}).
             when('/result/Point/:id', {controller: PointCtrl, templateUrl: 'partials/pointresults.html'}).
-            when('/error', {controller: PointCtrl, templateUrl: 'partials/error.html'}).
             otherwise({redirectTo: '/'});
-        //$httpProvider.responseInterceptors.push(interceptor);
     });
 
 function StartCtrl($scope) {
