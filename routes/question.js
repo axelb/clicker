@@ -145,7 +145,6 @@ exports.save = function (req, res) {
 exports.list = function (req, res) {
     Question.find().exec(
         function (error, data) {
-            res.statusCode = 503;
             res.end(JSON.stringify(data));
         });
 };
