@@ -212,6 +212,7 @@ function PointCtrl($scope, $http, $location) {
     var url = $location.url().split('/');
     $scope.qid = url[url.length - 1];
     $scope.pointsize = 20;//size of red point
+    $scope.imageId = null;
     // get the image
     $http.get('/question/json/' + $scope.qid).
         success(function(question, status) {
