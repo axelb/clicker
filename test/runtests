@@ -1,0 +1,4 @@
+casperjs create-test.js
+casperjs vote-test.js
+casperjs createfreetext-test.js
+casperjs clozevote-test.js

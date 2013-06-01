@@ -9,10 +9,16 @@ var casper = require('casper').create({timeout: 20000})
     , clickAlternative
     , i;
 
-casper.start();
+casper.start('http://localhost:8888/login.html', function() {
+    this.fill('form#loginForm', {
+        'username': 'XXX',
+        'password': 'xxx'
+    }, true);
+});
+
 
 // Post the prepared question data
-casper.open('http://localhost:8888/question', {
+casper.thenOpen('http://localhost:8888/question', {
     method: 'post',
     data: {
         'question': question

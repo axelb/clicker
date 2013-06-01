@@ -68,10 +68,7 @@
 ./startlocal
 sleep 5
 cd test
-casperjs create-test.js
-casperjs vote-test.js
-casperjs createfreetext-test.js
-casperjs clozevote-test.js
+./runtests
 sleep 5
 cd ..
 ./stoplocal
