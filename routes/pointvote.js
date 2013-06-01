@@ -6,9 +6,9 @@
  * - deliver results to to teacher
  */
 
-var config = require('../public/js/config')
-    , collector = require('./pointCollector')
-    , pointCollector = new collector.PointCollector();
+var config = require('../public/js/config'),
+    collector = require('./pointCollector'),
+    pointCollector = new collector.PointCollector();
 
 exports.showQrAndStart = function(req, res) {
     pointCollector.openVote(req.params.id);

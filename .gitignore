@@ -1,5 +1,6 @@
 .idea/
 node_modules/
+plato/
 .env
 .mongo_pid
 .node_pid

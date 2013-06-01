@@ -1,10 +1,10 @@
 var init = function () {
-    var qid = $('#qid').attr('name')
-        , converter = new Showdown.converter()
-        , questionDiv = $('#question');
+    var qid = $('#qid').attr('name'),
+        converter = new Showdown.converter(),
+        questionDiv = $('#question');
     $.ajax('/question/json/' + qid).done(function (questionJson) {
-        var question = JSON.parse(questionJson)
-            , html = converter.makeHtml(question.question);
+        var question = JSON.parse(questionJson),
+            html = converter.makeHtml(question.question);
         questionDiv.html(html);
         drawVisualization(qid, question);
     });

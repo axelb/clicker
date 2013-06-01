@@ -66,7 +66,7 @@ exports.mangleTextfield = function(string) {
         id++;
     }
     return string;
-}
+};
 
 exports.asjson = function (req, res) {
     Question.findOne()
@@ -88,9 +88,9 @@ exports.asjson = function (req, res) {
  * @param imageId id of a newly attached image -- or null if no (or no new in case of editing) image is attached.
  */
 var saveQuestion = function (req, res, imageId) {
-    var question
-        , id
-        , newQuestion;
+    var question,
+        id,
+        newQuestion;
     logger.debug("received question: " + req.body.question);//raw question before parsing
     question = JSON.parse(req.body.question);
     id = question._id;

@@ -167,8 +167,8 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * We only use the first of these anyhow.
      */
     $scope.setAttachedImage = function (element) {
-        var img = document.getElementById('attachedImage')
-            , reader = new FileReader();
+        var img = document.getElementById('attachedImage'),
+            reader = new FileReader();
         $scope.imageFileToAttach = element.files[0];//only one image file!
         reader.onload = (function (aImg) {
             return function (e) {
@@ -183,10 +183,10 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * Usable after creation of a new and when updating an existing question.
      */
     $scope.save = function () {
-        var formData = new FormData()
-            , xhr = new XMLHttpRequest()
-            , questionId = isExistingQuestion() ? $scope.question._id : "" // we add an empty string if nonexisting question
-            , httpMethod = isExistingQuestion() ? "PUT" : "POST";
+        var formData = new FormData(),
+            xhr = new XMLHttpRequest(),
+            questionId = isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
+            httpMethod = isExistingQuestion() ? "PUT" : "POST";
         if ($scope.question.alternatives.length === 1) { //assumption: is Cloze
             delete $scope.question.alternatives;
         }
@@ -331,6 +331,6 @@ function SCMCController($scope, $http, $location) {
 
             });
         });
-    }
+    };
 
 }
