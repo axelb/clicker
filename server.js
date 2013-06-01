@@ -105,7 +105,7 @@ app.post('/login',
  Furthermore the possibility to start votes must be protected.
  */
 app.get('/list', ensureAuthenticated, question.list);
-app.get('/loggedInCheck', ensureAuthenticated, function (req, res) {res.end(JSON.stringify({status: true}));});
+app.get('/loggedInCheck', function (req, res) {res.end(JSON.stringify({status: req.isAuthenticated()}));});
 app.post('/question', ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
 app.put('/question/:id', question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern

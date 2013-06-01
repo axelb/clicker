@@ -22,8 +22,15 @@ angular.module('question', ['ngCookies']).
             otherwise({redirectTo: '/'});
     });
 
-function StartCtrl($scope) {
-
+function StartCtrl($scope, $http, $window) {
+    /* Forward to login page when not logged in
+     */
+    $http.get('/loggedInCheck').
+        success(function (data, status) {
+            if(!data.status) {
+                $window.location.href = '/login.html';
+            }
+        });
 }
 
 function ListCtrl($scope, $http, $location, $templateCache) {
