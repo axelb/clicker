@@ -8,6 +8,7 @@ I also used this project to gain experience with some modern web programming env
 * [NodeJS](http://nodejs.org)
 * [Express js](http://expressjs.com) (with RESTful URLs)
 * Server-side templating with [Jade](http://jade-lang.com)
+* [Passport for authentication](http://passportjs.org)
 * Deployment on [Heroku](http://www.heroku.com)
 * [MongoDB](http://www.mongodb.org) on [MongoLab](http://mongolab.com)
 * Layout with [Bootstrap](http://twitter.github.com/bootstrap/)
@@ -28,10 +29,10 @@ There is a shell script *startlocal* to start a local empty mongo database (requ
 These are also used on the jenkins server I use for CI and deployment. BTW: Current Jenkins config is stored in the resources directory.
 
 ## Functionality
-At the moment the following types of questions can be created:
-*multiple choice questions. A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
+At the moment the following types of questions can be created and used:
+*single and multiple choice questions. A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
 *cloze (freetext) questions. These are especially designed to show code snippets with omissions that can be inserted by the audience.
-
+*Point-and-Click questions: people in the audience click on an image to identify an important point.
 
 ![Usage Scenario](/resources/websequencediagrams.com/usageScenario.png)
 

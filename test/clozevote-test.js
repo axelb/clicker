@@ -9,10 +9,15 @@ var casper = require('casper').create({timeout: 20000})
     , clickAlternative
     , i;
 
-casper.start();
+casper.start('http://localhost:8888/login.html', function() {
+    this.fill('form#loginForm', {
+        'username': 'XXX',
+        'password': 'xxx'
+    }, true);
+});
 
 // Post the prepared question data
-casper.open('http://localhost:8888/question', {
+casper.thenOpen('http://localhost:8888/question', {
     method: 'post',
     data: {
         'question': question
@@ -36,10 +41,6 @@ casper.then(function () {
 });
 
 // Now we switch to the student's side and open the question
-/**
- * This function can be used to click on different IDs several times
- * @param alternativeId ID of alternative to click on
- */
 casper.then(function () {
     casper.thenOpen("http://localhost:8888/question/" + response.id, function () {
         casper.waitForSelector('#code', function () {

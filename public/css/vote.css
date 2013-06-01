@@ -1,3 +1,23 @@
+#signinDiv {
+
+}
+
+.signin {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    width: 280px;
+    height: 165px;
+    border-radius: 5px;
+    background-color: #a9302a;
+    padding-left: 10px;
+}
+
+.input {
+    border-radius: 3px;
+    -webkit-user-select: text;
+}
+
 .alternative {
 
 }

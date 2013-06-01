@@ -2,10 +2,17 @@
  * Integration test; requires running server.
  */
 
-var casper = require('casper').create({timeout: 20000})
-  , utils = require('utils');
+var casper = require('casper').create({timeout: 20000}),
+    utils = require('utils');
 
-casper.start('http://localhost:8888/', function() {
+casper.start('http://localhost:8888/login.html', function() {
+    this.fill('form#loginForm', {
+        'username': 'XXX',
+        'password': 'xxx'
+    }, true);
+});
+
+casper.thenOpen('http://localhost:8888/', function () {
     this.test.assertTitle("Online Response System (Clicker)");
     this.test.assertExists('#menuNew', 'Expect the "new" menu');
     this.test.assertExists('#buttonList', 'Expect the list button');
@@ -13,43 +20,43 @@ casper.start('http://localhost:8888/', function() {
     this.click('#newMultipleChoice');
 });
 
-casper.then(function() {
-     this.test.assertExists('#questionTitle', 'Expect the field to enter question title');
-     this.sendKeys('#questionTitle', 'To be removed!');
+casper.then(function () {
+    this.test.assertExists('#questionTitle', 'Expect the field to enter question title');
+    this.sendKeys('#questionTitle', 'To be removed!');
 
-     this.test.assertExists('#alternative0', 'Expect text field for first alternative');
-     this.test.assertDoesntExist('#alternative1', 'Do not expect text field for second alternative');
-     this.click('#buttonAddAlternative');
-     this.test.assertDoesntExist('#alternative1', 'Still do not expect text field for second alternative');
+    this.test.assertExists('#alternative0', 'Expect text field for first alternative');
+    this.test.assertDoesntExist('#alternative1', 'Do not expect text field for second alternative');
+    this.click('#buttonAddAlternative');
+    this.test.assertDoesntExist('#alternative1', 'Still do not expect text field for second alternative');
 
-     this.sendKeys('#alternative0', 'This is a rest from an integration test!');
-     this.click('#buttonAddAlternative');
-     this.test.assertExists('#alternative1', 'Now I expect text field for first alternative');
+    this.sendKeys('#alternative0', 'This is a rest from an integration test!');
+    this.click('#buttonAddAlternative');
+    this.test.assertExists('#alternative1', 'Now I expect text field for first alternative');
 
-     this.sendKeys('#alternative1', 'This is a rest from an integration test!');
-     this.click('#saveQuestion');
+    this.sendKeys('#alternative1', 'This is a rest from an integration test!');
+    this.click('#saveQuestion');
 });
 
-casper.then(function() {
-    casper.thenOpen('http://localhost:8888/', function() {
+casper.then(function () {
+    casper.thenOpen('http://localhost:8888/', function () {
         this.click('#buttonList');
     });
 });
 
-casper.then(function() {
+casper.then(function () {
     casper.waitForSelector('#row0');
 });
 
-casper.then(function() {
-     this.capture('results.png', {
-            top: 0,
-            left: 0,
-            width: 1024,
-            height: 768
-        });
+casper.then(function () {
+    this.capture('results.png', {
+        top: 0,
+        left: 0,
+        width: 1024,
+        height: 768
+    });
 });
 
-casper.run(function() {
+casper.run(function () {
     this.test.renderResults(true, 0, 'log-create.xml');
 });
 

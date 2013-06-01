@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="question">
+  <head>
+    <meta charset="utf-8">
+    <title>Login to Online Response</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Axel Bšttcher">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+      <link href="css/vote.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Online Response System (Clicker)</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="signinDiv" class="signin">
+        <h4>You are not logged in!</h4>
+        <form id="loginForm" action="/login" method="post">
+            <div>
+                <input type="text" id="login-username" name="username" class="input" placeholder="Username"/>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="Password" class="input"/>
+            </div>
+            <div>
+                <input type="submit" value="Log In"class="btn"/>
+            </div>
+        </form>
+    </div>
+
+
+  </body>
+</html>

@@ -118,7 +118,6 @@ var saveQuestion = function (req, res, imageId) {
         });
     }
     res.json({id: newQuestion._id});
-    res.end();
 };
 
 /**

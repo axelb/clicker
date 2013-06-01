@@ -6,7 +6,14 @@ var casper = require('casper').create({timeout: 20000}),
     utils = require('utils'),
     freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
 
-casper.start('http://localhost:8888/', function () {
+casper.start('http://localhost:8888/login.html', function() {
+    this.fill('form#loginForm', {
+        'username': 'XXX',
+        'password': 'xxx'
+    }, true);
+});
+
+casper.thenOpen('http://localhost:8888/', function () {
     this.click('#menuNew');
     this.click('#newCloze');
 });

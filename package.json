@@ -6,6 +6,8 @@
     "dependencies": {
         "express": "latest",
         "jade": "latest",
+        "passport": "latest",
+        "passport-local": "latest",
         "connect": "latest",
         "mime": "latest",
         "mongoose": "latest",

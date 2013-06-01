@@ -37,6 +37,10 @@ function ListCtrl($scope, $http, $location, $templateCache) {
 
         $http({method: $scope.method, url: $scope.listUrl, cache: $templateCache}).
             success(function (data, status) {
+                if(!(data instanceof Array)) {
+                    $scope.questions = [];
+                    return;
+                }
                 $scope.status = status;
                 $scope.questions = data;
             }).
@@ -184,9 +188,18 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         }
         formData.append("question", JSON.stringify($scope.question));
         xhr.addEventListener("load", function (event) {
-            var id = JSON.parse(event.target.response).id;
+            var id;
+            if(event.target.status !== 200) {
+                Notifier.error(event.target.statusText + '(' + event.target.status + ')');
+                $window.location.href = '/login.html';
+                return;
+            }
+            id = JSON.parse(event.target.response).id;
             Notifier.success($scope.question.question, "Uploaded question");
             $window.location.href = '#/list/';
+        });
+        xhr.addEventListener("error", function (event) {
+            //TODO wie kommt man hierher?
         });
         xhr.open(httpMethod, "/question/" + questionId);
         xhr.send(formData);
