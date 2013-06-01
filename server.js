@@ -94,7 +94,7 @@ app.configure('development', function () {
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/',
-                                   failureFlash: true })
+                                   failureFlash: false })
 );
 /*
  Protection strategy:
