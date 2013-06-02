@@ -100,18 +100,19 @@ app.post('/login',
  Protection strategy:
  /list is a protected REST get-interface.
  Those getters /voteqr that start a vote are protected.
+ Deletion is protected as well.
  There is no need to protect other RESTful getters.
- Posting questions definitely must be protected.
+ Posting/putting new/modified questions definitely must be protected.
  Furthermore the possibility to start votes must be protected.
  */
+app.get('/loggedInCheck', function (req, res) {res.end(JSON.stringify({status: req.isAuthenticated()}));});//tell me if I am authenticated.
 app.get('/list', ensureAuthenticated, question.list);
-app.get('/loggedInCheck', function (req, res) {res.end(JSON.stringify({status: req.isAuthenticated()}));});
+app.get('/delete/:id', ensureAuthenticated, question.remove);
 app.post('/question', ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
-app.put('/question/:id', question.save);//bestehende Frage; mit id
+app.put('/question/:id', ensureAuthenticated, question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/question/json/:id', question.asjson);//any kind of question returned here
 app.get('/edit/:id', question.asjson);
-app.get('/delete/:id', question.remove);
 app.get('/image/:id', image.getImage);
 
 app.get('/voteqr/MC/:id', ensureAuthenticated, mcvote.showQrAndStart);
