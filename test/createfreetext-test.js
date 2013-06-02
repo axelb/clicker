@@ -4,12 +4,7 @@
 
 var freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
 
-casper.start('http://localhost:8888/login.html', function() {
-    this.fill('form#loginForm', {
-        'username': 'XXX',
-        'password': 'xxx'
-    }, true);
-});
+casper.login('XXX', 'xxx');
 
 casper.thenOpen('http://localhost:8888/', function () {
     this.click('#menuNew');

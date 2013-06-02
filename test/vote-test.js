@@ -7,13 +7,8 @@ var question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$
     clickAlternative,
     i;
 
-casper.start('http://localhost:8888/login.html', function() {
-    this.fill('form#loginForm', {
-        'username': 'XXX',
-        'password': 'xxx'
-    }, true);
-});
-
+casper.test.comment('this is a test requiring login');
+casper.login('XXX', 'xxx');
 
 // Post the prepared question data
 casper.thenOpen('http://localhost:8888/question', {

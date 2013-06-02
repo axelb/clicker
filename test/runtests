@@ -1,4 +1,4 @@
-casperjs test create-test.js
-casperjs test vote-test.js
-casperjs test createfreetext-test.js
-casperjs test clozevote-test.js
+casperjs test create-test.js --includes=login.js
+casperjs test vote-test.js --includes=login.js
+casperjs test createfreetext-test.js --includes=login.js
+casperjs test clozevote-test.js --includes=login.js
