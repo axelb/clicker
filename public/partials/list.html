@@ -16,16 +16,15 @@
         <td><a href="/voteqr/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-qrcode icon-large"></i></a></td>
         <!--  edit -->
         <td><a href="#/edit/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-edit icon-large"></i></a></td>
-        <!-- delete  -->
-        <!-- see http://jsfiddle.net/tadchristiansen/gt92r/ for modal popups -->
-        <td><a id="{{question._id}}"
-            onclick="$('#deleteLink').attr('href', '/delete/' + this.id);$('#saveConfirmDialog').modal({keyboard: true})">
+        <!-- delete  id must begin with a letter. So I add two a's at beginning and end -->
+        <td><a id="a{{question._id}}a" onclick="$('#deleteLink').attr('href', '/delete/{{question._id}}');$('#saveConfirmDialog').modal({keyboard: true})">
             <i class="icon-remove-sign icon-large"></i>
           </a></td>
       </tr>
    </table>
 
-   <!-- the modal saveConfirmDialog -->
+   <!-- the modal saveConfirmDialog
+        see http://jsfiddle.net/tadchristiansen/gt92r/ for modal popups -->
       <div id="saveConfirmDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

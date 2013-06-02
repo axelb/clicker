@@ -1,3 +1,4 @@
+casperjs test delete-test.js --includes=login.js
 casperjs test create-test.js --includes=login.js
 casperjs test vote-test.js --includes=login.js
 casperjs test createfreetext-test.js --includes=login.js
