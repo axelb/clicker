@@ -2,12 +2,10 @@
  * Integration test; requires a running server.
  * Stores a question to server and opens a vote for that afterwards.
  */
-var casper = require('casper').create({timeout: 20000})
-    , utils = require('utils')
-    , question = '{"question":"##", "type": "Cloze", "imageId":""}'
-    , response
-    , clickAlternative
-    , i;
+var question = '{"question":"##", "type": "Cloze", "imageId":""}',
+    response,
+    clickAlternative,
+    i;
 
 casper.start('http://localhost:8888/login.html', function() {
     this.fill('form#loginForm', {
@@ -83,5 +81,7 @@ casper.then(function () {
 // RUN THE TESTS
 casper.run(function () {
     this.test.renderResults(true, 0, 'log-clozevote.xml');
+    casper.test.done();
 });
+
 

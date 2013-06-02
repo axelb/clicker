@@ -2,9 +2,6 @@
  * Integration test; requires running server.
  */
 
-var casper = require('casper').create({timeout: 20000}),
-    utils = require('utils');
-
 casper.start('http://localhost:8888/login.html', function() {
     this.fill('form#loginForm', {
         'username': 'XXX',
@@ -58,5 +55,6 @@ casper.then(function () {
 
 casper.run(function () {
     this.test.renderResults(true, 0, 'log-create.xml');
+    casper.test.done();
 });
 

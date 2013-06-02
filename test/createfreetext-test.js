@@ -2,9 +2,7 @@
  * Integration test; requires running server.
  */
 
-var casper = require('casper').create({timeout: 20000}),
-    utils = require('utils'),
-    freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
+var freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
 
 casper.start('http://localhost:8888/login.html', function() {
     this.fill('form#loginForm', {
@@ -40,5 +38,6 @@ casper.then(function() {
 
 casper.run(function () {
     this.test.renderResults(true, 0, 'log-createfreetext.xml');
+    casper.test.done();
 });
 

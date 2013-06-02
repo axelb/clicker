@@ -2,12 +2,10 @@
  * Integration test; requires a running server.
  * Stores a question to server and opens a vote for that afterwards.
  */
-var casper = require('casper').create({timeout: 20000})
-    , utils = require('utils')
-    , question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}'
-    , response
-    , clickAlternative
-    , i;
+var question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}',
+    response,
+    clickAlternative,
+    i;
 
 casper.start('http://localhost:8888/login.html', function() {
     this.fill('form#loginForm', {
@@ -106,7 +104,6 @@ casper.then(function () {
 
 casper.then(function () {
     var statistics;
-    console.log(casper.getHTML());
     statistics = JSON.parse(casper.getHTML("pre"));
     this.test.assertTruthy(statistics[0][1].label, "Repsonse must have one element");
     this.test.assertEquals(statistics[0][1].label, 1, "First label must be 1");
@@ -116,5 +113,6 @@ casper.then(function () {
 // RUN THE TESTS
 casper.run(function () {
     this.test.renderResults(true, 0, 'log-vote.xml');
+    casper.test.done();
 });
 
