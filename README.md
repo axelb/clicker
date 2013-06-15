@@ -30,11 +30,10 @@ These are also used on the jenkins server I use for CI and deployment. BTW: Curr
 
 ## Functionality
 At the moment the following types of questions can be created and used:
-.single choice questions
-.multiple choice questions A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
-.cloze (freetext) questions. These are especially designed to show code snippets with omissions that can be inserted by the audience.
-.Point-and-Click (heatmap) questions: people in the audience click on an image to identify an important point.
-.
+* single choice questions
+* multiple choice questions A PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
+* cloze (freetext) questions. These are especially designed to show code snippets with omissions that can be inserted by the audience.
+* Point-and-Click (heatmap) questions: people in the audience click on an image to identify an important point.
 
 To single and multiple choice questions, a PNG-image can be attached. The text preceding the choices can be formatted using [markdown](http://de.wikipedia.org/wiki/Markdown).
 
