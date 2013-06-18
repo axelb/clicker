@@ -271,7 +271,6 @@ function ClozeListCtrl($scope, $http, $location) {
 
     // Handler for clicks in table to display completed text.
     $scope.handleTableClick = function(answer) {
-        var codeArea = $('#theCode');
         $('#completedCodeOverlay').modal({keyboard: true});
         $http.get('/question/json/' + $scope.qid).
             success(function (question, status) {

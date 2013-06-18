@@ -89,7 +89,7 @@
     position: absolute;
 }
 
-@media screen and (max-width: 700px) {
+/*@media screen and (max-width: 700px) {
     #body {
         font-size: xx-large;
         margin-left: 2em;
@@ -101,4 +101,4 @@
     #thequestion {
         font-size: 48px;
     }
-}
+} */
