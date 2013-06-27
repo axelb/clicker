@@ -51,9 +51,9 @@ exports.show = function (req, res) {
 };
 
 /**
- * Replace all occurences of ## with textfields containing increasing ids of kind "textx"
+ * Replace all occurences of @@ (or whatever is used in root.TEXTFIELD_INDICATOR) with textfields containing increasing ids of kind "text<x>"
  * @param string  String to convert.
- * @return String with ## replaced by html textfields
+ * @return String with @@ replaced by html textfields
  */
 exports.mangleTextfield = function(string) {
     var textFieldStart = "<input class='clozetext' id='text",

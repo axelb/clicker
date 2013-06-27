@@ -2,7 +2,7 @@
  * Integration test; requires running server.
  */
 
-var freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> ##\n> \n> }";
+var freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> @@\n> \n> }";
 
 casper.login('XXX', 'xxx');
 

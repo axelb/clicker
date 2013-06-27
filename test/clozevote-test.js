@@ -2,7 +2,7 @@
  * Integration test; requires a running server.
  * Stores a question to server and opens a vote for that afterwards.
  */
-var question = '{"question":"##", "type": "Cloze", "imageId":""}',
+var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
     response,
     clickAlternative,
     i;

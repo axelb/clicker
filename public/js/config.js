@@ -22,4 +22,4 @@ root.questionTypes = function() {
 
 root.NEW_URL_PREFIX = '/new';
 
-root.TEXTFIELD_INDICATOR = '##';
+root.TEXTFIELD_INDICATOR = '@@';

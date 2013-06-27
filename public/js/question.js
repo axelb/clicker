@@ -1,7 +1,7 @@
 var init = function () {
     };//Hook method for initilization code
 
-angular.module('question', ['ngCookies']).
+angular.module('question', ['ngCookies', 'ui.bootstrap']).
     config(function ($routeProvider, $httpProvider) {
         var questionTypes,
             questionType;
@@ -123,6 +123,17 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         } else {
             $scope.question = emptyQuestion;
         }
+        $scope.loadHelpTexts();
+    };
+
+    /**
+     * Helper method to load help texts for popovers.
+     */
+    $scope.loadHelpTexts = function() {
+        $scope.clozeFormatHelpTitle = "How to format cloze text";
+        $http({method: 'GET', url: '/help/clozeFormat.html'}).
+            success(function(data){$scope.clozeFormatHelpText = data;}).
+            error($scope.clozeFormatHelpText = "Could not load help text!");
     };
 
     $scope.addAlternative = function () {

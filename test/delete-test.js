@@ -1,4 +1,4 @@
-var question = '{"question":"##", "type": "Cloze", "imageId":""}',
+var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
     response,
     selector,
     clickAlternative,
