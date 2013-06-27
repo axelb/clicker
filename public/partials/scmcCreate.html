@@ -1,6 +1,8 @@
 <h1>Create a new SC or MC question</h1>
 <div id="createQuestion" ng-init="init()">
    <h3>Question:</h3>
+   <i class="icon-question-sign icon-large" tooltip-html-unsafe="{{SCFormatHelpText}}" popover-title="{{SCFormatHelpTitle}}" popover-trigger="mouseenter" ></i>
+   <br>
    <textarea type="text" class="mcquestiontext" id="questionTitle" ng-model="question.question" placeholder="Enter a question here" rows="5"></textarea>
    <hr>
    <div class="row-fluid">

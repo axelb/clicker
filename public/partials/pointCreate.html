@@ -1,6 +1,8 @@
-<h1>Create a new Point and Click question</h1>
+<h1>Create a new Point and Click  question (Heatmap)</h1>
 <div id="createQuestion" ng-init="init()">
     <h3>Question:</h3>
+    <i class="icon-question-sign icon-large" tooltip-html-unsafe="{{PointFormatHelpText}}" popover-title="{{PointFormatHelpTitle}}" popover-trigger="mouseenter" ></i>
+    <br>
     <textarea type="text" class="questiontext" id="questionTitle" ng-model="question.question" placeholder="Enter a question here" rows="5"></textarea>
     <hr>
     <div >

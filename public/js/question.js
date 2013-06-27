@@ -129,11 +129,19 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
     /**
      * Helper method to load help texts for popovers.
      */
+    // TODO improve (is really ugly)
     $scope.loadHelpTexts = function() {
-        $scope.clozeFormatHelpTitle = "How to format cloze text";
-        $http({method: 'GET', url: '/help/clozeFormat.html'}).
-            success(function(data){$scope.clozeFormatHelpText = data;}).
-            error($scope.clozeFormatHelpText = "Could not load help text!");
+        var type,
+            name;
+        for(type in window.questionTypes()) {
+            name =  window.questionTypes()[type].name;
+            $http({method: 'GET', url: '/help/' + name + 'Format.html'}).
+                success(function(data) {
+                    var expression  =  '$scope.' + name + 'FormatHelpText = data';
+                    eval(expression);
+                }).
+                error(function(){eval('$scope.' + name + 'FormatHelpText = "Could not load help text!"');});
+        }
     };
 
     $scope.addAlternative = function () {
