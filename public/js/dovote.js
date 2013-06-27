@@ -1,5 +1,6 @@
 /**
  * This file contains all callback functions for voting on BYODs.
+ * This BYOD code is NOT based on angular!
  */
 var init = function() {
 },
@@ -16,9 +17,11 @@ error = function(jqXHR, textStatus, errorThrown) {
 },
 
 sendMCResults = function() {
-    var altSelected = $('input[name=alternative]:checked', '#voteForm').val(),
-        questionId = $('#questionId')[0].value,
-        response = {vote: {id: questionId, alternative: altSelected}};
+    var questionId = $('#questionId')[0].value,
+        selectedAlternatives = $('input[name=alternative]:checked', '#voteForm'),
+        response = {vote: {id: questionId, alternatives: []}};
+    selectedAlternatives.each(function(){response.vote.alternatives.push($(this).val());});
+
     $.ajax({url: '/saveAnswer/mc/', type:'PUT', data: response})
         .done(success)
         .fail(error);

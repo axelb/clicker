@@ -16,8 +16,8 @@ exports.showQrAndStart = function(req, res) {
 };
 
 exports.saveAnswer = function(req, res) {
-	var vote = req.body.vote
-	  , status = voteCollector.saveAnswer(vote.id, vote.alternative);
+	var vote = req.body.vote,
+	    status = voteCollector.saveAnswer(vote.id, vote.alternatives);
 	if(status !== 0) {
 		res.send(404, 'Vote not open');
 		res.end();
