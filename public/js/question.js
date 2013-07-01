@@ -131,17 +131,16 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      */
     // TODO improve (is really ugly)
     $scope.loadHelpTexts = function() {
-        var type,
-            name;
-        for(type in window.questionTypes()) {
-            name =  window.questionTypes()[type].name;
-            $http({method: 'GET', url: '/help/' + name + 'Format.html'}).
+        var types = window.questionTypes();
+        Object.keys(types).forEach(function(type) {
+            $http({method: 'GET', url: '/help/' + type + 'Format.html'}).
                 success(function(data) {
-                    var expression  =  '$scope.' + name + 'FormatHelpText = data';
+                    var expression  =  '$scope.' + type + 'FormatHelpText = data';
                     eval(expression);
                 }).
-                error(function(){eval('$scope.' + name + 'FormatHelpText = "Could not load help text!"');});
-        }
+                error(function(){eval('$scope.' + type + 'FormatHelpText = "Could not load help text!"');});
+
+        });
     };
 
     $scope.addAlternative = function () {
