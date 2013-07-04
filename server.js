@@ -120,9 +120,9 @@ app.get('/voteqr/SC/:id', ensureAuthenticated, mcvote.showQrAndStart);
 app.get('/voteqr/Cloze/:id', ensureAuthenticated, clozevote.showQrAndStart);
 app.get('/voteqr/Point/:id', ensureAuthenticated, pointvote.showQrAndStart);
 
-app.put('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
-app.put('/saveAnswer/cloze', clozevote.saveAnswer);
-app.put('/saveAnswer/point', pointvote.saveAnswer);
+app.post('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
+app.post('/saveAnswer/cloze', clozevote.saveAnswer);
+app.post('/saveAnswer/point', pointvote.saveAnswer);
 
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
 app.get('/results/Point/:id', pointvote.resultValues);//JSON data of result's coordinate collected so far
