@@ -13,6 +13,7 @@
         "mongoose": "latest",
         "node-markdown": "latest",
         "log4js": "latest",
+        "randomstring": "latest",
         "js-beautify": "latest"
     },
     "engines": {

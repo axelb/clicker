@@ -1,59 +1,31 @@
 /* express-based server.
  */
-var express = require('express')
-    , question = require('./routes/question')
-    , passport = require('passport')
-    , localStrategy = require('passport-local').Strategy
-    , image = require('./routes/image')
-    , mongo = require('./routes/mongo')
-    , mcvote = require('./routes/mcvote')
-    , clozevote = require('./routes/clozevote')
-    , pointvote = require('./routes/pointvote')
-    , config = require('./public/js/config')
-    , questionTypes = config.questionTypes()
-    , questionType
-    , http = require('http')
-    , path = require('path')
-    , app = express()
-    , log4js = require('log4js')
-    , logger = log4js.getLogger('server')
-    , theOneAndOnlyUser = {name: "XXX", id: 4711};
+var express = require('express'),
+    user = require('./routes/user'),
+    question = require('./routes/question'),
+    passport = require('passport'),
+    localStrategy = require('passport-local').Strategy,
+    image = require('./routes/image'),
+    mongo = require('./routes/mongo'),
+    mcvote = require('./routes/mcvote'),
+    clozevote = require('./routes/clozevote'),
+    pointvote = require('./routes/pointvote'),
+    config = require('./public/js/config'),
+    questionTypes = config.questionTypes(),
+    http = require('http'),
+    path = require('path'),
+    app = express(),
+    log4js = require('log4js'),
+    logger = log4js.getLogger('server');
 
 log4js.configure('log4jsconfig.json');
 
 /**
  * Configure passport for local strategy
  */
-passport.use(new localStrategy(
-  function(username, password, done) {
-    /*User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });*/
-      if(username === "XXX") {
-          logger.debug("Login succeeded");
-          return done(null, theOneAndOnlyUser);
-      }
-      return done(null, false);
-  }
-));
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-    if(id === 4711) {
-        done(null, theOneAndOnlyUser);
-        return;
-    }
-    done(new Error('User ' + id + ' does not exist'), undefined);
-});
+passport.use(new localStrategy(user.verifier));
+passport.serializeUser(user.serializer);
+passport.deserializeUser(user.deserializer);
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
