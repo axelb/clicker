@@ -25,7 +25,7 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container">
+        <div class="container" data-ng-controller="StartCtrl">
           <a class="brand" href="#">Online Response System (Clicker)</a>
             <ul class="nav" role="navigation">
                 <li class="dropdown">
@@ -39,6 +39,9 @@
                   </ul>
                 </li>
                 <li class="active"><a href="#/">Home</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <li class="active"><a href="javascript:void()" ng-click="logout()">Logout {{currentUser.username}}</a></li>
             </ul>
         </div>
       </div>

@@ -1,7 +1,7 @@
 var init = function () {
-    };//Hook method for initilization code
+    },//Hook method for initilization code
 
-angular.module('question', ['ngCookies', 'ui.bootstrap']).
+module = angular.module('question', ['ngCookies', 'ui.bootstrap']).
     config(function ($routeProvider, $httpProvider) {
         var questionTypes,
             questionType;
@@ -13,6 +13,7 @@ angular.module('question', ['ngCookies', 'ui.bootstrap']).
         }
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
+            when('/logout', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             // result pages
             when('/result/SC/:id', {controller: SCMCController, templateUrl: 'partials/scmcResults.html'}).
@@ -22,15 +23,38 @@ angular.module('question', ['ngCookies', 'ui.bootstrap']).
             otherwise({redirectTo: '/'});
     });
 
-function StartCtrl($scope, $http, $window) {
-    /* Forward to login page when not logged in
-     */
+// I don't really like to do that via rootScope
+module.factory('userService', function($http, $window, $rootScope) {
+    var userServiceInstance = {
+        currentUser: {},
+        getCurrentUser: function() {
+            return this.currentUser;
+        },
+        logout: function() {
+            $http.get('/logout').
+                success(function(data, status){
+                    $window.location.href = '/login.html';
+                });
+        }
+    };
     $http.get('/loggedInCheck').
         success(function (data, status) {
-            if(!data.status) {
+            if(data.status) {
+                userServiceInstance.currentUser = data;
+                $rootScope.currentUser = data;
+            } else {
+                /* Forward to login page when not logged in
+                 */
                 $window.location.href = '/login.html';
             }
         });
+    return userServiceInstance;
+});
+
+function StartCtrl($scope, $http, $window, userService) {
+    $scope.logout = function() {
+        userService.logout();
+    };
 }
 
 function ListCtrl($scope, $http, $location, $templateCache) {

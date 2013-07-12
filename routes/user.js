@@ -97,8 +97,10 @@ exports.insertUser = function(username, password, callback) {
 exports.loggedInCheck = function(request, response) {
     var status = {
         status: request.isAuthenticated(),
-        username: request.user.username
     };
+    if(request.isAuthenticated() === true) {
+        status.username = request.user.username;
+    }
     response.end(JSON.stringify(status));
 };
 
