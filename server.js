@@ -77,7 +77,8 @@ app.post('/login',
  Posting/putting new/modified questions definitely must be protected.
  Furthermore the possibility to start votes must be protected.
  */
-app.get('/loggedInCheck', function (req, res) {res.end(JSON.stringify({status: req.isAuthenticated()}));});//tell me if I am authenticated.
+app.get('/loggedInCheck', user.loggedInCheck);//tell me if I am authenticated.
+app.get('/logout', user.logout);
 app.get('/list', ensureAuthenticated, question.list);
 app.get('/delete/:id', ensureAuthenticated, question.remove);
 app.post('/question', ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
