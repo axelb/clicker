@@ -44,7 +44,7 @@ handleClick = function (event) {
 
 sendPointResults = function(id) {
     var questionId =  $('#questionId')[0].value;
-    $.ajax({url: '/saveAnswer/point/', type:'PUT', data: {vote: {id: questionId, results: clickPos}}})
+    $.ajax({url: '/saveAnswer/point/', type:'POST', data: {vote: {id: questionId, results: clickPos}}})
         .done(success)
         .fail(error);
 },
@@ -57,7 +57,7 @@ sendClozeResults = function(id) {
             textValue = this.value;
         results[textId] = textValue;
     });
-    $.ajax({url: '/saveAnswer/cloze/', type:'PUT', data: {vote: {id: questionId, results: results}}})
+    $.ajax({url: '/saveAnswer/cloze/', type:'POST', data: {vote: {id: questionId, results: results}}})
         .done(success)
         .fail(error);
 };
