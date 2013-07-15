@@ -7,8 +7,11 @@
     <hr>
     <div >
         <h3>Image (PNG only):<h3>
-            <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
-            <input type="file" size="100" maxlength="30000" accept="image/png" ng-model-instant onchange="angular.element(this).scope().setAttachedImage(this)" id="imageFileToAttach"/>
+            <!-- Form is used here to be able to uploda image from a casperjs test! -->
+            <form id="pointForm">
+                <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
+                <input type="file" size="100" maxlength="30000" accept="image/png" ng-model-instant onchange="angular.element(this).scope().setAttachedImage(this)" id="imageFileToAttach" name="imageFileToAttach"/>
+            </form>
             <p/>
             <div id="imageArea">
                 <!-- 1-pixel initial image -->
