@@ -20,8 +20,7 @@ exports.saveAnswer = function(req, res) {
         status;
     status = pointCollector.saveAnswer(vote.id, vote.results);
     if(status !== 0) {
-        res.send(404, 'Vote not open');
-        res.end();
+        res.render('noVoteError');
     } else {
         res.render('danke');
     }

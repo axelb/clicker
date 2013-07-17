@@ -1,6 +1,1 @@
-casperjs test delete-test.js --includes=login.js
-casperjs test create-test.js --includes=login.js
-casperjs test vote-test.js --includes=login.js
-casperjs test createfreetext-test.js --includes=login.js
-casperjs test clozevote-test.js --includes=login.js
-casperjs test pointvote-test.js --includes=login.js
+find . -name \*-test.js -exec casperjs test {}  --includes=login.js \;
