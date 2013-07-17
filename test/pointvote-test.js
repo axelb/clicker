@@ -1,4 +1,7 @@
-var response;
+var heatmapQuestionUrl,
+    that,
+    qid = "4711",
+    result = {x: 4};
 
 casper.login('XXX', 'xxx');
 
@@ -15,16 +18,35 @@ casper.then(function () {
     this.click('#saveQuestion');
 });
 
-// Check the id that is returned by the server.
-//casper.then(function () {
-//    document.querySelector('a[name="q"]').setAttribute('value', term);
-//    console.log(casper.getHTML());
-//    response = JSON.parse(casper.getHTML("pre"));//dirty hack
-//    this.test.assertTruthy(response.id, "Repsonse must have contained an id");
+// problem: Gives first not last heatmap!
+casper.then(function(){
+    var linkString = casper.getHTML(".qrCodeLink-Point");
+    linkString = linkString.substring("<a href=\"/voteqr/Point/".length);
+    qid = linkString.split("\"")[0];
+    heatmapQuestionUrl = 'http://localhost:8888/voteqr/Point/' + qid;
+    this.thenOpen(heatmapQuestionUrl, function () {
+        var byodvote = {"vote[id]": qid, "vote[results][x]": "1", "vote[results][y]": "2"};
+        this.thenOpen('http://localhost:8888/saveAnswer/point/', {
+            method: "post",
+            data: byodvote
+        }, function() {
+            this.test.assertTruthy(casper.getHTML().indexOf("Danke") > 0, "The word 'Danke' must be included in repsonse!");
+        });
+    });
+});
+
+// now test with non open / non existing question
+//casper.then(function() {
+//    var byodvote = {"vote[id]": 4711, "vote[results][x]": "1", "vote[results][y]": "2"};
+//    this.thenOpen('http://localhost:8888/saveAnswer/point/', {
+//        method: "post",
+//        data: byodvote
+//    }, function() {
+//        this.test.assertTruthy(casper.getHTML().indexOf("not open") > 0, "The words 'not open' must be included in repsonse!");
+//    });
 //});
 
-
 casper.run(function () {
-    this.test.renderResults(true, 0, 'log-createpoint.xml');
+    this.test.renderResults(true, 0, 'log-testpoint.xml');
     casper.test.done();
 });

@@ -17,7 +17,8 @@ exports.showQrAndStart = function(req, res) {
 
 exports.saveAnswer = function(req, res) {
     var vote = req.body.vote,
-        status = pointCollector.saveAnswer(vote.id, vote.results);
+        status;
+    status = pointCollector.saveAnswer(vote.id, vote.results);
     if(status !== 0) {
         res.send(404, 'Vote not open');
         res.end();

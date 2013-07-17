@@ -93,6 +93,7 @@ app.get('/voteqr/SC/:id', ensureAuthenticated, mcvote.showQrAndStart);
 app.get('/voteqr/Cloze/:id', ensureAuthenticated, clozevote.showQrAndStart);
 app.get('/voteqr/Point/:id', ensureAuthenticated, pointvote.showQrAndStart);
 
+// id is not reuqired to save answers. It must be part of the JSON string transferred
 app.post('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
 app.post('/saveAnswer/cloze', clozevote.saveAnswer);
 app.post('/saveAnswer/point', pointvote.saveAnswer);
