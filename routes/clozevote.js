@@ -19,8 +19,7 @@ exports.saveAnswer = function(req, res) {
 	var vote = req.body.vote
 	  , status = clozeCollector.saveAnswer(vote.id, vote.results);
 	if(status !== 0) {
-		res.send(404, 'Vote not open');
-		res.end();
+        res.render('noVoteError');
 	} else {
 		res.render('danke');
 	}
