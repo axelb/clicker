@@ -75,7 +75,8 @@ cd ..
 cd routes
 mocha -R xunit voteCollectorTest.js &gt; mocha1.xml
 mocha -R xunit clozeCollectorTest.js &gt; mocha2.xml
-mocha -R xunit questionTest.js &gt; mocha3.xml</command>
+mocha -R xunit pointCollectorTest.js &gt; mocha3.xml
+mocha -R xunit questionTest.js &gt; mocha4.xml</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

@@ -29,9 +29,13 @@ exports.PointCollector.prototype = {
      * The returned coordinates of an answer are saved.
      * @param id
      * @param answers
-     * @return {number}
+     * @return {number} 0 on success, -1 or 1 otherwise (1: vote not open, -1: no complete answer)
      */
     saveAnswer: function(id, answer) {
+        if(!this.answers[id] || this.answers[id] === undefined) {
+            logger.error('Vote not open for id: ' + id);
+            return 1;
+        }
         if(!answer.x || !answer.y) {
             return -1;
         }
