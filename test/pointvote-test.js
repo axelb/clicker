@@ -1,10 +1,19 @@
 var heatmapQuestionUrl,
-    heatmapSaveUrl = 'http://localhost:8888/saveAnswer/point/',
-    urlOfSomeAvailableImageFile = '../resources/websequencediagrams.com/usageScenario.png';
+    baseUrl =  'http://localhost:8888/',
+    heatmapSaveUrl = baseUrl + 'saveAnswer/point/',
+    illegalVoteId = 4711,
+    urlOfSomeAvailableImageFile = '../resources/websequencediagrams.com/usageScenario.png',
+    createResultData = function(voteId) {
+         return {
+             "vote[id]": voteId,
+             "vote[results][x]": "1",
+             "vote[results][y]": "2"
+         };
+    };
 
 casper.login('XXX', 'xxx');
 
-casper.thenOpen('http://localhost:8888/', function () {
+casper.thenOpen(baseUrl, function () {
     this.click('#menuNew');
     this.click('#newPoint');
 });
@@ -22,12 +31,11 @@ casper.then(function(){
     var linkString = casper.getHTML(".qrCodeLink-Point");
     linkString = linkString.substring("<a href=\"/voteqr/Point/".length);
     qid = linkString.split("\"")[0];
-    heatmapQuestionUrl = 'http://localhost:8888/voteqr/Point/' + qid;
+    heatmapQuestionUrl = baseUrl + 'voteqr/Point/' + qid;
     this.thenOpen(heatmapQuestionUrl, function () {
-        var byodvote = {"vote[id]": qid, "vote[results][x]": "1", "vote[results][y]": "2"};
         this.thenOpen(heatmapSaveUrl, {
             method: "post",
-            data: byodvote
+            data: createResultData(qid)
         }, function() {
             this.test.assertTruthy(casper.getHTML().indexOf("Danke") > 0, "The word 'Danke' must be included in repsonse!");
         });
@@ -36,10 +44,9 @@ casper.then(function(){
 
 //now test with non open / non existing question
 casper.then(function() {
-    var byodvote = {"vote[id]": 4711, "vote[results][x]": "1", "vote[results][y]": "2"};
     this.thenOpen(heatmapSaveUrl, {
         method: "post",
-        data: byodvote
+        data: createResultData(illegalVoteId)
     }, function() {
         this.test.assertTruthy(casper.getHTML().indexOf("kann derzeit keine Antwort entgegen genommen werden") > 0, "The words 'keine Antwort ....' must be included in repsonse!");
     });
@@ -49,3 +56,5 @@ casper.run(function () {
     this.test.renderResults(true, 0, 'log-testpoint.xml');
     casper.test.done();
 });
+
+
