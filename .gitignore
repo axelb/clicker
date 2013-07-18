@@ -11,4 +11,5 @@ mongodb/
 mocha*.xml
 log*.xml
 test/*.png
+test/*.xml
 results.png

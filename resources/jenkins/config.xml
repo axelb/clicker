@@ -69,6 +69,7 @@
 sleep 5
 cd test
 ./runtests
+karma start
 sleep 5
 cd ..
 ./stoplocal
