@@ -1,7 +1,7 @@
 var init = function () {
     },//Hook method for initilization code
 
-module = angular.module('question', ['ngCookies', 'ui.bootstrap']).
+module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstrap']).
     config(function ($routeProvider, $httpProvider) {
         var questionTypes,
             questionType;
@@ -57,30 +57,8 @@ function StartCtrl($scope, $http, $window, userService) {
     };
 }
 
-function ListCtrl($scope, $http, $location, $templateCache) {
-    $scope.method = 'GET';
-    $scope.listUrl = '/list';
-    $scope.count = 0;
-
-    $scope.fetch = function () {
-        $scope.code = null;
-        $scope.response = null;
-
-        $http({method: $scope.method, url: $scope.listUrl, cache: $templateCache}).
-            success(function (data, status) {
-                if(!(data instanceof Array)) {
-                    $scope.questions = [];
-                    return;
-                }
-                $scope.status = status;
-                $scope.questions = data;
-            }).
-            error(function (data, status) {
-                Notifier.error('An error occured (status ' + status + ')');
-                $scope.status = status;
-                $scope.questions = [];
-            });
-    };
+function ListCtrl($scope, $http, $location, $templateCache, Question) {
+    $scope.questions  = Question.query();
 
     /**
      * The shortened version of (marked down text) is only the first line.
@@ -136,7 +114,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
                 success(function (data, status, headers, config) {
                     $scope.question = data;
-                    //set an image if one was attached.
+                    //set an image if one was attacxhed.
                     if ($scope.question.imageId) {
                         document.getElementById('attachedImage').src = ("/image/" + $scope.question.imageId);
                     }
