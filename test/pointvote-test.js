@@ -26,6 +26,15 @@ casper.then(function () {
     this.click('#saveQuestion');
 });
 
+// make sure that list is displayed!
+casper.then(function () {
+    casper.thenOpen('http://localhost:8888/#/list', function () {
+        casper.then(function () {
+            casper.waitForSelector('#row0');
+        });
+    });
+});
+
 // problem: Gives first not last heatmap!
 casper.then(function(){
     var linkString = casper.getHTML(".qrCodeLink-Point");
