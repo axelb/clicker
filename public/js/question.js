@@ -58,7 +58,7 @@ function StartCtrl($scope, $http, $window, userService) {
 }
 
 function ListCtrl($scope, $http, $location, $templateCache, Question) {
-    $scope.questions  = Question.query();
+    $scope.questions = Question.query();
 
     /**
      * The shortened version of (marked down text) is only the first line.

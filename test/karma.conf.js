@@ -9,12 +9,13 @@ files = [
   JASMINE,
   JASMINE_ADAPTER,
     '../public/lib/angular.min.js',
-//    '../public/lib/angular-mocks.js',
-//    '../public/lib/bootstrap*.js',
+    '../public/lib/angular-resource.min.js',
+    '../public/lib/angular-mocks.js',
     '../public/js/config.js',
     '../public/js/util.js',
+    '../public/js/services.js',
     '../public/js/question.js',
-  'angularControllersTest.js'
+    'angularControllersTest.js'
 ];
 
 
