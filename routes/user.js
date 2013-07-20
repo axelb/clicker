@@ -48,9 +48,7 @@ exports.verifier = function(username, password, done) {
 exports.verifyPassword = function(user, password) {
     var hash = this.createHashValue(password, user.salt),
         loginSuccessful = (hash === user.passwordHash);
-    if(!loginSuccessful) {
     logger.debug('Login ' + (loginSuccessful ? 'successful' : 'failed') + ' for username ' + user.username);
-    }
     return loginSuccessful;
 };
 
