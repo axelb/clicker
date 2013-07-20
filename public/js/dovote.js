@@ -34,12 +34,34 @@ validate = function() {
 clickPos,
 
 handleClick = function (event) {
-    var image = $('#clickImage'),
+    var image = $('#clickImage')[0],
         redPoint = $('#RedPoint'),
         pointSize = 20;
-    clickPos = {x: event.offsetX, y: event.offsetY};
+    clickPos = relativeMouseCoordinates(event, image);
     redPoint.css({position: "absolute", visibility: "visible", width: pointSize, height: pointSize, top: clickPos.y - pointSize / 2, left: clickPos.x - pointSize / 2});
     $('#sendButton').removeAttr("disabled");
+},
+
+/**
+ * Helper function to  determine click position by recursively inspecting parent elements.
+ */
+relativeMouseCoordinates = function(event, currentElement) {
+    var totalOffsetX = 0,
+        totalOffsetY = 0,
+        imageX = 0,
+        imageY = 0;
+
+    do{
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+        currentElement = currentElement.offsetParent;
+    }
+    while(currentElement != null);
+
+    imageX = event.pageX - totalOffsetX;
+    imageY = event.pageY - totalOffsetY;
+
+    return {x: imageX, y: imageY};
 },
 
 sendPointResults = function(id) {
