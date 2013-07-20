@@ -46,9 +46,12 @@ exports.verifier = function(username, password, done) {
  * @param password  Password as used in login attempt.
  */
 exports.verifyPassword = function(user, password) {
-    var hash = this.createHashValue(password, user.salt);
-    logger.error(user.username + ' ' + user.salt + ' ' + user.passwordHash + ' ' + hash + ' ' + user._id);
-    return hash === user.passwordHash;
+    var hash = this.createHashValue(password, user.salt),
+        loginSuccessful = (hash === user.passwordHash);
+    if(!loginSuccessful) {
+    logger.debug('Login ' + (loginSuccessful ? 'successful' : 'failed') + ' for username ' + user.username);
+    }
+    return loginSuccessful;
 };
 
 exports.serializer = function(user, done) {
@@ -83,7 +86,7 @@ exports.insertUser = function(username, password, callback) {
     user.passwordHash = this.createHashValue(password, user.salt);
     user.save(function(error, user) {
          if(error) {
-             logger.error('Error: ' + error);
+             logger.error('Error inserting user: ' + error);
          }  else {
               logger.debug('Created user ' + user.username + ' (id: ' + user._id + ')');
          }
@@ -96,7 +99,7 @@ exports.insertUser = function(username, password, callback) {
 
 exports.loggedInCheck = function(request, response) {
     var status = {
-        status: request.isAuthenticated(),
+        status: request.isAuthenticated()
     };
     if(request.isAuthenticated() === true) {
         status.username = request.user.username;
