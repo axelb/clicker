@@ -16,6 +16,9 @@ error = function(jqXHR, textStatus, errorThrown) {
     alert(textStatus + ": " + jqXHR.responseText);
 },
 
+/**
+ * This function is used for transfer of SC and MC votes.
+ */
 sendMCResults = function() {
     var questionId = $('#questionId')[0].value,
         selectedAlternatives = $('input[name=alternative]:checked', '#voteForm'),
@@ -27,8 +30,24 @@ sendMCResults = function() {
         .fail(error);
 },
 
-validate = function() {
-    $('#sendButton').removeAttr("disabled");
+/**
+ * Callback function to enable/disable submit button on click of an alternative.
+ * Works for SC (radio buttons used) as well as for MC (checkboxes used) questions.
+ */
+validate = function(element) {
+    var checkboxes;
+    // radio cannot be switched off again (I think) - so enable button on any click
+    if(element.type === "radio") {
+        $('#sendButton').removeAttr("disabled");
+    } else {
+        $('#sendButton').attr("disabled", "disabled");//disable button upfront
+        checkboxes = $('.alternative');
+        checkboxes.each(function(index, checkbox) {
+            if(checkbox.checked) {
+                $('#sendButton').removeAttr("disabled");//enable if an alternative is selected
+            }
+        });
+    }
 },
 
 clickPos,

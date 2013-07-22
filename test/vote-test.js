@@ -1,6 +1,6 @@
 /**
  * Integration test; requires a running server.
- * Stores a question to server and opens a vote for that afterwards.
+ * Stores an MC question to server and opens a vote for that afterwards.
  */
 var question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}',
     response,
@@ -44,6 +44,33 @@ casper.then(function () {
 });
 
 // Now we switch to the student's side and open the question
+// ******
+// At first the submit button must be disabled
+casper.then(function() {
+    casper.thenOpen("http://localhost:8888/question/" + response.id, function () {
+        casper.then(function() {
+            this.click('#sendButton');
+            this.test.assertFalsy(casper.getHTML().substr('danke') < 0, 'Nothing should happen on button click');
+        });
+    })
+});
+
+// same as above but using attributes (not sure if this is a good idea!)
+casper.then(function() {
+    var element;
+    element = this.getElementInfo('#sendButton');
+    // At first disabled
+    this.test.assertEquals(element.attributes.disabled, "disabled", 'Send Button should be disabled');
+    this.click('#alternative0');
+    // now enabled: attribute disabled should no longer exist
+    element = this.getElementInfo('#sendButton');
+    this.test.assertFalsy(element.attributes.disabled, 'Send Button should be enabled');
+    // Next click on the checkbox unchecks it and must disable the button again again.
+    this.click('#alternative0');
+    element = this.getElementInfo('#sendButton');
+    this.test.assertEquals(element.attributes.disabled, "disabled", 'Send Button should again be disabled');
+});
+
 /**
  * This function can be used to click on different IDs several times
  * @param alternativeId ID of alternative to click on
@@ -80,7 +107,7 @@ clickAlternative = function (alternativeId) {
             });
         });
     });
-}
+};
 
 for(i = 0; i < 2; i++) {
     clickAlternative(0);

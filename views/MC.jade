@@ -17,9 +17,9 @@ html
             form(action="/saveAnswer", id="voteForm")
               each alternative, index in question.alternatives
                 p
-                  input(type="checkbox", name="alternative", id="alternative#{index}", class="alternative", onclick="validate()", value=index+1)
+                  input(type="checkbox", name="alternative", id="alternative#{index}", class="alternative", onclick="validate(this)", value=index+1)
                   label.radio.inline(for="alternative#{index}") #{alternative.title}
               p
-              input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="true")
+              input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="disabled")
               input(type="hidden", id="questionId", value=question._id)
     script(src='/js/dovote.js')
