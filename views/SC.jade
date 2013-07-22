@@ -8,22 +8,17 @@ html
     script(src='/lib/jquery-1.7.2.min.js')
     script(src='/js/util.js')
   body(id="body")
-     div(class="navbar navbar-fixed-top")
-        div(class="navbar-inner")
-            div(class="container")
-                div(class="row-fluid")
-                   div(class="span6")
-
-                        div!= markDown(question.question)
-                        p
-                        if question.imageId
-                          img(src="/image/#{question.imageId}")
-                        form(action="/saveAnswer", id="voteForm")
-                          each alternative, index in question.alternatives
-                            p
-                              input(type="radio", name="alternative", id="alternative#{index}", class="alternative", onclick="validate()", value=index+1)
-                              label.radio.inline #{alternative.title}
-                          p
-                          input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="true")
-                          input(type="hidden", id="questionId", value=question._id)
+       div(class="span6")
+            div!= markDown(question.question)
+            p
+            if question.imageId
+              img(src="/image/#{question.imageId}")
+            form(action="/saveAnswer", id="voteForm")
+              each alternative, index in question.alternatives
+                p
+                  input(type="radio", name="alternative", id="alternative#{index}", class="alternative", onclick="validate()", value=index+1)
+                  label.radio.inline(for="alternative#{index}") #{alternative.title}
+              p
+              input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="true")
+              input(type="hidden", id="questionId", value=question._id)
     script(src='/js/dovote.js')

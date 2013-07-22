@@ -22,7 +22,12 @@
 
 }
 
-.mcquestiontext, .questiontext{
+.McScVoteBody {
+   margin-top: 10px;
+   margin-left: 10px;
+}
+
+.mcquestiontext, .questiontext {
 	width: 40em;
 	font-size: 200%;
     line-height: 150%;
