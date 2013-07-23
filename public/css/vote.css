@@ -22,6 +22,14 @@
 
 }
 
+.loginBody {
+    background: url("/img/classroom.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .VoteBody {
    margin-top: 10px;
    margin-left: 10px;
