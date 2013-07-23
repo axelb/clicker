@@ -1,0 +1,12 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h2 {
+    page-break-before:always;
+    color: red;
+}
+
+img {
+    margin-left: 60px;
+}
