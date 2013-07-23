@@ -102,6 +102,22 @@
     position: absolute;
 }
 
+/**
+ * Styling of howto page
+*/
+body.howto {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h2.howto {
+    page-break-before:always;
+    color: red;
+}
+
+img.howto {
+    margin-left: 60px;
+}
+
 /*@media screen and (max-width: 700px) {
     #body {
         font-size: xx-large;

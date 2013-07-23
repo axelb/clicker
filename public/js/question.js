@@ -13,6 +13,7 @@ module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstr
         }
         $routeProvider.
             when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
+            when('/howto', {controller: StartCtrl, templateUrl: 'partials/howto.html'}).
             when('/logout', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             // result pages
