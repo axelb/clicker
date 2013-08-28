@@ -1,11 +1,12 @@
 var mongo = require('./mongo'),
-    markDown = require("node-markdown").Markdown,
-    fs = require('fs'),
     config = require('../public/js/config'),
+    shortid = require('shortid'),
+    markDown = require('node-markdown').Markdown,
     Alternative = new mongo.Schema({
         title: { type: String, required: false, trim: true }
     }),
     questionSchema = new mongo.Schema({
+        _id: false,
         question: { type: String, required: true, trim: true },
         type: {type: String, required: true, trim: true },
         alternatives: [Alternative],
@@ -102,9 +103,9 @@ var saveQuestion = function (req, res, imageId) {
         question.imageId = null;
     }
     logger.debug(question);
-    newQuestion = new Question(question);
     if (question._id) {
         delete question._id;//I don't really understand why this works!
+        newQuestion = new Question(question);
         newQuestion.update(question, function (error) {
             if (error) {
                 logger.error("Error: " + error);
@@ -113,6 +114,8 @@ var saveQuestion = function (req, res, imageId) {
             }
         });
     } else {
+        question._id = shortid.generate();
+        newQuestion = new Question(question);
         newQuestion.save(function (error) {
             logger.debug("Stored new question:  " + newQuestion);
         });

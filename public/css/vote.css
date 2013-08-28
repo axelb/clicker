@@ -81,6 +81,12 @@
     margin-right: auto;
 }
 
+.questionLink {
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: xx-large;
+}
+
 #clozeResultTable {
     font-family: Consolas,monospace;
     line-height: 2em;

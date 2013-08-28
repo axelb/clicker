@@ -1,7 +1,7 @@
 /**
  * Node module VoteCollector class.
  * A vote collector once opened collects incoming votes from student's (audience) devices (BYOD).
- * It simply counts up results in an array. A vote for a questionm ust be opened explicitly and it will
+ * It simply counts up results in an array. A vote for a question must be opened explicitly and it will
  * be closed  when results are queried (NYI).
  */
 var log4js = require('log4js'),

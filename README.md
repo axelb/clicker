@@ -11,6 +11,7 @@ I also used this project to gain experience with some modern web programming env
 * [Passport for authentication](http://passportjs.org)
 * Deployment on [Heroku](http://www.heroku.com)
 * [MongoDB](http://www.mongodb.org) on [MongoLab](http://mongolab.com)
+* [ShortId](https://github.com/dylang/shortid) to create URL-friendly ID's (for mongo; these are basis for all question handling).
 * Layout with [Bootstrap](http://twitter.github.com/bootstrap/)
 * Markdown library [Showdown by Corey Innis](https://github.com/coreyti/showdown)
 * [Angular](http://angularjs.org) as Client side framework

@@ -11,6 +11,7 @@
         "connect": "latest",
         "mime": "latest",
         "mongoose": "latest",
+        "shortid": "latest",
         "node-markdown": "latest",
         "log4js": "latest",
         "randomstring": "latest",
