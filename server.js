@@ -84,6 +84,8 @@ app.get('/delete/:id', ensureAuthenticated, question.remove);
 app.post('/question', ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
 app.put('/question/:id', ensureAuthenticated, question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
+app.get('/q/:id', question.show);//as above; additional link for shortening purposes
+app.get('/g/:id', question.show);//as above; 'q' and 'g' are difficult to discriminate
 app.get('/question/json/:id', question.asjson);//any kind of question returned here
 app.get('/edit/:id', question.asjson);
 app.get('/image/:id', image.getImage);
