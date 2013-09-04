@@ -162,12 +162,12 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
     };
 
     $scope.removeAlternative = function (alternative) {
-        var index = getIndexOf(alternative);
+        var index = $scope.getIndexOf(alternative);
         $scope.question.alternatives.splice(index, 1);
     };
 
     $scope.pushDownAlternative = function (alternative) {
-        var index = getIndexOf(alternative);
+        var index = $scope.getIndexOf(alternative);
         if (index === $scope.question.alternatives.length - 1) {
             return;
         }
@@ -176,7 +176,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
     };
 
     $scope.pullUpAlternative = function (alternative) {
-        var index = getIndexOf(alternative);
+        var index = $scope.getIndexOf(alternative);
         if (index === 0) {
             return;
         }
@@ -208,8 +208,8 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
     $scope.save = function () {
         var formData = new FormData(),
             xhr = new XMLHttpRequest(),
-            questionId = isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
-            httpMethod = isExistingQuestion() ? "PUT" : "POST";
+            questionId = $scope.isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
+            httpMethod = $scope.isExistingQuestion() ? "PUT" : "POST";
         if ($scope.question.alternatives.length === 1) { //assumption: is Cloze
             delete $scope.question.alternatives;
         }
@@ -235,7 +235,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         xhr.send(formData);
     };
 
-    getIndexOf = function (alternative) {
+    $scope.getIndexOf = function (alternative) {
         return $scope.question.alternatives.indexOf(alternative);
     };
 
@@ -243,7 +243,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * Helper function to determine if we are editing an existing or a new question.
      * @return {boolean} If question was loaded for editing, i.e. it existed previously.
      */
-    isExistingQuestion = function () {
+    $scope.isExistingQuestion = function () {
         return $scope.question.id ? true : false;
     };
 }
