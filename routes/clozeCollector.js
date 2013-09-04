@@ -37,7 +37,8 @@ exports.ClozeCollector.prototype = {
      */
     saveAnswer: function(id, answers) {
         var answerArray,
-            attribute;
+            attribute,
+            answerString;
         for(attribute in answers) {
             answers[attribute] = beautify(answers[attribute], { indent_size: 0 });
         }
@@ -46,8 +47,8 @@ exports.ClozeCollector.prototype = {
             logger.error('Vote not open for id: ' + id);
             return 1;
         }
-        for (string in answerArray) {
-            string = beautify(string, { indent_size: 0 });
+        for (answerString in answerArray) {
+            answerString = beautify(answerString, { indent_size: 0 });
         }
         this.answers[id].push(answerArray);
         logger.debug(this.answers[id]);

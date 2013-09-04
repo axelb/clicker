@@ -4,10 +4,10 @@
 'use strict';
 
 var assert = require('assert'),
+    log4js = require('log4js'),
     question = require('./question'),
     testString1 = "> for(int i = 0; i <= 100; i++) {\n> \n> @@\n> \n> }",
-    testString2 = " @@ @@";
-    log4js = require('log4js'),
+    testString2 = " @@ @@",
     logger = log4js.getLogger('server');
 
 
