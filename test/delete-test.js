@@ -1,7 +1,6 @@
 var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
     response,
     selector,
-    clickAlternative,
     i;
 
 casper.login('XXX', 'xxx');
@@ -20,12 +19,12 @@ casper.thenOpen('http://localhost:8888/question', {
 // Check the id that is returned by the server.
 casper.then(function () {
     response = JSON.parse(casper.getHTML("pre"));//dirty hack
-    this.test.assertTruthy(response.id, "Repsonse must contain the id");
+    this.test.assertTruthy(response.id, "Response must contain the id");
     selector = '#a' + response.id + "a";//a was inserted so that id is terminated by a text character.
 });
 
 casper.thenOpen('http://localhost:8888/#/list', function() {
-    casper.waitForSelector(selector, function then(){
+    casper.waitForSelector(selector, function then() {
         this.click(selector);
     });
 });
@@ -34,7 +33,7 @@ casper.then(function() {
     this.waitForSelector("#saveConfirmDialog");
     this.test.assertExists("#deleteLink");
     this.click("#deleteLink");
-    casper.waitForSelector("#listQuestions", function then(){
+    casper.waitForSelector("#listQuestions", function() {
         this.test.assertDoesntExist(selector);
     });
 });

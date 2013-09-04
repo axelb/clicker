@@ -1,5 +1,6 @@
 /**
- * Integration test; requires running server.
+ * Integration test that creates an MC question and expects it in the list.
+ * Requires a running server.
  */
 
 casper.login('XXX', 'xxx');
@@ -23,7 +24,7 @@ casper.then(function () {
 
     this.sendKeys('#alternative0', 'This is a rest from an integration test!');
     this.click('#buttonAddAlternative');
-    this.test.assertExists('#alternative1', 'Now I expect text field for first alternative');
+    this.test.assertExists('#alternative1', 'Now I expect text field for second alternative');
 
     this.sendKeys('#alternative1', 'This is a rest from an integration test!');
     this.click('#saveQuestion');

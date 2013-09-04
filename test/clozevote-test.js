@@ -4,7 +4,6 @@
  */
 var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
     response,
-    clickAlternative,
     i;
 
 casper.login('XXX', 'xxx');
