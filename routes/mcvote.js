@@ -6,6 +6,8 @@
  * - deliver results as histogram data for display purposes
 */
 
+'use strict';
+
 var config = require('../public/js/config'),
     collector = require('./voteCollector'),
     voteCollector = new collector.VoteCollector();

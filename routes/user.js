@@ -3,6 +3,8 @@
  * @type {*}
  */
 
+'use strict';
+
 var mongo = require('./mongo'),
     crypto = require('crypto'),
     randomstring = require('randomstring'),

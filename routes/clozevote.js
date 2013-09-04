@@ -6,6 +6,8 @@
  * - deliver results as table to teacher
 */
 
+'use strict';
+
 var config = require('../public/js/config'),
     collector = require('./clozeCollector'),
     clozeCollector = new collector.ClozeCollector();

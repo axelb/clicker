@@ -4,6 +4,8 @@
  * It simply counts up results in an array. A vote for a question must be opened explicitly and it will
  * be closed  when results are queried (NYI).
  */
+'use strict';
+
 var log4js = require('log4js'),
     logger = log4js.getLogger('server');
 

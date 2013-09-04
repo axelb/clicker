@@ -2,6 +2,8 @@
  * Mocha based test.
  * @type {*}
  */
+'use strict';
+
 var assert = require('assert'),
     voteCollector = require('./voteCollector'),
     collector = new voteCollector.VoteCollector(),

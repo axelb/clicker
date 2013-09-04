@@ -1,6 +1,8 @@
 /**
  * Mocha based test.
  */
+'use strict';
+
 var assert = require('assert'),
     question = require('./question'),
     testString1 = "> for(int i = 0; i <= 100; i++) {\n> \n> @@\n> \n> }",

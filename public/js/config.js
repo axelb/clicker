@@ -2,6 +2,8 @@
  * Contains global configuration variables that can be used on client and on server.
  */
 
+'use strict';
+
 var root = (typeof(exports) === "undefined") ? window : exports;
 
 /**

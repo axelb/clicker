@@ -2,6 +2,8 @@
  * This file contains all callback functions for voting on BYODs.
  * This BYOD code is NOT based on angular!
  */
+'use strict';
+
 var init = function() {
 },
 

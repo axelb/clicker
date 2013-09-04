@@ -1,3 +1,5 @@
+'use strict';
+
 var mongo = require('./mongo'),
     fs = require('fs'),
     imageSchema = new mongo.Schema({

@@ -1,5 +1,7 @@
 /* express-based server.
  */
+'use strict';
+
 var express = require('express'),
     user = require('./routes/user'),
     question = require('./routes/question'),

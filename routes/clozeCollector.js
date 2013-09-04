@@ -3,6 +3,8 @@
  * Collector class for collecting answers to cloze questions.
  * @type {*}
  */
+'use strict';
+
 var log4js = require('log4js'),
     logger = log4js.getLogger('server'),
     beautify = require('js-beautify').js_beautify;

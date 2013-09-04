@@ -2,6 +2,8 @@
  * Mocha based test for result collector of heatmap questions.
  * @type {*}
  */
+'use strict';
+
 var assert = require('assert'),
     pointCollector = require('./pointCollector'),
     collector = new pointCollector.PointCollector(),

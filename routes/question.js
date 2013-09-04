@@ -1,7 +1,13 @@
-var mongo = require('./mongo'),
-    config = require('../public/js/config'),
-    shortid = require('shortid'),
+/**
+ *  Node module containing code to create RESTful services related to questions.
+ */
+
+'use strict';
+
+var shortid = require('shortid'),
     markDown = require('node-markdown').Markdown,
+    mongo = require('./mongo'),
+    config = require('../public/js/config'),
     Alternative = new mongo.Schema({
         title: { type: String, required: false, trim: true }
     }),

@@ -1,3 +1,5 @@
+'use strict';
+
 var init = function () {
     },//Hook method for initilization code
 

@@ -3,6 +3,8 @@
  * Collector class for collecting answers to point-and-click questions.
  * @type {*}
  */
+'use strict';
+
 var log4js = require('log4js'),
     logger = log4js.getLogger('server');
 

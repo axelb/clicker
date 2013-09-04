@@ -3,6 +3,8 @@
  * @type {*}
  */
 
+'use strict';
+
 var mongoose = require('mongoose'),
     connection = mongoose.createConnection(process.env.MONGOURI),
     connectionHealth = true,//lets monitor the connection

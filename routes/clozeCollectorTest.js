@@ -2,6 +2,8 @@
  * Mocha based test for the collector for cloze-questions.
  * @type {*}
  */
+'use strict';
+
 var assert = require('assert'),
     clozeCollector = require('./clozeCollector'),
     collector = new clozeCollector.ClozeCollector(),

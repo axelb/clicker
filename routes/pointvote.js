@@ -6,6 +6,8 @@
  * - deliver results to to teacher
  */
 
+'use strict';
+
 var config = require('../public/js/config'),
     collector = require('./pointCollector'),
     pointCollector = new collector.PointCollector();

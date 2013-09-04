@@ -1,3 +1,8 @@
+/**
+ * Client code to draw result histograms (and probably other charts later on).
+ */
+'use strict';
+
 var init = function () {
     var qid = $('#qid').attr('name'),
         converter = new Showdown.converter(),
