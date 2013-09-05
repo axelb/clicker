@@ -97,7 +97,8 @@ exports.asjson = function (req, res) {
 var saveQuestion = function (req, res, imageId) {
     var question,
         id,
-        newQuestion;
+        newQuestion,
+        query;
     logger.debug("received question: " + req.body.question);//raw question before parsing
     question = JSON.parse(req.body.question);
     id = question._id;
@@ -109,16 +110,10 @@ var saveQuestion = function (req, res, imageId) {
         question.imageId = null;
     }
     logger.debug(question);
+    // update existing question or create a new one
     if (question._id) {
-        delete question._id;//I don't really understand why this works!
-        newQuestion = new Question(question);
-        newQuestion.update(question, function (error) {
-            if (error) {
-                logger.error("Error: " + error);
-            } else {
-                logger.debug("Updated question:  " + newQuestion);
-            }
-        });
+        delete question._id;
+        query = Question.findByIdAndUpdate(id, question, function() { /* something to do here? */});
     } else {
         question._id = shortid.generate();
         newQuestion = new Question(question);
@@ -126,7 +121,7 @@ var saveQuestion = function (req, res, imageId) {
             logger.debug("Stored new question:  " + newQuestion);
         });
     }
-    res.json({id: newQuestion._id});
+    res.json({id: id || newQuestion._id});
 };
 
 /**

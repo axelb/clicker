@@ -36,7 +36,7 @@ casper.then(function () {
             this.click('#buttonAddAlternative');
             this.test.assertExists('#alternative2', 'Now text field for third alternative must exist');
             this.sendKeys('#alternative1', 'Edited Alternative 2');
-            this.sendKeys('#alternative2', 'alt3');
+            this.sendKeys('#alternative2', 'Added Alternative 3');
             this.click('#saveQuestion');
         });
     })
