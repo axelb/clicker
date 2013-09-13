@@ -4,8 +4,8 @@
 
 .signin {
     position: absolute;
-    left: 400px;
-    top: 200px;
+    left: 30%;
+    top: 40%;
     width: 280px;
     height: 165px;
     border-radius: 5px;
@@ -98,6 +98,7 @@
 .resultcell {
     border: thin solid;
     border-color: #1e90ff;
+    padding: 3px 6px;
 }
 
 #pointresult {
