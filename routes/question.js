@@ -14,6 +14,7 @@ var shortid = require('shortid'),
     questionSchema = new mongo.Schema({
         _id: false,
         question: { type: String, required: true, trim: true },
+        owner: {type: String, required: true, trim: true },
         type: {type: String, required: true, trim: true },
         alternatives: [Alternative],
         imageId: {type: String, required: false, trim: true }
@@ -90,6 +91,8 @@ exports.asjson = function (req, res) {
 
 /**
  * Save or update a question depending on whether it already carries an _id or not.
+ * The call to this method must be secured with ensureAuthenticated to guarantee
+ * that we have a currentUser in the session.
  * @param req request object
  * @param res response object
  * @param imageId id of a newly attached image -- or null if no (or no new in case of editing) image is attached.
@@ -114,8 +117,9 @@ var saveQuestion = function (req, res, imageId) {
     if (question._id) {
         delete question._id;
         query = Question.findByIdAndUpdate(id, question, function() { /* something to do here? */});
-    } else {
+    } else { //create
         question._id = shortid.generate();
+        question.owner =  req.user.username;
         newQuestion = new Question(question);
         newQuestion.save(function (error) {
             logger.debug("Stored new question:  " + newQuestion);
@@ -140,12 +144,14 @@ exports.save = function (req, res) {
 };
 
 /**
- * RESTful-url to get a list of all stored questions.
+ * RESTful-url to get a list of all stored questions for the current user.
+ * The call to this method must be secured with ensureAuthenticated to guarantee
+ * that we have a currentUser in the session.
  * @param req
  * @param res
  */
 exports.list = function (req, res) {
-    Question.find().exec(
+    Question.find().where('owner').equals(req.user.username).exec(
         function (error, data) {
             res.end(JSON.stringify(data));
         });

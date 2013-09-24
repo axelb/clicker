@@ -7,4 +7,5 @@
 var mongo = require('./routes/mongo'),
     user = require('./routes/user');
 
-console.log(user.insertUser('XXX', 'xxx', process.exit));
+console.log(user.insertUser('XXX', 'xxx'));
+console.log(user.insertUser('YYY', 'yyy', process.exit));
