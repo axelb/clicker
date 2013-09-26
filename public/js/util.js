@@ -1,9 +1,8 @@
+'use strict';
+
 /**
  * Generic function to add events to objects. (see http://ichwill.net)
  */
-
-'use strict';
-
 function addEvent(obj, evType, fn) {
   if (obj.addEventListener) { 
     obj.addEventListener(evType, fn, false); 

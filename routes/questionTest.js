@@ -1,5 +1,5 @@
 /**
- * Mocha based test.
+ * Mocha based test to test the @@ replacement in cloze questions.
  */
 'use strict';
 
@@ -14,11 +14,11 @@ var assert = require('assert'),
 describe('Test the @@-replacement in cloze question strings', function () {
     logger.setLevel('OFF');
     it('should get a single @@ straight', function () {
-        assert.equal("> for(int i = 0; i <= 100; i++) {\n> \n> <input class='clozetext' id='text0' type='text'></input>\n> \n> }", question.mangleTextfield(testString1));
+        assert.equal("<blockquote>\n  <p>for(int i = 0; i &lt;= 100; i++) {</p>\n  \n  <p><input class='clozetext' id='text0' type='text'></input></p>\n  \n  <p>}</p>\n</blockquote>", question.mangleTextfield(testString1));
     });
 
     it('should get double @@ straight', function () {
-        assert.equal(" <input class='clozetext' id='text0' type='text'></input> <input class='clozetext' id='text1' type='text'></input>", question.mangleTextfield(testString2));
+        assert.equal("<p><input class='clozetext' id='text0' type='text'></input> <input class='clozetext' id='text1' type='text'></input></p>", question.mangleTextfield(testString2));
     });
 
 });

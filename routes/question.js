@@ -59,15 +59,17 @@ exports.show = function (req, res) {
 };
 
 /**
- * Replace all occurences of @@ (or whatever is used in root.TEXTFIELD_INDICATOR) with textfields containing increasing ids of kind "text<x>"
+ * Process the input string through markDown and then replace all occurences of @@
+ * (or whatever is used in root.TEXTFIELD_INDICATOR) with textfields containing increasing ids of kind "text<x>"
  * @param string  String to convert.
- * @return String with @@ replaced by html textfields
+ * @return Markdowned input string with @@ replaced by html textfields
  */
 exports.mangleTextfield = function(string) {
     var textFieldStart = "<input class='clozetext' id='text",
         textFieldEnd = "' type='text'></input>",
         id = 0,
         replacementText;
+    string = markDown(string);
     while(string.indexOf(config.TEXTFIELD_INDICATOR) >= 0) {
         replacementText = textFieldStart + id + textFieldEnd;
         string = string.replace(config.TEXTFIELD_INDICATOR, replacementText);

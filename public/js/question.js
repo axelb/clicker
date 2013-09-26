@@ -299,11 +299,10 @@ function ClozeListCtrl($scope, $http, $location) {
             success(function (question, status) {
                 var text,
                     converter = new Showdown.converter();
-                $scope.questionhtml = question.question;
+                $scope.questionhtml = converter.makeHtml(question.question);
                 for(text in answer[0]) {
                     $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[0][text] + '</span>');
                 }
-                $scope.questionhtml = converter.makeHtml($scope.questionhtml);
             });
     };
 }
