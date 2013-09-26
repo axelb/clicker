@@ -23,11 +23,11 @@ describe('Cloze Collector Test 1', function () {
 
         collector.saveAnswer(testId1, answers1);
         assert.equal(collector.getResultsAsJSON(testId1), JSON.stringify({
-            answers: [[{"text0": "Bla"}]]
+            answers: [{"text0": "Bla"}]
         }));
         collector.saveAnswer(testId1, answers2);
         assert.equal(collector.getResultsAsJSON(testId1), JSON.stringify({
-            answers: [[{"text0": "Bla"}], [{"text0": "Blubber"}]]
+            answers: [{"text0": "Bla"}, {"text0": "Blubber"}]
         }));
     });
 });
@@ -39,11 +39,11 @@ describe('Cloze Collector Test with code beautification', function () {
 
         collector.saveAnswer(testId2, answers3);
         assert.equal(collector.getResultsAsJSON(testId2), JSON.stringify({
-            answers: [[{"text0": "int i = 0", "text1": "if (b) {}"}]]
+            answers: [{"text0": "int i = 0", "text1": "if (b) {}"}]
         }));
         collector.saveAnswer(testId2, answers4);
         assert.equal(collector.getResultsAsJSON(testId2), JSON.stringify({
-            answers: [[{"text0": "int i = 0", "text1": "if (b) {}"}], [{"text0": "Bar", "text1": "Baz"}]]
+            answers: [{"text0": "int i = 0", "text1": "if (b) {}"}, {"text0": "Bar", "text1": "Baz"}]
         }));
     });
 });

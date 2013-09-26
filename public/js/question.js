@@ -300,8 +300,8 @@ function ClozeListCtrl($scope, $http, $location) {
                 var text,
                     converter = new Showdown.converter();
                 $scope.questionhtml = converter.makeHtml(question.question);
-                for(text in answer[0]) {
-                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[0][text] + '</span>');
+                for(text in answer) {
+                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[text] + '</span>');
                 }
             });
     };

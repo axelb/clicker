@@ -18,8 +18,7 @@ exports.showQrAndStart = function(req, res) {
 };
 
 exports.saveAnswer = function(req, res) {
-	var vote = req.body.vote
-	  , status = clozeCollector.saveAnswer(vote.id, vote.results);
+	var status = clozeCollector.saveAnswer(req.body.id, req.body.results);
 	if(status !== 0) {
         res.render('noVoteError');
 	} else {

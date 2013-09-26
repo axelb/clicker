@@ -32,25 +32,19 @@ exports.ClozeCollector.prototype = {
      * The returned texts(s) of an answer are saved and beautified.
      * I use a JS beautifier. Should reasonably be working for Java on small code snippets as well.
      * @param id
-     * @param answers
+     * @param vote object containing the filled text fields as attributes/values.
      * @return {number}
      */
-    saveAnswer: function(id, answers) {
-        var answerArray,
-            attribute,
-            answerString;
-        for(attribute in answers) {
-            answers[attribute] = beautify(answers[attribute], { indent_size: 0 });
-        }
-        answerArray = [answers]
+    saveAnswer: function(id, vote) {
+        var attribute;
         if(!this.answers[id] || this.answers[id] === undefined) {
             logger.error('Vote not open for id: ' + id);
             return 1;
         }
-        for (answerString in answerArray) {
-            answerString = beautify(answerString, { indent_size: 0 });
+        for(attribute in vote) {
+            vote[attribute] = beautify(vote[attribute], { indent_size: 0 });
         }
-        this.answers[id].push(answerArray);
+        this.answers[id].push(vote);
         logger.debug(this.answers[id]);
         return 0;
     },

@@ -100,7 +100,7 @@ sendClozeResults = function(id) {
             textValue = this.value;
         results[textId] = textValue;
     });
-    $.ajax({url: '/saveAnswer/cloze/', type:'POST', data: {vote: {id: questionId, results: results}}})
+    $.ajax({url: '/saveAnswer/cloze/', type:'POST', data: {id: questionId, results: results}})
         .done(success)
         .fail(error);
 };

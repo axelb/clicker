@@ -1,6 +1,6 @@
 <table id="clozeResultTable">
   <tr ng-repeat="answer in answers" ng-click="handleTableClick(answer)">
-      <td class="resultcell" ng-repeat="(key, value) in answer[0] track by $index">{{value}}</td>
+      <td class="resultcell" ng-repeat="(key, value) in answer track by $index">{{value}}</td>
   </tr>
 </table>
 
