@@ -17,15 +17,14 @@
         <!--  edit -->
         <td><a href="#/edit/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-edit icon-large"></i></a></td>
         <!-- delete  id must begin with a letter. So I add two a's at beginning and end -->
-        <td><a id="a{{question._id}}a" onclick="$('#deleteLink').attr('href', '/delete/{{question._id}}');$('#saveConfirmDialog').modal({keyboard: true})">
+        <td><a id="a{{question._id}}a" ng-click="confirmDeleteQuestion(question._id)">
             <i class="icon-remove-sign icon-large"></i>
           </a></td>
       </tr>
    </table>
 
-   <!-- the modal saveConfirmDialog
-        see http://jsfiddle.net/tadchristiansen/gt92r/ for modal popups -->
-      <div id="saveConfirmDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <!-- the modal deleteConfirmDialog -->
+      <div id="deleteConfirmDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Confirm Delete question?</h3>
@@ -34,8 +33,8 @@
       <p>...</p>
       </div>
       <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <a id="deleteLink" role="button" class="btn btn-primary">Confirm</a><!-- href is set by click on delete-->
+      <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="finishDeleteQuestion(false)">Cancel</button>
+      <a id="deleteLink" role="button"data-dismiss="modal"  class="btn btn-primary" ng-click="finishDeleteQuestion(true)">Confirm</a>
       </div>
       </div>
 </div>

@@ -14,9 +14,9 @@ module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstr
             $routeProvider.when('/edit/' + questionTypes[questionType].name + '/:id', {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
         }
         $routeProvider.
-            when('/', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
+            when('/', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             when('/howto', {controller: StartCtrl, templateUrl: 'partials/howto.html'}).
-            when('/logout', {controller: StartCtrl, templateUrl: 'partials/start.html'}).
+            when('/logout', {controller: StartCtrl, templateUrl: 'partials/login.html'}).
             when('/list', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
             // result pages
             when('/result/SC/:id', {controller: SCMCController, templateUrl: 'partials/scmcResults.html'}).
@@ -60,7 +60,7 @@ function StartCtrl($scope, $http, $window, userService) {
     };
 }
 
-function ListCtrl($scope, $http, $location, $templateCache, Question) {
+function ListCtrl($scope, $http, $location, $templateCache, $window, Question) {
     $scope.questions = Question.query();
 
     /**
@@ -76,6 +76,29 @@ function ListCtrl($scope, $http, $location, $templateCache, Question) {
             return text;
         }
         return text.split('\n', 1)[0];
+    };
+
+    /**
+     * Open confirm dialog and store question id.
+     * @param id
+     */
+    $scope.confirmDeleteQuestion = function(id) {
+        $scope.questionIdToDelete = id;
+        $('#deleteConfirmDialog').modal({keyboard: true});
+    };
+
+    $scope.finishDeleteQuestion = function(really) {
+        if(really) {
+            $http({method: 'GET', url: '/delete/' + $scope.questionIdToDelete}).
+                success(function (data, status, headers, config) {
+                    Notifier.success('Question deleted!');
+                    $window.location.href = '/';
+                }).
+                error(function (data, status, headers, config) {
+                    Notifier.error('could not delete question (status: ' + status + ')');
+                });
+        }
+        $scope.questionIdToDelete = null;
     };
 
     /**

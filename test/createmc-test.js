@@ -8,7 +8,6 @@ casper.login('XXX', 'xxx');
 casper.thenOpen('http://localhost:8888/', function () {
     this.test.assertTitle("Online Response System (Clicker)");
     this.test.assertExists('#menuNew', 'Expect the "new" menu');
-    this.test.assertExists('#buttonList', 'Expect the list button');
     this.click('#menuNew');
     this.click('#newMultipleChoice');
 });
@@ -28,12 +27,6 @@ casper.then(function () {
 
     this.sendKeys('#alternative1', 'This is a rest from an integration test!');
     this.click('#saveQuestion');
-});
-
-casper.then(function () {
-    casper.thenOpen('http://localhost:8888/', function () {
-        this.click('#buttonList');
-    });
 });
 
 casper.then(function () {

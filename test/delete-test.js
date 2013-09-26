@@ -25,12 +25,14 @@ casper.then(function () {
 
 casper.thenOpen('http://localhost:8888/#/list', function() {
     casper.waitForSelector(selector, function then() {
+        this.test.assertExists(selector);
         this.click(selector);
     });
 });
 
 casper.then(function() {
-    this.waitForSelector("#saveConfirmDialog");
+    this.waitForSelector("#deleteConfirmDialog");
+    this.test.assertExists("#deleteConfirmDialog");
     this.test.assertExists("#deleteLink");
     this.click("#deleteLink");
     casper.waitForSelector("#listQuestions", function() {
