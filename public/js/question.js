@@ -180,12 +180,16 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
                 var a = $('[id^=alternative]'),
                     last = a.last();
                 last.focus();
-            }, 30);// this value is somewhat arbirary
+            }, 30);// this value is somewhat arbitrary
         }
     };
 
     $scope.removeAlternative = function (alternative) {
         var index = $scope.getIndexOf(alternative);
+        // the last one cannot be removed
+        if($scope.question.alternatives.length == 1) {
+            return;
+        }
         $scope.question.alternatives.splice(index, 1);
     };
 
