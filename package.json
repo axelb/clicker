@@ -18,7 +18,7 @@
         "js-beautify": "latest"
     },
     "engines": {
-        "node": "0.10.x",
+        "node": "0.10.17",
         "npm": "1.2.x"
     }
 }
