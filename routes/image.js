@@ -73,9 +73,12 @@ exports.deleteImage = function (id) {
         }
         if (data) {
             data.remove(function (error) {
-                logger.error('Could not delete image ' + id + ' (' + error + ')');
+                if(error) {
+                    logger.error('Could not delete image ' + id + ' (' + error + ')');
+                } else {
+                    logger.debug('Deleted image ' + id);
+                }
             });
-            logger.debug('Deleted image ' + id);
         }
     });
 };

@@ -79,7 +79,7 @@ function ListCtrl($scope, $http, $location, $templateCache, $window, Question) {
     };
 
     /**
-     * Open confirm dialog and store question id.
+     * Open confirm dialog and store question id in scope.
      * @param id
      */
     $scope.confirmDeleteQuestion = function(id) {
@@ -87,6 +87,10 @@ function ListCtrl($scope, $http, $location, $templateCache, $window, Question) {
         $('#deleteConfirmDialog').modal({keyboard: true});
     };
 
+    /**
+     * Finish deletion process (called by an ok or by cancel seen in param really).
+     * @param really Delete iff true. removed the stored id anyway.
+     */
     $scope.finishDeleteQuestion = function(really) {
         if(really) {
             $http({method: 'GET', url: '/delete/' + $scope.questionIdToDelete}).
@@ -99,6 +103,20 @@ function ListCtrl($scope, $http, $location, $templateCache, $window, Question) {
                 });
         }
         $scope.questionIdToDelete = null;
+    };
+
+    /**
+     * returns the title of the currently selected question (to show in alert box).
+     * @returns title of selected question.
+     */
+    $scope.getTitleOfSelectedQuestion = function() {
+        var index;
+        for(index = 0; index < $scope.questions.length; index++) {
+             if($scope.questions[index]._id == $scope.questionIdToDelete) {
+                 return $scope.questions[index].question;
+             }
+        }
+        return "";//this should not happen
     };
 
     /**
