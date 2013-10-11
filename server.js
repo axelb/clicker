@@ -41,6 +41,7 @@ app.configure(function () {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
 
+    app.use(express.favicon(__dirname + '/public/favicon.ico'));
     app.use(function(req, res, next) {
         if (!mongo.health()) {
             res.set('Content-Type', 'text/html');
@@ -49,7 +50,6 @@ app.configure(function () {
             next();
         }
     });
-    app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.cookieParser());
     app.use(express.bodyParser());
