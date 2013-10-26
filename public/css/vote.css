@@ -22,6 +22,10 @@
 
 }
 
+#clickImage {
+    max-width: 1000%; /* hack to preserve image size */
+}
+
 .loginBody {
     background: url("/img/classroom.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
