@@ -9,7 +9,7 @@ var assert = require('assert'),
     collector = new pointCollector.PointCollector(),
     testId1 = "50d88d8d46bb810200000002",
     log4js = require('log4js'),
-    testAnswer = {x : 1, y : 2},
+    testAnswer = {x : 0.557, y : 0.219},
     logger = log4js.getLogger('server');
 
 
@@ -25,6 +25,6 @@ it('should store some answers correctly', function () {
     collector.saveAnswer(testId1, testAnswer);
     collector.saveAnswer(testId1, testAnswer);
     logger.error(collector.getResultsAsJSON(testId1));
-    assert.equal(collector.getResultsAsJSON(testId1), '{"answers":[{"x":1,"y":2},{"x":1,"y":2}]}');
+    assert.equal(collector.getResultsAsJSON(testId1), '{"answers":[{"x":0.557,"y":0.219},{"x":0.557,"y":0.219}]}');
 });
 

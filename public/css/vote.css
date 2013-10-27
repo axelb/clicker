@@ -23,7 +23,7 @@
 }
 
 #clickImage {
-    max-width: 1000%; /* hack to preserve image size */
+    /*max-width: 1000%; /* hack to preserve image size */
 }
 
 .loginBody {

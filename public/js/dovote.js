@@ -60,6 +60,9 @@ handleClick = function (event) {
         pointSize = 20;
     clickPos = relativeMouseCoordinates(event, image);
     redPoint.css({position: "absolute", visibility: "visible", width: pointSize, height: pointSize, top: clickPos.y - pointSize / 2, left: clickPos.x - pointSize / 2});
+    // Now calculate relative coordinates in the image
+    clickPos.x = clickPos.x / image.width;
+    clickPos.y = clickPos.y / image.height;
     $('#sendButton').removeAttr("disabled");
 },
 

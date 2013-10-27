@@ -54,6 +54,20 @@ module.factory('userService', function($http, $window, $rootScope) {
     return userServiceInstance;
 });
 
+/**
+ * Directive providing the showclicks-Attribute so that click positions can be loaded
+ * ater the underlying image has loaded and it's position can be determined.
+ */
+module.directive('showclicks', function() {
+        return {
+            link: function(scope, element, attrs) {
+                      element.bind("load" , function(e) {
+                          scope.loadClicks();
+                  });
+            }
+        };
+});
+
 function StartCtrl($scope, $http, $window, userService) {
     $scope.logout = function() {
         userService.logout();
@@ -150,8 +164,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             type: 'none',
             alternatives: [
                 {title: ''}
-            ],
-            imageId: ''
+            ]
         };
         emptyQuestion.type = $location.url().substr(window.NEW_URL_PREFIX.length);//transported to here via config and URL.
         if ($routeParams.id) {
@@ -308,21 +321,32 @@ function PointCtrl($scope, $http, $location) {
         success(function (question, status) {
             $scope.imageId = question.imageId;
         });
-    $http.get('/results/Point/' + $scope.qid).
-        success(function (data, status, headers, config) {
-            $scope.coordinates = data.answers;
-        });
     /**
-     * Get correct y coordinate to position the red point.
-     */
-    $scope.getY = function (coord) {
-        return coord.y - $scope.pointsize / 2;
-    };
-    /**
-     * Get correct x coordinate to position the red point.
+     * Two methods to get correct x- and y- coordinate to position the red point.
+     * Also calculates absolute coordinates from the relative ones.
      */
     $scope.getX = function (coord) {
-        return coord.x - $scope.pointsize / 2;
+        var image = $('#clickImage')[0];
+        return (coord.x * image.width) - $scope.pointsize / 2;
+    };
+    $scope.getY = function (coord) {
+        var image = $('#clickImage')[0];
+        return (coord.y * image.height) - $scope.pointsize / 2;
+    };
+    /**
+     * This is a callback function to load the click positions. Since relative positions are recorded
+     * the points must be loaded after the underlying image has loada and it's sie is known.
+     */
+    $scope.loadClicks = function() {
+        $scope.$apply(function() { // not sure why this is needed
+            $http.get('/results/Point/' + $scope.qid).
+                error(function(error){
+                    Notifier.error(error);
+                }).
+                success(function (data, status, headers, config) {
+                    $scope.coordinates = data.answers;
+                });
+        });
     };
 }
 
