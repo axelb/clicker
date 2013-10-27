@@ -335,7 +335,8 @@ function PointCtrl($scope, $http, $location) {
     };
     /**
      * This is a callback function to load the click positions. Since relative positions are recorded
-     * the points must be loaded after the underlying image has loada and it's sie is known.
+     * the points must be loaded after the underlying image has loaded and it's size is known.
+     * Was designed to work together with the showclicks directive.
      */
     $scope.loadClicks = function() {
         $scope.$apply(function() { // not sure why this is needed
