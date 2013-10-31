@@ -19,7 +19,8 @@ I also used this project to gain experience with some modern web programming env
 * [Notifier](https://github.com/Srirangan/notifer.js) library done by Srirangan
 * Graph Drawing with Xavier Shay's [TufteGraphs](http://xaviershay.github.io/tufte-graph/)
 * And (of course) [jquery](http://jquery.com)
-* [QRcode plugin for jquery](http://jeromeetienne.github.com/jquery-qrcode/)
+* [Angular QR Code directive](https://github.com/monospaced/angular-qrcode)
+* [QR Code generator](https://github.com/kazuhikoarase/qrcode-generator)
 * [Mocha](http://visionmedia.github.io/mocha/) is used for testing.
 * I also do some integration testing with [casperjs](http://casperjs.org)
 * Server-side logging is done with [log4js-node](https://github.com/nomiddlename/log4js-node)

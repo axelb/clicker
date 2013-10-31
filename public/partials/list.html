@@ -13,7 +13,7 @@
         <td>{{question.type}}</td>
         <td id="row{{$index}}">{{shorten(question.question)}}</td>
         <!-- Show QR code -->
-        <td class="qrCodeLink-{{getQuestionType(question)}}"><a href="/voteqr/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-qrcode icon-large"></i></a></td>
+        <td class="qrCodeLink-{{getQuestionType(question)}}"><a href="#/voteqr/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-qrcode icon-large"></i></a></td>
         <!--  edit -->
         <td><a href="#/edit/{{getQuestionType(question)}}/{{question._id}}"><i class="icon-edit icon-large"></i></a></td>
         <!-- delete  id must begin with a letter. So I add two a's at beginning and end -->

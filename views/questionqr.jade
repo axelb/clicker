@@ -1,8 +1,0 @@
-extends layout
-
-block content
-  div#link(id='linkToVote', class='questionLink')
-      <a href="/question/#{id}">onlineresponse.org/q/#{id}</a>
-  div#qrcode.qrcode(id='qrcode', value='#{id}', onClick="location='/#/result/#{type}/#{id}'")
-  
-  script(src='/js/questionqr.js')

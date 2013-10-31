@@ -38,7 +38,7 @@ casper.then(function () {
 // problem: Gives first not last heatmap!
 casper.then(function(){
     var linkString = casper.getHTML(".qrCodeLink-Point");
-    linkString = linkString.substring("<a href=\"/voteqr/Point/".length);
+    linkString = linkString.substring("<a href=\"/#/voteqr/Point/".length);
     qid = linkString.split("\"")[0];
     heatmapQuestionUrl = baseUrl + 'voteqr/Point/' + qid;
     this.thenOpen(heatmapQuestionUrl, function () {

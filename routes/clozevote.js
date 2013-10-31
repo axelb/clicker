@@ -14,7 +14,7 @@ var config = require('../public/js/config'),
 
 exports.showQrAndStart = function(req, res) {
   clozeCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id, type: config.questionTypes().Cloze.name });
+  res.send(200);
 };
 
 exports.saveAnswer = function(req, res) {

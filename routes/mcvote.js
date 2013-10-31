@@ -14,7 +14,7 @@ var config = require('../public/js/config'),
 
 exports.showQrAndStart = function(req, res) {
   voteCollector.openVote(req.params.id);
-  res.render('questionqr', { id: req.params.id, type: config.questionTypes().MC.name });
+  res.send(200);
 };
 
 exports.saveAnswer = function(req, res) {

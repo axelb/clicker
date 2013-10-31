@@ -3,7 +3,7 @@
 var init = function () {
     },//Hook method for initilization code
 
-module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstrap']).
+module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstrap', 'monospaced.qrcode']).
     config(function ($routeProvider, $httpProvider) {
         var questionTypes,
             questionType;
@@ -12,6 +12,7 @@ module = angular.module('question', ['questionService', 'ngCookies', 'ui.bootstr
         for (questionType in questionTypes) {
             $routeProvider.when(window.NEW_URL_PREFIX + questionTypes[questionType].name, {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
             $routeProvider.when('/edit/' + questionTypes[questionType].name + '/:id', {controller: QuestionCtrl, templateUrl: 'partials/' + questionTypes[questionType].template});
+            $routeProvider.when('/voteqr/' + questionTypes[questionType].name + '/:id', {controller: QRCodeCtrl, templateUrl: 'partials/questionqr.html'});
         }
         $routeProvider.
             when('/', {controller: ListCtrl, templateUrl: 'partials/list.html'}).
@@ -423,5 +424,34 @@ function SCMCController($scope, $http, $location) {
             });
         });
     };
+
+}
+
+function QRCodeCtrl($scope, $http, $location, $window, $routeParams) {
+    $scope.QRCodeSize = "800";
+    $scope.path = $location.path();
+    // Open a  vote for the question. Path is identical to angular rout without hash (#)
+    $http.get($scope.path).
+        success(function (data, status, headers, config) {
+            Notifier.success("Vote opened");
+        }).
+        error(function (data, status, headers, config) {
+            Notifier.error('could not open vote (status: ' + status + ')');
+        });
+
+    /**
+     * Helper to request question id from route
+     */
+    $scope.getVoteUrl = function() {
+        return "http://" + $location.host() + ":" + $location.port() + "/q/" + $routeParams.id;
+    };
+
+    /**
+     * Show results in a new tab to avoid problems with browser back button.
+     */
+    $scope.showResult = function() {
+        var resultPath = "/#" + $scope.path.replace(/voteqr/, "result");
+        $window.open(resultPath);
+    }
 
 }
