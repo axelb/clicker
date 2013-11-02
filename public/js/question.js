@@ -441,9 +441,11 @@ function QRCodeCtrl($scope, $http, $location, $window, $routeParams) {
 
     /**
      * Helper to request question id from route
+     * Todo: replace baseUrl with some kind of environment-variable
      */
     $scope.getVoteUrl = function() {
-        return "http://" + $location.host() + ":" + $location.port() + "/q/" + $routeParams.id;
+        //return "http://" + $location.host() + ":" + $location.port() + "/q/" + $routeParams.id;
+        return "http://onlineresponse.org/q/" + $routeParams.id;
     };
 
     /**
