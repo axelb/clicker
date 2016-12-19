@@ -4,21 +4,25 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "express": "latest",
-        "jade": "latest",
-        "passport": "latest",
+        "express": ">=4.14.0",
+        "pug": ">=2.0.0-beta6",
+        "serve-favicon": ">=2.3.2",
+        "passport": ">=0.3.2",
         "passport-local": "latest",
+        "body-parser": ">=1.15.2",
+        "morgan": ">=1.7.0",
+        "cookie-parser": ">=1.4.0",
         "connect": "latest",
         "mime": "latest",
         "mongoose": "latest",
         "shortid": "latest",
         "node-markdown": "latest",
-        "log4js": "latest",
+        "log4js": ">=1.0.0",
         "randomstring": "latest",
         "js-beautify": "latest"
     },
     "engines": {
-        "node": "0.10.17",
-        "npm": "1.2.x"
+        "node": "6.3.1",
+        "npm": ">=3.10.0"
     }
 }

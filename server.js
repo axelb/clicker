@@ -5,8 +5,11 @@
 var express = require('express'),
     user = require('./routes/user'),
     question = require('./routes/question'),
+    cookieParser = require('cookie-parser'),
     passport = require('passport'),
+    bodyParser = require('body-parser'),
     localStrategy = require('passport-local').Strategy,
+    favicon = require('serve-favicon'),
     image = require('./routes/image'),
     mongo = require('./routes/mongo'),
     mcvote = require('./routes/mcvote'),
@@ -36,34 +39,34 @@ function ensureAuthenticated(req, res, next) {
     res.redirect(401, '/login.html');
 }
 
-app.configure(function () {
-    app.set('port', process.env.PORT || 8888);//process.env.PORT for deployment on heroku
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
+app.set('port', process.env.PORT || 8888);//process.env.PORT for deployment on heroku
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
 
-    app.use(express.favicon(__dirname + '/public/favicon.ico'));
-    app.use(function(req, res, next) {
-        if (!mongo.health()) {
-            res.set('Content-Type', 'text/html');
-            res.send(new Buffer('ERROR!'));
-        } else {
-            next();
-        }
-    });
-    app.use(express.logger('dev'));
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.session({ secret: 'bbwuop' }));
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));// content of public is served statically
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(function(req, res, next) {
+    if (!mongo.health()) {
+        res.set('Content-Type', 'text/html');
+        res.send(new Buffer('ERROR!'));
+    } else {
+        next();
+    }
+});
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
-app.configure('development', function () {
-    app.use(express.errorHandler());
-});
+app.use(logger);
+app.use(cookieParser());
+app.use(bodyParser());
+//app.use(express.methodOverride());
+//app.use(express.session({ secret: 'bbwuop' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));// content of public is served statically
+app.use(express.errorHandler());
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
