@@ -41,7 +41,7 @@ function ensureAuthenticated(req, res, next) {
 
 app.set('port', process.env.PORT || 8888);//process.env.PORT for deployment on heroku
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(function(req, res, next) {
@@ -57,16 +57,13 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
-app.use(logger);
+app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
 app.use(cookieParser());
 app.use(bodyParser());
 //app.use(express.methodOverride());
 //app.use(express.session({ secret: 'bbwuop' }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));// content of public is served statically
-app.use(express.errorHandler());
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
@@ -108,6 +105,8 @@ app.post('/saveAnswer/point', pointvote.saveAnswer);
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
 app.get('/results/Point/:id', pointvote.resultValues);//JSON data of result's coordinate collected so far
 app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
+
+app.use(express.static(path.join(__dirname, 'public')));// content of public is served statically
 
 // TODO: generify like that:
 /*for(questionType in questionTypes) {

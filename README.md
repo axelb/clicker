@@ -7,7 +7,7 @@ to scan a QR code that brings them to a page where they can leave their quote.
 I also used this project to gain experience with some modern web programming environments:
 * [NodeJS](http://nodejs.org)
 * [Express js](http://expressjs.com) (with RESTful URLs)
-* Server-side templating with [Jade](http://jade-lang.com)
+* Server-side templating with [pug](http://jade-lang.com)
 * [Passport for authentication](http://passportjs.org)
 * Deployment on [Heroku](http://www.heroku.com)
 * [MongoDB](http://www.mongodb.org) on [MongoLab](http://mongolab.com)
@@ -26,10 +26,6 @@ I also used this project to gain experience with some modern web programming env
 * Server-side logging is done with [log4js-node](https://github.com/nomiddlename/log4js-node)
 * Special glyphs are used from [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 * When code is collected in cloze questions, a normalization is done by beautifying the inserted code using [jsbeautifier](https://github.com/einars/js-beautify)
-
-## Testing
-There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
-These are also used on the jenkins server I use for CI and deployment. BTW: Current Jenkins config is stored in the resources directory.
 
 ## Functionality
 At the moment the following types of questions can be created and used:
@@ -50,8 +46,8 @@ Starting a vote by clicking the QR-code-icon shows the QR code leading to a voti
 
 ## Technical stuff
 ### Organization of the project
-**Server-side** code is on top level `server.js` and the directories `routes` (containing node modules implementing the routes defined in `server.js`) and `views` (containing the Jade templates).
-Jade is used to deliver the question to the devices as well to present the final result to the teacher.
+**Server-side** code is on top level `server.js` and the directories `routes` (containing node modules implementing the routes defined in `server.js`) and `views` (containing the pug-templates).
+PUG templates are used to deliver the question to the devices as well to present the final result to the teacher.
 
 
 **Client-side** angular code is located in the `public` subtree. Here all external libraries are bundeled in `./lib` and angular-js-code in `./js`
@@ -60,3 +56,12 @@ Jade is used to deliver the question to the devices as well to present the final
 * server (module mongo.js) expects environment variable MONGOURI containing valid URI to access the mongo db
 * if no environment variable PORT is present, port 8888 is used as default application port
 * logging can be configured ... somewhere
+
+## Testing
+Server-side code in directory routes is unit-tested using mocha. Does not require a running server. Tests can be executed using the script runTests in that directory.
+
+Client-side code is tested using casper and requires a running server. Tests can be started with the script `runtests` in directory test.
+
+There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
+These are also used on the jenkins server I use for CI and deployment. BTW: Current Jenkins config is stored in the resources directory.
+

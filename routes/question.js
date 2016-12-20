@@ -5,7 +5,7 @@
 'use strict';
 
 var shortid = require('shortid'),
-    markDown = require('node-markdown').Markdown,
+    markDown = require('marked'),
     mongo = require('./mongo'),
     config = require('../public/js/config'),
     Alternative = new mongo.Schema({

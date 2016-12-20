@@ -1,1 +1,1 @@
-find . -name \*-test.js -exec casperjs test {}  --includes=login.js \;
+find . -name \*-test.js -exec ../node_modules/.bin/casperjs test {}  --includes=login.js \;

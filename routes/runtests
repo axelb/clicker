@@ -1,4 +1,4 @@
-mocha -R xunit voteCollectorTest.js > mocha1.xml
-mocha -R xunit clozeCollectorTest.js > mocha2.xml
-mocha -R xunit pointCollectorTest.js > mocha3.xml
-mocha -R xunit questionTest.js > mocha4.xml
+../node_modules/.bin/mocha -R xunit voteCollectorTest.js > mocha1.xml
+../node_modules/.bin/mocha -R xunit clozeCollectorTest.js > mocha2.xml
+../node_modules/.bin/mocha -R xunit pointCollectorTest.js > mocha3.xml
+../node_modules/.bin/mocha -R xunit questionTest.js > mocha4.xml
