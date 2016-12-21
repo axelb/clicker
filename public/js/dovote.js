@@ -27,7 +27,7 @@ sendMCResults = function() {
         response = {vote: {id: questionId, alternatives: []}};
     selectedAlternatives.each(function(){response.vote.alternatives.push($(this).val());});
 
-    $.ajax({url: '/saveAnswer/mc/', type:'POST', data: response})
+    $.ajax({url: '/saveAnswer/mc/', type:'POST', contentType: 'application/json; charset=UTF-8', data: JSON.stringify(response)})
         .done(success)
         .fail(error);
 },
