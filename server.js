@@ -5,6 +5,7 @@
 var express = require('express'),
     user = require('./routes/user'),
     question = require('./routes/question'),
+    session = require('express-session'),
     cookieParser = require('cookie-parser'),
     passport = require('passport'),
     bodyParser = require('body-parser'),
@@ -59,9 +60,9 @@ app.use(function(err, req, res, next) {
 
 app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.methodOverride());
-//app.use(express.session({ secret: 'bbwuop' }));
+app.use(session({ secret: 'bbwuop', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
