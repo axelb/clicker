@@ -1,0 +1,17 @@
+doctype 5
+html
+  meta(charset='utf-8')
+  head
+    title= "Vote!"
+    link(rel='stylesheet', href='/css/vote.css')
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/bootstrap-responsive.css')
+    script(src='/lib/jquery-1.7.2.min.js')
+    script(src='/lib/angular.min.js')
+    script(src='/js/util.js')
+  body(id="body")
+    block content
+
+  script(type='text/javascript')
+     addEvent(window, 'load', init);
+
