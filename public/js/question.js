@@ -265,7 +265,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * Usable after creation of a new and when updating an existing question.
      */
     $scope.save = function () {
-        var formData = new FormData(),
+        var data, //formData = new FormData(),
             xhr = new XMLHttpRequest(),
             questionId = $scope.isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
             httpMethod = $scope.isExistingQuestion() ? "PUT" : "POST";
@@ -273,14 +273,15 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             delete $scope.question.alternatives;
         }
         if ($scope.imageFileToAttach) {
-            formData.append("uploadedImage", $scope.imageFileToAttach);
+            //formData.append("uploadedImage", $scope.imageFileToAttach);
         }
-        formData.append("question", JSON.stringify($scope.question));
+        data = JSON.stringify($scope.question);
+        //formData.append("question", JSON.stringify($scope.question));
         xhr.addEventListener("load", function (event) {
             var id;
             if(event.target.status !== 200) {
                 Notifier.error(event.target.statusText + '(' + event.target.status + ')');
-                $window.location.href = '/login.html';
+                // $window.location.href = '/login.html';
                 return;
             }
             id = JSON.parse(event.target.response).id;
@@ -291,7 +292,8 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             //TODO wie kommt man hierher?
         });
         xhr.open(httpMethod, "/question/" + questionId);
-        xhr.send(formData);
+        xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        xhr.send(data);
     };
 
     $scope.getIndexOf = function (alternative) {

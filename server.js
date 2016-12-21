@@ -8,6 +8,7 @@ var express = require('express'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     passport = require('passport'),
+    methodOverride = require('method-override'),
     bodyParser = require('body-parser'),
     localStrategy = require('passport-local').Strategy,
     favicon = require('serve-favicon'),
@@ -25,6 +26,9 @@ var express = require('express'),
     logger = log4js.getLogger('server');
 
 log4js.configure('log4jsconfig.json');
+
+var jsonParser = bodyParser.json({ strict: false }),
+    urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /**
  * Configure passport for local strategy
@@ -53,24 +57,20 @@ app.use(function(req, res, next) {
         next();
     }
 });
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
 app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(express.methodOverride());
+app.use(methodOverride());
 app.use(session({ secret: 'bbwuop', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/',
-                                   failureFlash: false })
+    urlencodedParser,
+    passport.authenticate('local', { successRedirect: '/',
+                                     failureRedirect: '/',
+                                     failureFlash: false })
 );
+
 /*
  Protection strategy:
  /list is a protected REST get-interface.
@@ -84,8 +84,8 @@ app.get('/loggedInCheck', user.loggedInCheck);//tell me if I am authenticated.
 app.get('/logout', user.logout);
 app.get('/list', ensureAuthenticated, question.list);
 app.get('/delete/:id', ensureAuthenticated, question.remove);
-app.post('/question', ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
-app.put('/question/:id', ensureAuthenticated, question.save);//bestehende Frage; mit id
+app.post('/question', jsonParser, ensureAuthenticated, question.save);//Only accepts form-data; neue Frage; noch ohne id
+app.put('/question/:id', jsonParser, ensureAuthenticated, question.save);//bestehende Frage; mit id
 app.get('/question/:id', question.show);//Frage gerendert an einzelnen Teilnehmer zur Abstimmung ausliefern
 app.get('/q/:id', question.show);//as above; additional link for shortening purposes
 app.get('/g/:id', question.show);//as above; 'q' and 'g' are difficult to discriminate
@@ -99,15 +99,21 @@ app.get('/voteqr/Cloze/:id', ensureAuthenticated, clozevote.showQrAndStart);
 app.get('/voteqr/Point/:id', ensureAuthenticated, pointvote.showQrAndStart);
 
 // id is not reuqired to save answers. It must be part of the JSON string transferred
-app.post('/saveAnswer/mc', mcvote.saveAnswer);//single answer returned
-app.post('/saveAnswer/cloze', clozevote.saveAnswer);
-app.post('/saveAnswer/point', pointvote.saveAnswer);
+app.post('/saveAnswer/mc', jsonParser, mcvote.saveAnswer);//single answer returned
+app.post('/saveAnswer/cloze', jsonParser, clozevote.saveAnswer);
+app.post('/saveAnswer/point', jsonParser, pointvote.saveAnswer);
 
 app.get('/results/mc/:id', mcvote.resultValues);//JSON data of result's histogram data
 app.get('/results/Point/:id', pointvote.resultValues);//JSON data of result's coordinate collected so far
 app.get('/results/cloze/:id', clozevote.resultValues);//JSON data of result's table data
 
 app.use(express.static(path.join(__dirname, 'public')));// content of public is served statically
+
+// Error handler last
+app.use(function(err, req, res, next) {
+    logger.debug(err.stack);
+    res.status(500).send('Something broke!<br>' + err.message);
+});
 
 // TODO: generify like that:
 /*for(questionType in questionTypes) {

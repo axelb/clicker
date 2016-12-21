@@ -104,8 +104,8 @@ var saveQuestion = function (req, res, imageId) {
         id,
         newQuestion,
         query;
-    logger.debug("received question: " + req.body.question);//raw question before parsing
-    question = JSON.parse(req.body.question);
+    logger.debug("received question: " + JSON.stringify(req.body));//raw question before parsing
+    question = req.body;
     id = question._id;
     logger.info("Saving question: " + question);
     if (imageId) {
@@ -114,7 +114,6 @@ var saveQuestion = function (req, res, imageId) {
     else if (!question.imageId) {
         question.imageId = null;
     }
-    logger.debug(question);
     // update existing question or create a new one
     if (question._id) {
         delete question._id;
