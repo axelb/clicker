@@ -4,6 +4,11 @@
  */
 'use strict';
 
+// var casper = require('casper').create({
+//     verbose: true,
+//     logLevel: "debug"
+// });
+
 var question = '{"question": "MC-Question", "type": "MC", "imageId":"", "alternatives": [{"title": "alt1"}, {"title": "alt2"}]}',
     response,
     i;
@@ -21,6 +26,14 @@ casper.thenOpen('http://localhost:8888/question', {
     }
 });
 
+casper.then(function () {
+    this.capture('editmc.png', {
+        top: 0,
+        left: 0,
+        width: 1024,
+        height: 768
+    });
+});
 // Check the id that is returned by the server.
 casper.then(function () {
     response = JSON.parse(casper.getHTML("pre"));//dirty hack

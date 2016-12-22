@@ -20,13 +20,13 @@
       </div>
 
       <div class="span6">
-           <h3>Image (optional; PNG only):<h3>
+           <h3>Image (optional; PNG only):</h3>
            <input type="button" class="btn btn-success" onclick="$('#imageFileToAttach').click(); " value="Select an Image file to attach" />
            <input type="file" size="100" maxlength="30000" accept="image/png" ng-model-instant onchange="angular.element(this).scope().setAttachedImage(this)" id="imageFileToAttach"/>
            <p/>
            <div id="imageArea">
                <!-- 1-pixel initial image -->
-               <img id="attachedImage" src="/img/1x1.png"></img>
+               <img id="attachedImage" src="/img/1x1.png"/>
            </div>
            <p/>
       </div>

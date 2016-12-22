@@ -9,15 +9,15 @@ var shortid = require('shortid'),
     mongo = require('./mongo'),
     config = require('../public/js/config'),
     Alternative = new mongo.Schema({
-        title: { type: String, required: false, trim: true }
+        title: {type: String, required: false, trim: true}
     }),
     questionSchema = new mongo.Schema({
         _id: false,
-        question: { type: String, required: true, trim: true },
-        owner: {type: String, required: true, trim: true },
-        type: {type: String, required: true, trim: true },
+        question: {type: String, required: true, trim: true},
+        owner: {type: String, required: true, trim: true},
+        type: {type: String, required: true, trim: true},
         alternatives: [Alternative],
-        imageId: {type: String, required: false, trim: true }
+        imageId: {type: String, required: false, trim: true}
     }),
     Question = mongo.connection.model('questions', questionSchema),
     Image = require('./image'),
@@ -33,29 +33,29 @@ exports.show = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
         .exec(function (error, question) {
-            if (error) {
-                logger.error("ERROR: " + error);
-                res.render('noquestion');
-                return;
+                if (error) {
+                    logger.error("ERROR: " + error);
+                    res.render('noquestion');
+                    return;
+                }
+                if (!question || question === null) {
+                    logger.error("No such question: " + req.params.id);
+                    res.render('noquestion');
+                    return;
+                }
+                if (question.type === config.questionTypes().Cloze.name) {
+                    question.question = exports.mangleTextfield(question.question);
+                }
+                if (question.imageId && question.imageId !== null) {
+                    Image.findById(question.imageId, function (error, img) {
+                        res.render(question.type, {question: question, image: img, markDown: markDown});
+                    });
+                }
+                else {
+                    res.render(question.type, {question: question, markDown: markDown});
+                }
             }
-            if (!question || question === null) {
-                logger.error("No such question: " + req.params.id);
-                res.render('noquestion');
-                return;
-            }
-            if (question.type === config.questionTypes().Cloze.name) {
-                question.question = exports.mangleTextfield(question.question);
-            }
-            if (question.imageId && question.imageId !== null) {
-                Image.findById(question.imageId, function (error, img) {
-                    res.render(question.type, {question: question, image: img, markDown: markDown});
-                });
-            }
-            else {
-                res.render(question.type, {question: question, markDown: markDown});
-            }
-        }
-    );
+        );
 };
 
 /**
@@ -64,13 +64,13 @@ exports.show = function (req, res) {
  * @param string  String to convert.
  * @return Markdowned input string with @@ replaced by html textfields
  */
-exports.mangleTextfield = function(string) {
+exports.mangleTextfield = function (string) {
     var textFieldStart = "<input class='clozetext' id='text",
         textFieldEnd = "' type='text'></input>",
         id = 0,
         replacementText;
     string = markDown(string);
-    while(string.indexOf(config.TEXTFIELD_INDICATOR) >= 0) {
+    while (string.indexOf(config.TEXTFIELD_INDICATOR) >= 0) {
         replacementText = textFieldStart + id + textFieldEnd;
         string = string.replace(config.TEXTFIELD_INDICATOR, replacementText);
         id++;
@@ -82,13 +82,13 @@ exports.asjson = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
-            if (error) {
-                logger.error("ERROR: " + error);
-                res.send(404, 'Requested question not found');
+                if (error) {
+                    logger.error("ERROR: " + error);
+                    res.send(404, 'Requested question not found');
+                }
+                res.end(JSON.stringify(data));
             }
-            res.end(JSON.stringify(data));
-        }
-    );
+        );
 };
 
 /**
@@ -97,30 +97,23 @@ exports.asjson = function (req, res) {
  * that we have a currentUser in the session.
  * @param req request object
  * @param res response object
- * @param imageId id of a newly attached image -- or null if no (or no new in case of editing) image is attached.
  */
-var saveQuestion = function (req, res, imageId) {
+var saveQuestion = function (req, res) {
     var question,
         id,
         newQuestion,
         query;
-    logger.debug("received question: " + JSON.stringify(req.body));//raw question before parsing
     question = req.body;
     id = question._id;
-    logger.info("Saving question: " + question);
-    if (imageId) {
-        question.imageId = imageId;
-    }
-    else if (!question.imageId) {
-        question.imageId = null;
-    }
+    logger.debug("Saving question: '" + question.question + "'");
     // update existing question or create a new one
     if (question._id) {
         delete question._id;
-        query = Question.findByIdAndUpdate(id, question, function() { /* something to do here? */});
+        query = Question.findByIdAndUpdate(id, question, function () { /* something to do here? */
+        });
     } else { //create
         question._id = shortid.generate();
-        question.owner =  req.user.username;
+        question.owner = req.user.username;
         newQuestion = new Question(question);
         newQuestion.save(function (error) {
             logger.debug("Stored new question:  " + newQuestion);
@@ -135,12 +128,15 @@ var saveQuestion = function (req, res, imageId) {
  * @param res The HTTP response.
  */
 exports.save = function (req, res) {
-    if (req.files && req.files.uploadedImage) {
-        Image.attachImage(req.files.uploadedImage.path, function(id) {
-            saveQuestion(req, res, id);
+    var question = req.body;
+    if (question.attachedImage && !question.imageId) { // new image: must be saved
+        Image.attachImage(question.attachedImage, function (id) {
+            question.imageId = id;
+            delete question.attachedImage;
+            saveQuestion(req, res);
         });
     } else {
-        saveQuestion(req, res, null);
+        saveQuestion(req, res);
     }
 };
 
@@ -167,15 +163,15 @@ exports.remove = function (req, res) {
     Question.findOne()
         .where('_id').equals(req.params.id)
         .exec(function (error, data) {
-            if (error) {
-                logger.error("ERROR: " + error);
-                res.send(500, error);
-                return;
+                if (error) {
+                    logger.error("ERROR: " + error);
+                    res.send(500, error);
+                    return;
+                }
+                Image.deleteImage(data.imageId);
+                data.remove();
+                logger.debug("question removed: " + req.params.id);
+                res.redirect('/#/list');
             }
-            Image.deleteImage(data.imageId);
-            data.remove();
-            logger.debug("question removed: " + req.params.id);
-            res.redirect('/#/list');
-        }
-    );
+        );
 };

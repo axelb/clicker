@@ -11,12 +11,12 @@ var mongo = require('./mongo'),
 
 /**
  * Save an image and call an asynch callback method with the created id.
- * @param path Path to image on the local file system.
+ * @param imageData Image data, base64 encoded
  * @param callback Method to call asynchronously.
  */
-exports.attachImage = function (path, callback) {
+exports.attachImage = function (imageData, callback) {
     var image = new Image();
-    image.img.data = fs.readFileSync(path);
+    image.img.data = imageData;
     image.img.contentType = 'image/png';
     image.save(function (error, image) {
         if (error) {

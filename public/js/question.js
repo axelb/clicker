@@ -172,7 +172,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             $http({method: 'GET', url: '/question/json/' + $routeParams.id}).
                 success(function (data, status, headers, config) {
                     $scope.question = data;
-                    //set an image if one was attacxhed.
+                    //set an image if one was attached.
                     if ($scope.question.imageId) {
                         document.getElementById('attachedImage').src = ("/image/" + $scope.question.imageId);
                     }
@@ -266,6 +266,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      */
     $scope.save = function () {
         var data, //formData = new FormData(),
+            img,
             xhr = new XMLHttpRequest(),
             questionId = $scope.isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
             httpMethod = $scope.isExistingQuestion() ? "PUT" : "POST";
@@ -274,6 +275,9 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         }
         if ($scope.imageFileToAttach) {
             //formData.append("uploadedImage", $scope.imageFileToAttach);
+            img = document.getElementById('attachedImage');
+            $scope.question.attachedImage = img.src.substring("data:image/png;base64,".length);
+            $scope.question.imageId = null; // new image - must be saved
         }
         data = JSON.stringify($scope.question);
         //formData.append("question", JSON.stringify($scope.question));

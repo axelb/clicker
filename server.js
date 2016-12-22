@@ -27,7 +27,7 @@ var express = require('express'),
 
 log4js.configure('log4jsconfig.json');
 
-var jsonParser = bodyParser.json({ strict: false }),
+var jsonParser = bodyParser.json({ strict: false, limit: '1mb' }),
     urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /**
