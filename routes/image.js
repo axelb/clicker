@@ -34,7 +34,7 @@ exports.attachImage = function (imageData, callback) {
  * @param res The HTTP response.
  */
 exports.getImage = function (req, res) {
-    logger.debug(req.params.id);
+    logger.debug("Request for Image: " + req.params.id);
     exports.findById(req.params.id, function (error, data) {
         if (error) {
             logger.debug("ERROR: " + error);
