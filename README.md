@@ -65,3 +65,10 @@ Client-side code is tested using casper and requires a running server. Tests can
 There is a shell script *startlocal* to start a local empty mongo database (requires [mongo](http://www.mongodb.org)) and a script *stoplocal* to stop these processes again.
 These are also used on the jenkins server I use for CI and deployment. BTW: Current Jenkins config is stored in the resources directory.
 
+
+##Deployment
+Set environment on Heroku:
+
+`heroku config:set MONGOURI=mongodb://<database-ueser>:<db-user-passwd>@ds043997.mongolab.com:43997/onlineresponse`
+
+`heroku restart` to restart
