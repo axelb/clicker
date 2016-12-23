@@ -12,13 +12,13 @@ html
             div!= markDown(question.question)
             p
             if question.imageId
-              img(src="/image/#{question.imageId}")
+              img(src='/image/' + question.imageId)
             form(action="/saveAnswer", id="voteForm")
               each alternative, index in question.alternatives
                 p
-                  input(type="radio", name="alternative", id="alternative#{index}", class="alternative", onclick="validate(this)", value=index+1)
-                  label.radio.inline(for="alternative#{index}") #{alternative.title}
+                  input(type="radio", name="alternative", id='alternative' + index, class="alternative", onclick="validate(this)", value=index+1)
+                  label.radio.inline(for='alternative'+index) #{alternative.title}
               p
               input(type="button", class="btn btn-success", id="sendButton", onclick="sendMCResults()", value="Abschicken", disabled="disabled")
               input(type="hidden", id="questionId", value=question._id)
-    script(src='/js/dovote.js')
+  script(src='/js/dovote.js')

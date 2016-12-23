@@ -1,8 +1,8 @@
 /**
  * Integration test; requires a running server.
- * Stores a question to server and opens a vote for that afterwards.
+ * Stores a question to server by POST request up-front and opens a vote for that afterwards.
  */
-var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
+var question = {question: "@@", type: "Cloze"},
     textToInsertIntoFreeTextField = "int i=1",
     textToExpect = "int i = 1",
     response,
@@ -13,11 +13,10 @@ casper.login('XXX', 'xxx');
 // Post the prepared question data
 casper.thenOpen('http://localhost:8888/question', {
     method: 'post',
-    data: {
-        'question': question
-    },
+    data: JSON.stringify(question),
     headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json;charset=UTF-8',
+        'Content-type': 'application/json'
     }
 });
 

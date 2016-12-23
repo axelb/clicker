@@ -9,7 +9,12 @@ casper.thenOpen('http://localhost:8888/', function () {
     this.test.assertTitle("Online Response System (Clicker)");
     this.test.assertExists('#menuNew', 'Expect the "new" menu');
     this.click('#menuNew');
+    this.test.assertExists('#newMultipleChoice', 'Expect the "multiple choice" entry');
     this.click('#newMultipleChoice');
+});
+
+casper.then(function () {
+    casper.waitForSelector('#questionTitle');
 });
 
 casper.then(function () {

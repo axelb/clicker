@@ -7,8 +7,11 @@ var freetext = "> for(int i = 0; i <= 100; i++) {\n> \n> @@\n> \n> }";
 casper.login('XXX', 'xxx');
 
 casper.thenOpen('http://localhost:8888/', function () {
-    this.click('#menuNew');
-    this.click('#newCloze');
+    casper.waitForSelector('#row0');
+    casper.then(function() {
+        this.click('#menuNew');
+        this.click('#newCloze');
+    });
 });
 
 casper.then(function () {

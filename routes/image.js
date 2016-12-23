@@ -42,8 +42,10 @@ exports.getImage = function (req, res) {
             return;
         }
         if (data && data.img) {
+            var image = new Buffer(new Buffer(data.img.data).toString(), 'base64');
+            logger.error(image.length);
             res.contentType(data.img.contentType);
-            res.send(data.img.data);
+            res.send(image);
         }
     });
 };

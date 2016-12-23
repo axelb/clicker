@@ -27,7 +27,11 @@ sendMCResults = function() {
         response = {vote: {id: questionId, alternatives: []}};
     selectedAlternatives.each(function(){response.vote.alternatives.push($(this).val());});
 
-    $.ajax({url: '/saveAnswer/mc/', type:'POST', contentType: 'application/json; charset=UTF-8', data: JSON.stringify(response)})
+    $.ajax({
+        url: '/saveAnswer/mc/',
+        type:'POST',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(response)})
         .done(success)
         .fail(error);
 },
@@ -90,7 +94,12 @@ relativeMouseCoordinates = function(event, currentElement) {
 
 sendPointResults = function(id) {
     var questionId =  $('#questionId')[0].value;
-    $.ajax({url: '/saveAnswer/point/', type:'POST', data: {vote: {id: questionId, results: clickPos}}})
+    $.ajax({
+        url: '/saveAnswer/point/',
+        type:'POST',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify({vote: {id: questionId, results: clickPos}})
+    })
         .done(success)
         .fail(error);
 },
@@ -103,7 +112,12 @@ sendClozeResults = function(id) {
             textValue = this.value;
         results[textId] = textValue;
     });
-    $.ajax({url: '/saveAnswer/cloze/', type:'POST', data: {id: questionId, results: results}})
+    $.ajax({
+        url: '/saveAnswer/cloze/',
+        type:'POST',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify({id: questionId, results: results})
+    })
         .done(success)
         .fail(error);
 };

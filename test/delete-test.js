@@ -1,4 +1,4 @@
-var question = '{"question":"@@", "type": "Cloze", "imageId":""}',
+var question = {question: "@@", type: "Cloze"},
     response,
     selector,
     i;
@@ -8,11 +8,11 @@ casper.login('XXX', 'xxx');
 // Post the prepared question data
 casper.thenOpen('http://localhost:8888/question', {
     method: 'post',
-    data: {
-        'question': question
-    },
+    data: JSON.stringify(question),
     headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+
     }
 });
 

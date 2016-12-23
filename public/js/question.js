@@ -265,7 +265,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
      * Usable after creation of a new and when updating an existing question.
      */
     $scope.save = function () {
-        var data, //formData = new FormData(),
+        var data,
             img,
             xhr = new XMLHttpRequest(),
             questionId = $scope.isExistingQuestion() ? $scope.question._id : "", // we add an empty string if nonexisting question
@@ -274,18 +274,15 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
             delete $scope.question.alternatives;
         }
         if ($scope.imageFileToAttach) {
-            //formData.append("uploadedImage", $scope.imageFileToAttach);
             img = document.getElementById('attachedImage');
             $scope.question.attachedImage = img.src.substring("data:image/png;base64,".length);
             $scope.question.imageId = null; // new image - must be saved
         }
         data = JSON.stringify($scope.question);
-        //formData.append("question", JSON.stringify($scope.question));
         xhr.addEventListener("load", function (event) {
             var id;
             if(event.target.status !== 200) {
                 Notifier.error(event.target.statusText + '(' + event.target.status + ')');
-                // $window.location.href = '/login.html';
                 return;
             }
             id = JSON.parse(event.target.response).id;
@@ -294,6 +291,7 @@ function QuestionCtrl($scope, $http, $location, $routeParams, $window, $timeout)
         });
         xhr.addEventListener("error", function (event) {
             //TODO wie kommt man hierher?
+            Notifier.error(event.target.statusText + '(' + event.target.status + ')');
         });
         xhr.open(httpMethod, "/question/" + questionId);
         xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");

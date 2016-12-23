@@ -46,14 +46,7 @@ exports.show = function (req, res) {
                 if (question.type === config.questionTypes().Cloze.name) {
                     question.question = exports.mangleTextfield(question.question);
                 }
-                if (question.imageId && question.imageId !== null) {
-                    Image.findById(question.imageId, function (error, img) {
-                        res.render(question.type, {question: question, image: img, markDown: markDown});
-                    });
-                }
-                else {
-                    res.render(question.type, {question: question, markDown: markDown});
-                }
+                res.render(question.type, {question: question, markDown: markDown});
             }
         );
 };

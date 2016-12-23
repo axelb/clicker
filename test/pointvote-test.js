@@ -4,18 +4,26 @@ var heatmapQuestionUrl,
     illegalVoteId = 4711,
     urlOfSomeAvailableImageFile = '../resources/websequencediagrams.com/usageScenario.png',
     createResultData = function(voteId) {
-         return {
-             "vote[id]": voteId,
-             "vote[results][x]": "1",
-             "vote[results][y]": "2"
-         };
-    };
+        return {
+            vote: {
+                id: voteId,
+                results: {
+                    x: "1",
+                    y: "2"
+                }
+            }
+        };
+    }
 
 casper.login('XXX', 'xxx');
 
 casper.thenOpen(baseUrl, function () {
     this.click('#menuNew');
     this.click('#newPoint');
+});
+
+casper.then(function () {
+    casper.waitForSelector('#questionTitle');
 });
 
 casper.then(function () {
@@ -44,7 +52,10 @@ casper.then(function(){
     this.thenOpen(heatmapQuestionUrl, function () {
         this.thenOpen(heatmapSaveUrl, {
             method: "post",
-            data: createResultData(qid)
+            headers: {
+                'Content-type': 'application/json'
+            },
+            data: JSON.stringify(createResultData(qid))
         }, function() {
             this.test.assertTruthy(casper.getHTML().indexOf("Danke") > 0, "The word 'Danke' must be included in repsonse!");
         });
@@ -55,9 +66,19 @@ casper.then(function(){
 casper.then(function() {
     this.thenOpen(heatmapSaveUrl, {
         method: "post",
-        data: createResultData(illegalVoteId)
+        data: JSON.stringify(createResultData(illegalVoteId)),
+        headers: { 'Content-type': 'application/json' },
     }, function() {
         this.test.assertTruthy(casper.getHTML().indexOf("kann derzeit keine Antwort entgegen genommen werden") > 0, "The words 'keine Antwort ....' must be included in repsonse!");
+    });
+});
+
+casper.then(function () {
+    this.capture('heatmap.png', {
+        top: 0,
+        left: 0,
+        width: 1024,
+        height: 768
     });
 });
 

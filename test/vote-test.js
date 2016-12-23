@@ -2,7 +2,7 @@
  * Integration test; requires a running server.
  * Stores an MC question to server and opens a vote for that afterwards.
  */
-var question = '{"question":"Q", "type": "MC", "alternatives":[{"title":"A1","$$hashKey":"00E"},{"title":"A2","$$hashKey":"00G"}],"imageId":""}',
+var question = {question: "Q", type: "MC", alternatives: [{title: "A1", $$hashKey: "00E"}, {title: "A2", $$hashKey: "00G"}]},
     response,
     clickAlternative,
     i;
@@ -13,11 +13,10 @@ casper.login('XXX', 'xxx');
 // Post the prepared question data
 casper.thenOpen('http://localhost:8888/question', {
     method: 'post',
-    data: {
-        'question': question
-    },
+    data: JSON.stringify(question),
     headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json;charset=UTF-8',
+        'Content-type': 'application/json'
     }
 });
 
@@ -48,11 +47,22 @@ casper.then(function () {
 // At first the submit button must be disabled
 casper.then(function() {
     casper.thenOpen("http://localhost:8888/question/" + response.id, function () {
-        casper.then(function() {
-            this.click('#sendButton');
-            this.test.assertFalsy(casper.getHTML().substr('danke') < 0, 'Nothing should happen on button click');
-        });
+            casper.waitForSelector('#sendButton');
     })
+});
+
+casper.then(function () {
+    this.capture('send.png', {
+        top: 0,
+        left: 0,
+        width: 1024,
+        height: 768
+    });
+});
+
+casper.then(function() {
+    this.click('#sendButton');
+    this.test.assertFalsy(casper.getHTML().substr('danke') < 0, 'Nothing should happen on button click');
 });
 
 // same as above but using attributes (not sure if this is a good idea!)

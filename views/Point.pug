@@ -14,8 +14,8 @@ html
             p
             if question.imageId
               div(style="position: relative;")
-                img(id="clickImage", src="/image/#{question.imageId}", onclick="handleClick(event);")
+                img(id="clickImage", src=`/image/${question.imageId}`, onclick="handleClick(event);")
                 img(id="RedPoint", src="/img/RedPoint.png", style="visibility: hidden;")
             input(type="button", class="btn btn-success", id="sendButton", onclick="sendPointResults()", value="Abschicken", disabled="true")
             input(type="hidden", id="questionId", value=question._id)
-    script(src='/js/dovote.js')
+       script(src='/js/dovote.js')
