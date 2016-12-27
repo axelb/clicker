@@ -5,6 +5,7 @@
 var question = {question: "@@", type: "Cloze"},
     textToInsertIntoFreeTextField = "int i=1",
     textToExpect = "int i = 1",
+    insertedTextToExpect = "To be removed!>",
     response,
     i;
 
@@ -44,7 +45,7 @@ casper.then(function () {
     });
 });
 
-// now let's look if there is the correct response data available
+// now let's look if there is the correct response data available (teacher side)
 casper.then(function () {
     casper.open('http://localhost:8888/#/result/Cloze/' + response.id, {
         method: 'get',
@@ -53,9 +54,17 @@ casper.then(function () {
         }
     });
 });
+casper.then(function() {
+    casper.waitForSelector('td.resultcell', function () {
+        this.test.assertTextExists(textToExpect, 'Inserted Text must be shown correctly!');
+        this.click('td.resultcell');
+    });
+});
 
-casper.waitForSelector('.resultcell', function () {
-    this.test.assertTextExists(textToExpect, 'Inserted Text must be shown correctly!');
+casper.then(function() {
+    casper.waitForSelector('#theCode', function () {
+        this.test.assertTextExists(insertedTextToExpect, 'Dialog text must be shown correctly!');
+    });
 });
 
 casper.then(function () {
