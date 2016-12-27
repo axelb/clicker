@@ -1,2 +1,2 @@
 # requires running server and inserted user XXX/xxx
-find . -name \*-test.js -exec ../node_modules/.bin/casperjs test {}  --includes=login.js \;
+find . -name \*-test.js -exec ../node_modules/.bin/casperjs test {}  --includes=login.js --xunit={}.xml \;

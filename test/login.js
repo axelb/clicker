@@ -4,9 +4,8 @@
  * @param password Password to use for login (must exist in db)
  */
 casper.login = function login(username, password) {
-    var that = this;
-    this.start('http://localhost:8888/login.html', function() {
-        that.fill('form#loginForm', {
+    casper.start('http://localhost:8888/login.html', function() {
+        casper.fill('form#loginForm', {
             'username': username,
             'password': password
         }, true);

@@ -71,7 +71,6 @@ casper.test.begin("Test for editing an MC question", 8, function (test) {
 // });
 
     casper.run(function () {
-        test.renderResults(true, 0, 'log-edit.xml');
         casper.test.done();
     });
 });

@@ -48,7 +48,6 @@ casper.then(function () {
 });
 
 casper.run(function () {
-    this.test.renderResults(true, 0, 'log-create.xml');
     casper.test.done();
 });
 

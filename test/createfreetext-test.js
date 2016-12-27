@@ -35,7 +35,6 @@ casper.then(function() {
 });
 
 casper.run(function () {
-    this.test.renderResults(true, 0, 'log-createfreetext.xml');
     casper.test.done();
 });
 

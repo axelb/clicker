@@ -144,7 +144,6 @@ casper.then(function () {
 
 // RUN THE TESTS
 casper.run(function () {
-    this.test.renderResults(true, 0, 'log-vote.xml');
     casper.test.done();
 });
 

@@ -83,7 +83,6 @@ casper.then(function () {
 });
 
 casper.run(function () {
-    this.test.renderResults(true, 0, 'log-testpoint.xml');
     casper.test.done();
 });
 
