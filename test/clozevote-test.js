@@ -2,10 +2,10 @@
  * Integration test; requires a running server.
  * Stores a question to server by POST request up-front and opens a vote for that afterwards.
  */
-var question = {question: "@@", type: "Cloze"},
+var question = {question: "Test @@", type: "Cloze"},
     textToInsertIntoFreeTextField = "int i=1",
     textToExpect = "int i = 1",
-    insertedTextToExpect = "To be removed!>",
+    insertedTextToExpect = "Test",
     response,
     i;
 
@@ -62,7 +62,7 @@ casper.then(function() {
 });
 
 casper.then(function() {
-    casper.waitForSelector('#theCode', function () {
+    casper.waitForSelector('#theAnswer', function () {
         this.test.assertTextExists(insertedTextToExpect, 'Dialog text must be shown correctly!');
     });
 });

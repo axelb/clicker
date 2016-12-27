@@ -376,7 +376,7 @@ function ClozeListCtrl($scope, $http, $location) {
                     converter = new Showdown.converter();
                 $scope.questionhtml = converter.makeHtml(question.question);
                 for(text in answer) {
-                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText">' + answer[text] + '</span>');
+                    $scope.questionhtml = $scope.questionhtml.replace(window.TEXTFIELD_INDICATOR, '<span class="insertedText" id="theAnswer">' + answer[text] + '</span>');
                 }
             });
     };
