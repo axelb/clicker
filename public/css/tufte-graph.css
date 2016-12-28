@@ -2,8 +2,7 @@
   margin-bottom: 50px;
   margin-top: 30px;
   clear: both;
-  font-family: georgia, serif;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .graph .label {
@@ -31,6 +30,8 @@
 
 .graph .legend {
   margin-left: 10px;
+  width: 20em;
+  text-align: left;
 }
 .graph .legend td {
   padding-right: 5px;
