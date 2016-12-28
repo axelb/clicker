@@ -1,70 +1,89 @@
 // Karma configuration
 
+module.exports = function(config) {
+  config.set({
 
-// base path, that will be used to resolve files and exclude
-basePath = '';
-
-// list of files / patterns to load in the browser
-files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-    '../public/lib/angular.min.js',
-    '../public/lib/angular-resource.min.js',
-    '../public/lib/angular-mocks.js',
-    '../public/js/config.js',
-    '../public/js/util.js',
-    '../public/js/services.js',
-    '../public/js/question.js',
-    'angularControllersTest.js'
-];
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: '',
 
 
-// list of files to exclude
-exclude = [
-];
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['jasmine'],
 
 
-// test results reporter to use
-// possible values: 'dots', 'progress', 'junit'
-reporters = ['progress', 'junit'];
+    // list of files / patterns to load in the browser
+    files: [
+      '../public/lib/angular.min.js',
+      '../public/lib/angular-resource.min.js',
+      '../public/lib/angular-mocks.js',
+      '../public/js/config.js',
+      '../public/js/util.js',
+      '../public/js/services.js',
+      '../public/js/question.js',
+      './angularControllersTest.js'
+    ],
 
 
-// web server port
-port = 9876;
+    // list of files to exclude
+    exclude: [
+    ],
 
 
-// cli runner port
-runnerPort = 9100;
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-junit-reporter'
+    ],
+
+// preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+    },
 
 
-// enable / disable colors in the output (reporters and logs)
-colors = true;
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['progress', 'junit'],
 
 
-// level of logging
-// possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-logLevel = LOG_DEBUG;
+    // web server port
+    port: 9876,
 
 
-// enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
 
 
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = ["PhantomJS"];
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
 
 
-// If browser does not capture in given timeout [ms], kill it
-captureTimeout = 60000;
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
 
 
-// Continuous Integration mode
-// if true, it capture browsers, run tests and exit
-singleRun = true;
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome'],
+
+
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: true,
+
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity,
+
+    junitReporter: {
+      outputDir: '.',
+      outputFile: 'karma-results.xml',
+      useBrowserName: false, // add browser name to report and classes names
+      nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
+      properties: {}
+    }
+  })
+}
