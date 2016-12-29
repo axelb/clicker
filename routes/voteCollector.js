@@ -1,6 +1,6 @@
 /**
  * Node module VoteCollector class.
- * A vote collector once opened collects incoming votes from student's (audience) devices (BYOD).
+ * A vote collector once opened collects incoming votes on SC and MC questions from student's (audience) devices (BYOD).
  * It simply counts up results in an array. A vote for a question must be opened explicitly and it will
  * be closed  when results are queried (NYI).
  */
@@ -40,36 +40,35 @@ exports.VoteCollector.prototype = {
      * @return {number} 0 on success, 1 on error (vote not currently open)
      */
     saveAnswer: function(id, alternatives) {
-        var alternative,
-            that = this;
-        if(!this.votes[id] || this.votes[id] === undefined) {
+        var alternative;
+        if (!this.votes[id] || this.votes[id] === undefined) {
             logger.error('Vote not open for id: ' + id);
             return 1;
         }
         logger.debug("Status of vote for id " + id + " is: " + this.votes[id]);
-        alternatives.forEach(function(alternative) {
-            if(that.votes[id].length < alternative) {
-                that.votes[id].length = alternative;
-                that.votes[id][alternative - 1] = 0;
+        alternatives.forEach((alternative) => {
+            if (this.votes[id].length < alternative) {
+                this.votes[id].length = alternative;
+                this.votes[id][alternative - 1] = 0;
             }
             alternative--;//to array index!
-            if(!that.votes[id][alternative]) {
-                that.votes[id][alternative] = 0;
+            if (!this.votes[id][alternative]) {
+                this.votes[id][alternative] = 0;
             }
-            logger.debug("Storing vote: " + that.votes[id][alternative]);
-            that.votes[id][alternative]++;
+            logger.debug("Storing vote: " + this.votes[id][alternative]);
+            this.votes[id][alternative]++;
         });
         return 0;
     },
 
     getResults: function (id) {
         var result = new Array(this.votes[id].length),
-            i;
-        for(i = 0; i < this.votes[id].length; i++) {
-            if(!this.votes[id][i]) {
-                this.votes[id][i] = 0;
+            index;
+        for(index = 0; index < this.votes[id].length; index++) {
+            if (!this.votes[id][index]) {
+                this.votes[id][index] = 0;
             }
-            result[i] = [this.votes[id][i], {label: i+1}];
+            result[index] = [this.votes[id][index], {label: index + 1}];
         }
         this.closeVote(id);
         return result;
