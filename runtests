@@ -1,0 +1,8 @@
+echo "Tests in ./routes/"
+cd routes
+./runtests
+grep failures *.xml
+cd -
+echo "Tests in ./test/"
+cd test
+./runtests
