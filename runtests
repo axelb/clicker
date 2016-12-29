@@ -6,3 +6,4 @@ cd -
 echo "Tests in ./test/"
 cd test
 ./runtests
+../node_modules/.bin/karma start

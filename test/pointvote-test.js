@@ -13,7 +13,7 @@ var heatmapQuestionUrl,
                 }
             }
         };
-    }
+    };
 
 casper.login('XXX', 'xxx');
 
