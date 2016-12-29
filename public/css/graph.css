@@ -6,3 +6,8 @@
 #question h1 {
     font-size: 200%;
 }
+
+#graph {
+    width: 400px;
+    height: 400px;
+}

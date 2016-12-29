@@ -17,7 +17,7 @@ I also used this project to gain experience with some modern web programming env
 * [Angular](http://angularjs.org) as Client side framework
 * [Angular bootstrap components](http://angular-ui.github.io/bootstrap/)   for visual effects (popovers)
 * [Notifier](https://github.com/Srirangan/notifer.js) library done by Srirangan
-* Graph Drawing with Xavier Shay's [TufteGraphs](http://xaviershay.github.io/tufte-graph/)
+* Graph Drawing with [chartjs](http://www.chartjs.org/)
 * And (of course) [jquery](http://jquery.com)
 * [Angular QR Code directive](https://github.com/monospaced/angular-qrcode)
 * [QR Code generator](https://github.com/kazuhikoarase/qrcode-generator)
