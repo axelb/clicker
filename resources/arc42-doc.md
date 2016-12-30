@@ -238,6 +238,7 @@ Migration
 
 Testbarkeit
 -----------
+Tests bemötigen PhantomJS und Python (?)
 
 Skalierung, Clustering
 ----------------------
