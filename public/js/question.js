@@ -402,9 +402,9 @@ function SCMCController($scope, $http, $location) {
                 $('#result').html("<h2>Vote not open!</h2>");
                 return;
             }
-            var labels = question.alternatives.map(funtion(alt) {
-                return alt.title}
-            );
+            var labels = question.alternatives.map(function(alt) {
+                return alt.title;
+            });
             var total = 0;
             data = data.map(function(elem) {
                 total += elem[0];
