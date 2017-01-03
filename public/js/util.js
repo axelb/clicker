@@ -3,6 +3,7 @@
 /**
  * Generic function to add events to objects. (see http://ichwill.net)
  */
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "addEvent" }]*/
 function addEvent(obj, evType, fn) {
     if (obj.addEventListener) { 
         obj.addEventListener(evType, fn, false); 

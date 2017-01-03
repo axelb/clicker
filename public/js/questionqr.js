@@ -3,6 +3,7 @@
  */
 'use strict';
 
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "init" }]*/
 var init = function() {
     var host = window.location.hostname,
         port = window.location.port ? ':' + window.location.port : '', // avoid a lonely colon and thus an invalid url in production
