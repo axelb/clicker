@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "",
-    "eslint": "eslint ",
+    "eslint": "eslint public/js/*.js",
     "puglint": "pug-lint views/*.pug"
   },
   "devDependencies": {
