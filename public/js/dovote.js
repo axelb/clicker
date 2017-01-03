@@ -4,18 +4,18 @@
  */
 'use strict';
 
-var init = function() {
-},
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "init" }]*/
+var init = function() {},
 
 /**
  * Callbacks for success and failure of ajax calls.
  */
 success = function(res) {
     $('#body').html(res);
-    history.pushState({}, "", "");//single push on back button does not work
+    history.pushState({}, '', '');//single push on back button does not work
 },
 error = function(jqXHR, textStatus, errorThrown) {
-    alert(textStatus + ": " + jqXHR.responseText);
+    alert(textStatus + ': ' + jqXHR.responseText);
 },
 
 /**
@@ -43,14 +43,14 @@ sendMCResults = function() {
 validate = function(element) {
     var checkboxes;
     // radio cannot be switched off again (I think) - so enable button on any click
-    if(element.type === "radio") {
-        $('#sendButton').removeAttr("disabled");
+    if(element.type === 'radio') {
+        $('#sendButton').removeAttr('disabled');
     } else {
-        $('#sendButton').attr("disabled", "disabled");//disable button upfront
+        $('#sendButton').attr('disabled', 'disabled');//disable button upfront
         checkboxes = $('.alternative');
         checkboxes.each(function(index, checkbox) {
             if(checkbox.checked) {
-                $('#sendButton').removeAttr("disabled");//enable if an alternative is selected
+                $('#sendButton').removeAttr('disabled');//enable if an alternative is selected
             }
         });
     }
@@ -63,11 +63,11 @@ handleClick = function (event) {
         redPoint = $('#RedPoint'),
         pointSize = 20;
     clickPos = relativeMouseCoordinates(event, image);
-    redPoint.css({position: "absolute", visibility: "visible", width: pointSize, height: pointSize, top: clickPos.y - pointSize / 2, left: clickPos.x - pointSize / 2});
+    redPoint.css({position: 'absolute', visibility: 'visible', width: pointSize, height: pointSize, top: clickPos.y - pointSize / 2, left: clickPos.x - pointSize / 2});
     // Now calculate relative coordinates in the image
     clickPos.x = clickPos.x / image.width;
     clickPos.y = clickPos.y / image.height;
-    $('#sendButton').removeAttr("disabled");
+    $('#sendButton').removeAttr('disabled');
 },
 
 /**
@@ -92,7 +92,7 @@ relativeMouseCoordinates = function(event, currentElement) {
     return {x: imageX, y: imageY};
 },
 
-sendPointResults = function(id) {
+sendPointResults = function() {
     var questionId =  $('#questionId')[0].value;
     $.ajax({
         url: '/saveAnswer/point/',
@@ -104,10 +104,10 @@ sendPointResults = function(id) {
         .fail(error);
 },
 
-sendClozeResults = function(id) {
+sendClozeResults = function() {
     var results = {},
         questionId =  $('#questionId')[0].value;
-    $('.clozetext').each(function(index) {
+    $('.clozetext').each(function() {
         var textId = this.id,
             textValue = this.value;
         results[textId] = textValue;

@@ -4,7 +4,7 @@
 
 'use strict';
 
-var root = (typeof(exports) === "undefined") ? window : exports;
+var root = (typeof(exports) === 'undefined') ? window : exports;
 
 /**
  * Here all types of questions are defined (described). The identifiers will be stored in the mongoDB.
