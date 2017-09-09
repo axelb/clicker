@@ -1,12 +1,12 @@
 {
-    "appenders": [
-        {
+    "appenders": {
+        "server": { "type": "console" },
+        "tasks": {
             "type": "console",
             "category": "server"
         }
-    ],
-    "replaceConsole": true,
-    "levels": {
-        "server":  "ALL"
-    }
+    },
+  "categories": {
+    "default": { "appenders": [ "server" ], "level": "info" }
+  }
 }
