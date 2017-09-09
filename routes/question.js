@@ -52,17 +52,26 @@ exports.show = function (req, res) {
 };
 
 /**
- * Process the input string through markDown and then replace all occurences of @@
- * (or whatever is used in root.TEXTFIELD_INDICATOR) with textfields containing increasing ids of kind "text<x>"
+ * Processes the input string through markDown and then replaces all occurences of @@ or @@@
+ * (or whatever is used in config.TEXTFIELD_INDICATOR and config.TEXTAREA_INDICATOR) with textfields or textareas 
+  * containing increasing IDs of kind "text<x>"
  * @param string  String to convert.
- * @return Markdowned input string with @@ replaced by html textfields
+ * @return Markdowned input string with @@ replaced by html textfields and @@@ replaced by html textareas
  */
 exports.mangleTextfield = function (string) {
-    var textFieldStart = "<input class='clozetext' id='text",
+    var textFieldStart = "<input class='clozeTextField' id='text",
         textFieldEnd = "' type='text'></input>",
+        textAreaStart = "<textarea class='clozeTextArea' id='text",
+        textAreaEnd = "' rows='4' cols='50'></textarea>",
         id = 0,
         replacementText;
     string = markDown(string);
+    // area indicators first because they consist of three @s
+    while (string.indexOf(config.TEXTAREA_INDICATOR) >= 0) {
+        replacementText = textAreaStart + id + textAreaEnd;
+        string = string.replace(config.TEXTAREA_INDICATOR, replacementText);
+        id++;
+    }
     while (string.indexOf(config.TEXTFIELD_INDICATOR) >= 0) {
         replacementText = textFieldStart + id + textFieldEnd;
         string = string.replace(config.TEXTFIELD_INDICATOR, replacementText);

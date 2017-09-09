@@ -107,7 +107,12 @@ sendPointResults = function() {
 sendClozeResults = function() {
     var results = {},
         questionId =  $('#questionId')[0].value;
-    $('.clozetext').each(function() {
+    $('.clozeTextField').each(function() {
+        var textId = this.id,
+            textValue = this.value;
+        results[textId] = textValue;
+    });
+    $('.clozeTextArea').each(function() {
         var textId = this.id,
             textValue = this.value;
         results[textId] = textValue;
