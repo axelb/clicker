@@ -25,7 +25,7 @@ exports.ClozeCollector.prototype = {
     openVote: function(id) {
         logger.debug("opening vote for: " + id);
         this.answers[id] = [];
-        logger.debug(this.answers[id]);
+        logger.debug("vote opened:", this.answers[id]);
     },
 
     /**
@@ -45,7 +45,7 @@ exports.ClozeCollector.prototype = {
             vote[attribute] = beautify(vote[attribute], { indent_size: 0 });
         }
         this.answers[id].push(vote);
-        logger.debug(this.answers[id]);
+        logger.debug("Saved cloze answer", this.answers[id][this.answers[id].length - 1]);
         return 0;
     },
 

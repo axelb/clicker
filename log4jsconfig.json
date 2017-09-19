@@ -7,6 +7,6 @@
         }
     },
   "categories": {
-    "default": { "appenders": [ "server" ], "level": "info" }
+    "default": { "appenders": [ "server" ], "level": "debug" }
   }
 }

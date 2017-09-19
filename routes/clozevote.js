@@ -14,7 +14,7 @@ var config = require('../public/js/config'),
 
 exports.showQrAndStart = function(req, res) {
   clozeCollector.openVote(req.params.id);
-  res.send(200);
+  res.sendStatus(200);
 };
 
 exports.saveAnswer = function(req, res) {
