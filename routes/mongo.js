@@ -22,7 +22,7 @@ exports.health = function() {
 };
 
 connection.on('error', function (error) {
-        connectionHealth = false;
+    connectionHealth = false;
     logger.error("Connection error: " + error);
 });
 
