@@ -57,7 +57,7 @@ app.use(function(req, res, next) {
         next();
     }
 });
-app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
+app.use(log4js.connectLogger(logger, { level: log4js.levels.TRACE }));
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(session({ secret: 'bbwuop', resave: false, saveUninitialized: false }));
